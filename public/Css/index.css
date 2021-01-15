@@ -1,0 +1,403 @@
+@font-face {
+    font-family: ProximaNovaBlack;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Black.otf);
+}
+
+@font-face {
+    font-family: ProximaNovaBold;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Bold.otf);
+}
+
+@font-face {
+    font-family: ProximaNovaBlack;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Black.otf);
+}
+
+@font-face {
+    font-family: ProximaNovaExtraBold;
+    src: url(../Font/proxima_ssv/Proxima-Nova-Extrabold.otf);
+}
+
+@font-face {
+    font-family: Proxima;
+    src: url(../Font/proxima_ssv/ProximaNova-Regular.otf);
+}
+
+@font-face {
+    font-family: GilroyExtraBold;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-ExtraBold.otf);
+}
+
+@font-face {
+    font-family: GilroyBold;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Bold.ttf);
+}
+
+@font-face {
+    font-family: GilroySemiBold;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Semibold.ttf);
+}
+
+@font-face {
+    font-family: GilroyMedium;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Medium.ttf);
+}
+
+@font-face {
+    font-family: GilroyLight;
+    src: url(../Font/Gilroy-FREE/Gilroy-FREE/Gilroy-Light.otf);
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+#__next {
+    height: 100%;
+}
+
+.imgLogo {
+    width: 150px;
+    margin-top: -15px;
+    cursor: pointer;
+}
+
+.colLeft, .colRight {
+    transition: all 0.2s;
+}
+
+.box {
+    -webkit-box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 350px;
+    background-color: white;
+    border-radius: 25px;
+    padding: 35px;
+    padding-left: 55px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.pBoxTitle {
+    font-family: "ProximaRegular";
+    color: #A7A7A7;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.divForm2, .divForm3, .divForm4, .divForm5, .divForm6, .divForm7, .divForm8 {
+    display: none;
+}
+
+.boxCircle {
+    position: absolute;
+    left: -30px;
+    top: 0px;
+    margin-top: 40px;
+    z-index: 99 !important;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    background-color: #00956F;
+    border-radius: 50%;
+    z-index: 99 !important;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.circlenotactive {
+    width: 40px;
+    height: 40px;
+    background-color: #00634A;
+    border-radius: 50%;
+    z-index: 2;
+    margin-left: 10px;
+    z-index: 99 !important;
+    cursor: pointer;
+}
+
+.boxLine {
+    top: 50px;
+    width: 3px;
+    height: 170px;
+    background-color: #00634A;
+    position: absolute;
+    left: 0px;
+    z-index: 1 !important;
+}
+
+.pBox {
+    font-family: "ProximaNovaBlack";
+    color: #004EBA;
+    font-size: 2.4rem;
+    margin-bottom: 0px;
+}
+
+.pBoxSub {
+    font-family: "Proxima";
+    color: #00956F;
+    font-size: 1.1rem;
+    margin-bottom: 0px;
+}
+
+.pBoxSub1 {
+    font-family: "Proxima";
+    color: #A7A7A7;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0px;
+}
+
+.btn-radio {
+    cursor: pointer;
+    display: block;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+@media screen and (max-width: 480px) {
+    .btn-radio {
+        display: block;
+        float: none;
+    }
+    .btn-radio:not(:first-child) {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+}
+
+.btn-radio svg {
+    fill: none;
+    vertical-align: middle;
+}
+
+.btn-radio svg circle {
+    stroke-width: 2;
+    stroke: #C8CCD4;
+}
+
+.btn-radio svg path {
+    stroke: #008FFF;
+}
+
+.btn-radio svg path.inner {
+    stroke-width: 6;
+    stroke-dasharray: 19;
+    stroke-dashoffset: 19;
+}
+
+.btn-radio svg path.outer {
+    stroke-width: 2;
+    stroke-dasharray: 57;
+    stroke-dashoffset: 57;
+}
+
+.btn-radio input {
+    display: none;
+}
+
+.btn-radio input:checked+svg path {
+    transition: all 0.2s ease;
+}
+
+.btn-radio input:checked+svg path.inner {
+    stroke-dashoffset: 38;
+    transition-delay: 0.2s;
+}
+
+.btn-radio input:checked+svg path.outer {
+    stroke-dashoffset: 0;
+}
+
+.btn-radio span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pRadio {
+    font-family: "ProximaRegular";
+    color: #A7A7A7;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.cbx {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    display: block;
+    margin-top: 5px;
+}
+
+.cbx span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098A9;
+    transition: all 0.2s ease;
+}
+
+.cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #506EEC;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.cbx span:last-child {
+    padding-left: 8px;
+}
+
+.cbx:hover span:first-child {
+    border-color: #506EEC;
+}
+
+.inp-cbx:checked+.cbx span:first-child {
+    background: #506EEC;
+    border-color: #506EEC;
+    animation: wave 0.4s ease;
+}
+
+.inp-cbx:checked+.cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.inp-cbx:checked+.cbx span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+@keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+.pCheck {
+    font-family: "ProximaRegular";
+    color: #004EBA;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.btnNext {
+    font-family: "ProximaRegular";
+    background-color: #00956F;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 15px;
+    margin-top: 20px;
+    border: 0px;
+    color: white;
+    width: 100px;
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    outline: none !important;
+}
+
+.btnBack {
+    font-family: "ProximaRegular";
+    background-color: #BC293A;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 15px;
+    margin-top: 20px;
+    border: 0px;
+    color: white;
+    width: 100px;
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    outline: none !important;
+    margin-right: 70px;
+}
+
+.pForm {
+    font-family: "GilroyMedium";
+    color: #193760;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    display: none;
+}
+
+.txtBox {
+    width: 100%;
+    border: 1px solid #CECECE;
+    padding: 8px;
+    border-radius: 10px;
+    outline: none !important;
+    margin-top: 8px;
+}
+
+.txtDate {
+    width: 70px;
+    border: 1px solid #CECECE;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 10px;
+    outline: none !important;
+}
+
+.divUpload {
+    border: 2px dashed #9098A9;
+    border-radius: 10px;
+    width: 300px;
+    height: 150px;
+    transition: all 0.2s;
+    margin-top: 18px;
+    overflow: auto;
+    padding-top: 30px;
+    cursor: pointer;
+}
+
+.divUpload:hover {
+    border-color: #004EBA;
+}
+
+.pUpload {
+    font-family: "GilroyMedium";
+    color: #9098A9;
+    text-align: center;
+}
