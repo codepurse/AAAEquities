@@ -94,6 +94,23 @@ function index() {
       $(".divForm8").fadeIn(200);
       $(".divForm7").hide();
       $(".box").css("height", "350px");
+    } else if ($(".divForm8").css("display") == "block") {
+      $(".divForm9").fadeIn(200);
+      $(".divForm8").hide();
+      $(".box").css("height", "350px");
+    } else if ($(".divForm9").css("display") == "block") {
+      $(".divForm10").fadeIn(200);
+      $(".divForm9").hide();
+      $(".box").css("height", "450px");
+    } else if ($(".divForm10").css("display") == "block") {
+      $(".divForm11").fadeIn(200);
+      $(".divForm10").hide();
+      $(".box").css("height", "300px");
+    }else if ($(".divForm11").css("display") == "block") {
+      $(".pBox").css("font-size","2.2rem");
+      $(".divForm12").fadeIn(200);
+      $(".divForm11").hide();
+      $(".box").css("height", "315px");
     }
   }
 
@@ -136,6 +153,10 @@ function index() {
       $(".divForm5").fadeIn(200);
       $(".divForm6").hide();
     } else if ($(".divForm7").css("display") == "block") {
+      $(".colLeft").removeClass("col-lg-6");
+      $(".colLeft").addClass("col-lg-8");
+      $(".colRight").removeClass("col-lg-6");
+      $(".colRight").addClass("col-lg-4");
       $(".divForm6").fadeIn(200);
       $(".divForm7").hide();
       $(".box").css("height", "550px");
@@ -143,11 +164,26 @@ function index() {
       $(".pForm2").fadeIn(200);
       $(".imgRight").addClass("animate__animated animate__zoomIn");
       $(".imgRight").attr("src", "Image/form3.svg");
-    }
-    else if ($(".divForm8").css("display") == "block") {
+    } else if ($(".divForm8").css("display") == "block") {
       $(".divForm7").fadeIn(200);
       $(".divForm8").hide();
       $(".box").css("height", "450px");
+    } else if ($(".divForm9").css("display") == "block") {
+      $(".divForm8").fadeIn(200);
+      $(".divForm9").hide();
+      $(".box").css("height", "450px");
+    } else if ($(".divForm10").css("display") == "block") {
+      $(".divForm9").fadeIn(200);
+      $(".divForm10").hide();
+      $(".box").css("height", "350px");
+    } else if ($(".divForm11").css("display") == "block") {
+      $(".divForm10").fadeIn(200);
+      $(".divForm11").hide();
+      $(".box").css("height", "450px");
+    } else if ($(".divForm12").css("display") == "block") {
+      $(".divForm11").fadeIn(200);
+      $(".divForm12").hide();
+      $(".box").css("height", "300px");
     }
   }
 
@@ -884,9 +920,74 @@ function index() {
               <div className="divForm8">
                 <p className="pBox">Upload signature</p>
                 <div className="divUpload">
-                  <img src="Image/upload.png" className="img-fluid mx-auto d-flex">
-                  </img>
-                  <p className = "pUpload">Client Signature over <br/> Printed Name</p>
+                  <img
+                    src="Image/upload.png"
+                    className="img-fluid mx-auto d-flex"
+                  ></img>
+                  <p className="pUpload">
+                    Client Signature over <br /> Printed Name
+                  </p>
+                </div>
+              </div>
+              <div className="divForm9">
+                <p className="pBox">Upload signature</p>
+                <div className="divUpload">
+                  <img
+                    src="Image/upload.png"
+                    className="img-fluid mx-auto d-flex"
+                  ></img>
+                  <p className="pUpload">
+                    Joint Account Holder's
+                    <br /> Siognature over Printed Name
+                  </p>
+                </div>
+              </div>
+              <div className="divForm10">
+                <p className="pBox">Upload two valid IDs</p>
+                <div className="divUpload">
+                  <img
+                    src="Image/upload.png"
+                    className="img-fluid mx-auto d-flex"
+                  ></img>
+                  <p className="pUpload">Upload first ID photo</p>
+                </div>
+                <div className="divUpload">
+                  <img
+                    src="Image/upload.png"
+                    className="img-fluid mx-auto d-flex"
+                  ></img>
+                  <p className="pUpload">Upload second ID photo</p>
+                </div>
+              </div>
+              <div className="divForm11">
+                <p className="pBox">Account Type</p>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <input
+                      type="text"
+                      className="txtBox"
+                      placeholder="Username"
+                    ></input>
+                  </div>
+                </div>
+                <div className="row" style={{ marginTop: "10 px" }}>
+                  <div className="col-lg-6">
+                    <input
+                      type="text"
+                      className="txtBox"
+                      placeholder="Email address"
+                    ></input>
+                  </div>
+                </div>
+              </div>
+              <div className="divForm12">
+                <p className="pBox">Upload a photo of your self</p>
+                <div className="divUpload">
+                  <img
+                    src="Image/upload.png"
+                    className="img-fluid mx-auto d-flex"
+                  ></img>
+                  <p className="pUpload">Take a photo</p>
                 </div>
               </div>
               <div className="row" style={{ marginTop: "15px" }}>
