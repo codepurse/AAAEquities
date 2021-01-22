@@ -155,7 +155,7 @@ function index() {
       }
       $(".imgRight").css("width", "80%");
       $(".imgRight").addClass("animate__animated animate__zoomIn");
-      $(".imgRight").attr("src", "Image/Phone1.png");
+      $(".imgRight").attr("src", "Image/phone1.png");
       $(".pForm").hide();
     } else if ($(".divForm11").css("display") == "block") {
       $(".pBox").css("font-size", "2.2rem");
@@ -165,7 +165,7 @@ function index() {
       $(window).scrollTop(0);
     }
   }
-
+                                                                                                                                      
   function prevForm() {
     if ($(".divForm2").css("display") == "block") {
       if ($(window).width() < 501) {
@@ -186,7 +186,7 @@ function index() {
       $(".divForm2").hide();
       $(".box").css("height", "350px");
       $(".imgRight").addClass("animate__animated animate__zoomIn");
-      $(".imgRight").attr("src", "Image/Phone1.png");
+      $(".imgRight").attr("src", "Image/phone1.png");
       $(".pForm").hide();
       $(".imgCircle1").css("width", "25px");
       $(".imgCircle2").css("width", "15px");
@@ -1097,7 +1097,7 @@ function index() {
             <div className="row align-items-center">
               <div className="col-lg-12 colImage">
                 <img
-                  src="Image/Phone1.png"
+                  src="Image/phone1.png"
                   className="img-fluid imgRight mx-auto d-flex animate__faster"
                 ></img>
               </div>
