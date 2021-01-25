@@ -161,11 +161,16 @@ function index() {
       $(".pBox").css("font-size", "2.2rem");
       $(".divForm12").fadeIn(200);
       $(".divForm11").hide();
+      $(".imgRight").css("width", "80%");
+      $(".imgRight").addClass("animate__animated animate__zoomIn");
+      $(".imgRight").attr("src", "Image/selfie.svg");
       $(".box").css("height", "315px");
+      $(".pForm").hide();
+      $(".pForm8").show();
       $(window).scrollTop(0);
     }
   }
-                                                                                                                                      
+
   function prevForm() {
     if ($(".divForm2").css("display") == "block") {
       if ($(window).width() < 501) {
@@ -271,6 +276,10 @@ function index() {
       $(".divForm11").fadeIn(200);
       $(".divForm12").hide();
       $(".box").css("height", "300px");
+      $(".imgRight").addClass("animate__animated animate__zoomIn");
+      $(".imgRight").attr("src", "Image/Phone.png");
+      $(".pForm").hide();
+      $(".pForm7").show();
     }
   }
 
@@ -1115,6 +1124,10 @@ function index() {
                   <b>Margin</b> increases your buying power by borrowing funds.
                   To use margin, upgrade your account to a AAA Turbo Margin
                   Account.
+                </p>
+                <p className="pForm pForm8">
+                  Put your valid ID below your chin as shown above and take a
+                  photo of yourself!
                 </p>
               </div>
             </div>
