@@ -13,10 +13,6 @@ module.exports = {
               scriptSrc: "*",
             },
           },
-          forceHTTPSRedirect: [
-            true,
-            { maxAge: 63072000, includeSubDomains: true },
-          ],
           referrerPolicy: "same-origin",
           xssProtection: "block-rendering",
         }),

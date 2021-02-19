@@ -62,7 +62,7 @@ function index() {
   const [error4, setError4] = React.useState("");
   const [error5, setError5] = React.useState("");
   const [error6, setError6] = React.useState("");
-
+  const [error7, setError7] = React.useState("");
   const [
     listinvestmentobjectives,
     setListinvestmentobjectives,
@@ -1215,15 +1215,18 @@ function index() {
         setError1("1");
       })
       .catch((err) => {
+        setError1("2");
         console.log(err);
       });
     axios
       .get(apiUrl_investment_objectives, {}, options)
       .then((result) => {
         console.log(result);
+        setError7("1");
         setListinvestmentobjectives(result.data.data);
       })
       .catch((err) => {
+        setError1("2");
         console.log(err);
       });
 
@@ -1244,7 +1247,9 @@ function index() {
         setListfunds(funds);
         setError2("1");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setError2("2");
+      });
 
     axios
       .get(apiUrl_investment_objectives, {}, options)
@@ -1255,6 +1260,7 @@ function index() {
       })
       .catch((err) => {
         console.log(err);
+        setError3("2");
       });
 
     axios
@@ -1266,6 +1272,7 @@ function index() {
       })
       .catch((err) => {
         console.log(err);
+        setError4("2");
       });
 
     axios
@@ -1277,6 +1284,7 @@ function index() {
       })
       .catch((err) => {
         console.log(err);
+        setError5("2");
       });
 
     axios
@@ -1288,16 +1296,38 @@ function index() {
       })
       .catch((err) => {
         console.log(err);
+        setError6("2");
       });
   }, []);
 
   useEffect(() => {
-    if (error1 && error2 && error3 && error4 && error5 && error6) {
+    if (error1 && error2 && error3 && error4 && error5 && error6 && error7) {
       $(".conLoader")
         .show()
         .fadeOut(500, function () {
           $(".conMain").fadeIn(250);
         });
+    }
+
+    if(error1 == "2" || error2 == "2" || error3 == "2" || error4 == "2" || error5 == "2" || error6 == "2" || error7 == "2"){
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Please refresh the website.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
   }, [error1, error2, error3, error4, error5, error6]);
 
@@ -1323,6 +1353,7 @@ function index() {
             <span></span>
           </span>
         </div>
+       
       </div>
       <div className="container h-100 conMain">
         <div className="row h-100 align-items-center">
