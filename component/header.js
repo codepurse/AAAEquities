@@ -12,7 +12,7 @@ export class header extends Component {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
           rel="stylesheet"
         ></link>
-        
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"

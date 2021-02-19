@@ -131,8 +131,114 @@ body, html {
     height: 100%;
 }
 
+
+.swal-button {
+
+    display: none;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+    border: 1px solid #CECECE;
+    padding: 8px;
+    border-radius: 10px;
+}
+.react-datepicker__input-container input {
+    font-family: "GilroyMedium";
+    border: 0px;
+    outline: none !important;
+}
+
+.swal-content {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.swal-footer {
+    display: none;
+}
+
+.pError {
+    font-family: "GilroyMedium";
+    color: #212121;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.pErrorSub {
+    font-family: "GilroyMedium";
+    color: #37474F;
+    font-size: 1rem;
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.conLoader {
+    display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+.modal-content {
+    border-radius: 12px !important;
+    padding: 40px !important
+}
+
+.pModal {
+    font-family: "GilroyMedium";
+    color: #212121;
+    margin-top: 30px;
+    font-size: 1.1rem;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.colVerify {
+    display:flex;
+	justify-content:center;
+}
+
+.Box{
+	position:relative;
+	width:80px;
+	height:80px;
+	background-color:none;
+	border-radius:50%;
+	border:5px solid transparent;
+	border-top:5px solid #45aaf2;
+	margin:2px;
+	animation:Loading 2s linear infinite;
+}
+.Box span{
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	border:5px solid transparent;
+	border-top:5px solid #45aaf2;
+	border-radius:50%;
+	margin:2px;
+	animation:Loading 2s linear infinite;
+}
+
+
+
+@keyframes Loading{
+	0%{
+		transform:rotate(0deg);
+	}
+	100%{
+		transform:rotate(360deg);
+	}
+}
+
+
 .conMain {
     min-height: 800px !important;
+    display: none;
 }
 
 .navbar {
@@ -471,6 +577,7 @@ body, html {
 }
 
 .txtBox {
+    font-family: "GilroyMedium";
     width: 100%;
     border: 1px solid #CECECE;
     padding: 8px;
