@@ -1,6 +1,6 @@
 module.exports = appglobal = {
     api: {
-      base_api: "http://kyc-api-prod-819531804.ap-southeast-1.elb.amazonaws.com",
+      base_api: "https://kyc.aaa-equities.com.ph",
       account_types: "/api/account_types",
       annual_income: "/api/annual_income",
       investment_objective: "/api/investment_objectives",

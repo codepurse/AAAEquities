@@ -6,7 +6,17 @@ module.exports = {
       {
         source: "/(.*)",
         headers: createSecureHeaders({
-      
+          contentSecurityPolicy: {
+            directives: {
+              frameSrc: "'none'",
+              imgSrc: "*",
+              scriptSrc: "*",
+            },
+          },
+          forceHTTPSRedirect: [
+            true,
+            { maxAge: 63072000, includeSubDomains: true },
+          ],
           referrerPolicy: "same-origin",
           xssProtection: "block-rendering",
         }),
