@@ -312,7 +312,30 @@ function index() {
 
   function changeBirthdate(date) {
     console.log(moment(date).format("l"));
-    setBirthdate(date);
+    var filter = (moment().diff(date,'years'));
+    if (filter > 17) {
+      setBirthdate(date);
+    }else {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <p className="pError">Oooops!</p>
+                <p className="pErrorSub">Must be 18yrs old above.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  
     $(".react-datepicker__input-container").css("border", "1px solid #CECECE");
   }
 
@@ -1170,6 +1193,8 @@ function index() {
       $(".imgRight").attr("src", "Image/Phone.png");
       $(".pForm").hide();
       $(".pForm7").show();
+
+      $(".btnNext").html("NEXT");
     }
   }
 
