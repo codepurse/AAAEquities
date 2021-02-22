@@ -291,13 +291,23 @@ function index() {
   }
 
   function changeTelnum(e) {
-    setTelnum(e.currentTarget.value);
+    if(!Number(e.currentTarget.value)) {
+      return;
+    }else {
+      setTelnum(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
+    }
   }
 
   function changeMobilenum(e) {
-    setMobilenum(e.currentTarget.value);
-    $(e.currentTarget).css("border", "1px solid #CECECE");
+    if(!Number(e.currentTarget.value)) {
+      return;
+    }
+    else {
+      setMobilenum(e.currentTarget.value);
+      $(e.currentTarget).css("border", "1px solid #CECECE");
+    }
+ 
   }
 
   function changeBirthplace(e) {
@@ -1528,7 +1538,8 @@ function index() {
                       className="txtBox txtForm2"
                       value={mobilenum}
                       autocomplete="false"
-                      onChange={changeMobilenum}
+                      onChange={changeMobilenum}  
+               
                       placeholder="Mobile number"
                     ></input>
                   </div>
@@ -1559,10 +1570,10 @@ function index() {
                   className="row align-items-center"
                   style={{ marginTop: "15px" }}
                 >
-                  <div className="col-lg-2">
-                    <p className="pBoxTitle">Birth Date</p>
+                  <div className="col-lg-3 col-md-3">
+                    <p className="pBoxTitle pbox">Birth Date</p>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-4 col-md-4">
                     <DatePicker
                       placeholderText="Click to select a date"
                       dateFormat="yyyy/MM/dd"
