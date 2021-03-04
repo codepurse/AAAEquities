@@ -7,6 +7,8 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import getApi from "../services/api.service";
+
+
 import swal from "@sweetalert/with-react";
 
 function index() {
@@ -55,7 +57,7 @@ function index() {
   const [corporatename3, setCorporatename3] = React.useState("");
   const [corporateposition3, setCorporateposition3] = React.useState("");
 
-  const[newcorporate, setNewcorporate] = React.useState([]);
+  const [newcorporate, setNewcorporate] = React.useState([]);
   const [error1, setError1] = React.useState("");
   const [error2, setError2] = React.useState("");
   const [error3, setError3] = React.useState("");
@@ -109,6 +111,9 @@ function index() {
     console.log(JSON.stringify(newcorporate));
   }
 
+  function verifyCaptcha(response) {
+    console.log("lets go!");
+  }
 
   function saveaccount() {
     const options = {
@@ -291,23 +296,21 @@ function index() {
   }
 
   function changeTelnum(e) {
-    if(!Number(e.currentTarget.value)) {
+    if (!Number(e.currentTarget.value)) {
       return;
-    }else {
+    } else {
       setTelnum(e.currentTarget.value);
-    $(e.currentTarget).css("border", "1px solid #CECECE");
+      $(e.currentTarget).css("border", "1px solid #CECECE");
     }
   }
 
   function changeMobilenum(e) {
-    if(!Number(e.currentTarget.value)) {
+    if (!Number(e.currentTarget.value)) {
       return;
-    }
-    else {
+    } else {
       setMobilenum(e.currentTarget.value);
       $(e.currentTarget).css("border", "1px solid #CECECE");
     }
- 
   }
 
   function changeBirthplace(e) {
@@ -322,10 +325,10 @@ function index() {
 
   function changeBirthdate(date) {
     console.log(moment(date).format("l"));
-    var filter = (moment().diff(date,'years'));
+    var filter = moment().diff(date, "years");
     if (filter > 17) {
       setBirthdate(date);
-    }else {
+    } else {
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -345,7 +348,7 @@ function index() {
         </div>
       );
     }
-  
+
     $(".react-datepicker__input-container").css("border", "1px solid #CECECE");
   }
 
@@ -1067,7 +1070,6 @@ function index() {
       $("#modalVerify").modal("show");
       saveaccount();
     }
-    
   }
 
   function prevForm() {
@@ -1344,7 +1346,15 @@ function index() {
         });
     }
 
-    if(error1 == "2" || error2 == "2" || error3 == "2" || error4 == "2" || error5 == "2" || error6 == "2" || error7 == "2"){
+    if (
+      error1 == "2" ||
+      error2 == "2" ||
+      error3 == "2" ||
+      error4 == "2" ||
+      error5 == "2" ||
+      error6 == "2" ||
+      error7 == "2"
+    ) {
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -1388,7 +1398,6 @@ function index() {
             <span></span>
           </span>
         </div>
-       
       </div>
       <div className="container h-100 conMain">
         <div className="row h-100 align-items-center">
@@ -1424,7 +1433,13 @@ function index() {
 
               <div className="divForm1">
                 <p className="pBox">Account Type</p>
-
+              <div
+                    className="g-recaptcha"
+                    data-sitekey="6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi"
+                    data-callback= "verifyCaptcha"
+                  
+                  />
+                
                 <div className="cntr">
                   {listaccounttype.map((item) => (
                     <label htmlFor={item.name} className="btn-radio">
@@ -1538,8 +1553,7 @@ function index() {
                       className="txtBox txtForm2"
                       value={mobilenum}
                       autocomplete="false"
-                      onChange={changeMobilenum}  
-               
+                      onChange={changeMobilenum}
                       placeholder="Mobile number"
                     ></input>
                   </div>
@@ -2255,7 +2269,9 @@ function index() {
                         </span>
                       </div>
                     </div>
-                    <p className = "pModal">Please wait while we verify your account</p>
+                    <p className="pModal">
+                      Please wait while we verify your account
+                    </p>
                   </div>
                 </div>
               </div>
