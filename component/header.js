@@ -7,7 +7,6 @@ export class header extends Component {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>AAA Equities</title>
-  
         <link rel="stylesheet" href="Css/index.css"></link>
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
@@ -20,7 +19,7 @@ export class header extends Component {
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous"
         ></link>
-
+<script src="https://www.google.com/recaptcha/api.js"></script>
         <script
           src="https://code.jquery.com/jquery-3.5.1.js"
           integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="

@@ -1,9 +1,19 @@
+@media only screen and (max-width: 985px) {
+    .colRight {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 500px) {
+    body, html {
+        overflow-x: hidden;
+    }
     .conMain {
         margin-top: 100px !important;
     }
     .colRight {
         margin-bottom: -40px !important;
+        display: block !important;
     }
     .colLeft {
         padding: 0px !important;
@@ -24,7 +34,7 @@
     }
     .boxLine {
         top: -2px !important;
-        width: 70% !important;
+        width: 50% !important;
         height: 3px !important;
         left: 12% !important;
     }
@@ -43,7 +53,6 @@
         position: absolute;
         left: 37% !important;
     }
-   
     .circle3 {
         position: absolute;
         left: 68% !important;
@@ -69,6 +78,9 @@
     }
     .imgRight {
         width: 60%;
+    }
+    .divForm3 {
+        margin-top: 15px;
     }
 }
 
@@ -131,18 +143,16 @@ body, html {
     height: 100%;
 }
 
-
 .swal-button {
-
     display: none;
 }
 
-.react-datepicker-wrapper,
-.react-datepicker__input-container {
+.react-datepicker-wrapper, .react-datepicker__input-container {
     border: 1px solid #CECECE;
     padding: 8px;
     border-radius: 10px;
 }
+
 .react-datepicker__input-container input {
     font-family: "GilroyMedium";
     border: 0px;
@@ -176,14 +186,46 @@ body, html {
 }
 
 .conLoader {
-    display:flex;
-	justify-content:center;
-	align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBorder {
+    border-radius: 12px !important;
+    padding: 40px !important
+}
+
+.conPic {
+    max-height: 90vh !important;
+}
+
+.divCam {
+    position: absolute;
+    bottom: 12%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 70px;
+}
+
+.imgCamera {
+    width: 30px;
 }
 
 .modal-content {
-    border-radius: 12px !important;
-    padding: 40px !important
+    max-height: calc(100vh - 210px);
+    overflow: auto;
+}
+
+.modalPic {
+    padding: 0px !important;
 }
 
 .pModal {
@@ -196,45 +238,43 @@ body, html {
 }
 
 .colVerify {
-    display:flex;
-	justify-content:center;
+    display: flex;
+    justify-content: center;
 }
 
-.Box{
-	position:relative;
-	width:80px;
-	height:80px;
-	background-color:none;
-	border-radius:50%;
-	border:5px solid transparent;
-	border-top:5px solid #45aaf2;
-	margin:2px;
-	animation:Loading 2s linear infinite;
-}
-.Box span{
-	position:absolute;
-	width:100%;
-	height:100%;
-	top:0px;
-	left:0px;
-	border:5px solid transparent;
-	border-top:5px solid #45aaf2;
-	border-radius:50%;
-	margin:2px;
-	animation:Loading 2s linear infinite;
+.Box {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background-color: none;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    border-top: 5px solid #45aaf2;
+    margin: 2px;
+    animation: Loading 2s linear infinite;
 }
 
-
-
-@keyframes Loading{
-	0%{
-		transform:rotate(0deg);
-	}
-	100%{
-		transform:rotate(360deg);
-	}
+.Box span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    border: 5px solid transparent;
+    border-top: 5px solid #45aaf2;
+    border-radius: 50%;
+    margin: 2px;
+    animation: Loading 2s linear infinite;
 }
 
+@keyframes Loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .conMain {
     min-height: 800px !important;
@@ -279,6 +319,20 @@ body, html {
     margin-bottom: 0px;
 }
 
+.pWebcam {
+    font-family: "GilroyMedium";
+    color: #424242;
+    font-weight: 600;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pWebcam:hover {
+    color: #004EBA;
+}
+
 .divForm2, .divForm3, .divForm4, .divForm5, .divForm6, .divForm7, .divForm8, .divForm9, .divForm10, .divForm11, .divForm12 {
     display: none;
 }
@@ -313,7 +367,7 @@ body, html {
 .circlenotactivemobile {
     width: 40px;
     height: 40px;
-    background-color:  #00634A !important;
+    background-color: #00634A !important;
     border-radius: 50%;
     z-index: 99 !important;
     cursor: pointer;
@@ -344,7 +398,7 @@ body, html {
 .pBox {
     font-family: "ProximaNovaBlack";
     color: #004EBA;
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     margin-bottom: 0px;
 }
 
@@ -441,7 +495,6 @@ body, html {
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
-    display: block;
     margin-top: 5px;
 }
 
@@ -524,8 +577,9 @@ body, html {
     color: #004EBA;
     font-size: 0.9rem;
     font-weight: 400;
-    margin-left: 5px;
+    margin-left: 15px;
     margin-top: -2px;
+    cursor: pointer;
 }
 
 .btnNext {
@@ -599,15 +653,33 @@ body, html {
 .divUpload {
     border: 2px dashed #9098A9;
     border-radius: 10px;
-    width: 300px;
+    width: 100%;
     height: auto;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     display: block;
     transition: all 0.2s;
     margin-top: 18px;
     overflow: auto;
-    padding-top: 30px;
+    padding-top: 20px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.divUpload:hover {
+    background-color: #F2F1FD;
+}
+
+.divUploadclient, .divUploadvalid1, .divUploadvalid2, .divUploadyourself, .divUploadjoint {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    margin-top: 14px;
+    display: none;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    overflow: auto;
+    transition: all 0.2s;
 }
 
 .divUpload:hover {
@@ -618,9 +690,276 @@ body, html {
     font-family: "GilroyMedium";
     color: #9098A9;
     text-align: center;
+    margin-bottom: 4px;
+}
+
+.imgTrash {
+    width: 20px;
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.pView {
+    font-family: "GilroyMedium";
+    color: #008FFF;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.pUploadname {
+    font-family: "GilroyMedium";
+    font-weight: 600;
+    color: #424242;
+    margin-bottom: 4px;
 }
 
 .pImportant {
     text-align: center !important;
     width: 100% !important;
+}
+
+.conSuccess {
+    background-image: url("../Image/Artwork.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+.pReady {
+    font-family: "GilroyMedium";
+    color: #424242;
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.pYour {
+    font-family: "GilroyMedium";
+    color: #00956F;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.pCheck {
+    font-family: "GilroyMedium";
+    color: #525252;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.pHere {
+    font-weight: 600;
+    color: #193760;
+}
+
+.bubbly-button {
+    font-family: "Helvetica", "Arial", sans-serif;
+    display: inline-block;
+    font-size: 1em;
+    padding: 0.7em 2.2em;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    margin-top: 25px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #00956F;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    box-shadow: 0 2px 25px rgba(0, 143, 255, 0.5);
+}
+
+.bubbly-button:focus {
+    outline: 0;
+}
+
+.bubbly-button:before, .bubbly-button:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 140%;
+    height: 100%;
+    left: -20%;
+    z-index: -1000;
+    transition: all ease-in-out 0.5s;
+    background-repeat: no-repeat;
+}
+
+.bubbly-button:before {
+    display: none;
+    top: -75%;
+    background-image: radial-gradient(circle, #008FFF 20%, transparent 20%), radial-gradient(circle, transparent 20%, #008FFF 20%, transparent 30%), radial-gradient(circle, #008FFF 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, transparent 10%, #008FFF 15%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #008FFF 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%);
+    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+}
+
+.bubbly-button:after {
+    display: none;
+    bottom: -75%;
+    background-image: radial-gradient(circle, #008FFF 20%, transparent 20%), radial-gradient(circle, #008FFF 20%, transparent 20%), radial-gradient(circle, transparent 10%, #008FFF 15%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #008FFF 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%), radial-gradient(circle, #ff0081 20%, transparent 20%);
+    background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+}
+
+.bubbly-button:active {
+    transform: scale(0.9);
+    background-color: #008FFF;
+    box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+}
+
+.bubbly-button.animate:before {
+    display: block;
+    animation: topBubbles ease-in-out 0.75s forwards;
+}
+
+.bubbly-button.animate:after {
+    display: block;
+    animation: bottomBubbles ease-in-out 0.75s forwards;
+}
+
+@keyframes topBubbles {
+    0% {
+        background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+    }
+    50% {
+        background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+    }
+    100% {
+        background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+}
+
+@keyframes bottomBubbles {
+    0% {
+        background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+    }
+    50% {
+        background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+    }
+    100% {
+        background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+}
+
+.divUpgradebox {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    -webkit-box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
+    width: 550px;
+    margin-bottom: 50px !important;
+    height: auto;
+}
+
+.pUpgrade {
+    font-family: "ProximaNovaBlack";
+    color: #004EBA;
+    font-size: 1.8rem;
+    margin-bottom: 0px;
+}
+
+.pUpgradesub {
+    font-family: "Proxima";
+    color: #00956F;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.conUpgrade {
+    padding: 30px 40px !important;
+}
+
+.btnUpgrade {
+    font-family: "GilroyMedium";
+    background-color: #00956F;
+    padding: 7px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 30px;
+    margin-top: 20px;
+    border: 0px;
+    color: white;
+    width: auto;
+    padding: 10px 25px;
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    outline: none !important;
+}
+
+.pVerify {
+    font-family: "GilroyExtraBold";
+    color: #313131; 
+    font-size: 1.5rem;
+    margin-top: 15px;
+    margin-bottom: 2px;
+}
+
+.pVerifySub {
+    font-family: "GilroyMedium";
+    color: gray;
+}
+
+.txtEmailverify {
+    font-family: "GilroyMedium";
+    color: #424242;
+    border: 1px solid lightgray;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    outline: none !important;
+}
+
+.btnVerify {
+    font-family: "GilroyMedium";
+    background-color: #0260EE;
+    cursor: pointer;
+    color: white;
+    border: 0px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    outline: none;
+    border-radius: 5px;
+}
+
+.pQuestions {
+    font-family: "GilroyMedium";
+    color: gray;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.pErroremail {
+    font-family: "GilroyMedium";
+    color: #BC293A;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-bottom: -10px;
+    display: none;
+}
+
+.spanEmail {
+    color: #0260EE;
+}
+
+.swal-modal {
+    z-index: 9999999999999999 !important;
+    width: auto;
+    padding: 0px !important;
+    margin: 0px !important;
 }

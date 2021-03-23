@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  aaa-web:
+    command: npm run dev
+    ports:
+      - 80:80
+
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+

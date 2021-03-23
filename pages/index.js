@@ -1,17 +1,19 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../component/header";
 import Navbar from "../component/navbar";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Select from "react-select";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import getApi from "../services/api.service";
-
-
 import swal from "@sweetalert/with-react";
-
+import Webcam from "react-webcam";
+import ReCAPTCHA from "react-google-recaptcha";
 function index() {
+  const router = useRouter();
+  const [sitekey, setSitekey] = React.useState("");
   const [accounttype, setAccounttype] = React.useState("");
   const [listaccounttype, setListaccounttype] = React.useState([]);
   const [fname, setFname] = React.useState("");
@@ -21,18 +23,26 @@ function index() {
   const [mobilenum, setMobilenum] = React.useState("");
   const [birthplace, setBirthplace] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [address1, setAddress1] = React.useState("");
+  const [address2, setAddress2] = React.useState("");
   const [birthtDate, setBirthdate] = React.useState("");
   const [tin, setTin] = React.useState("");
-  const [nationality, setNationality] = React.useState("");
+  const [nationality, setNationality] = React.useState("Filipino");
   const [gender, setGender] = React.useState("");
   const [genderpick, setGenderpick] = React.useState([]);
+  const [nationalitypick, setNationalitypick] = React.useState([]);
   const [civilstatus, setCivilstatus] = React.useState("");
   const [civilstatuspick, setCivilstatuspick] = React.useState([]);
   const [employer, setEmployer] = React.useState("");
   const [jobtitle, setJobtitle] = React.useState("");
   const [busadd, setBusadd] = React.useState("");
+  const [busadd1, setBusadd1] = React.useState("");
+  const [busadd2, setBusadd2] = React.useState("");
   const [errorselectgender, setErrorselectgender] = React.useState("");
   const [errorselectcivil, setErrorselectcivil] = React.useState("");
+  const [errorselectnationality, setErrorselectnationality] = React.useState(
+    ""
+  );
   const [bank, setBank] = React.useState("");
   const [branch, setBrach] = React.useState("");
   const [accountname, setAccountname] = React.useState("");
@@ -56,6 +66,9 @@ function index() {
   const [corporateposition2, setCorporateposition2] = React.useState("");
   const [corporatename3, setCorporatename3] = React.useState("");
   const [corporateposition3, setCorporateposition3] = React.useState("");
+  const [accounttypetext, setAccounttypetext] = React.useState("");
+
+  const [filterdate, setFilterdate] = React.useState("");
 
   const [newcorporate, setNewcorporate] = React.useState([]);
   const [error1, setError1] = React.useState("");
@@ -74,6 +87,8 @@ function index() {
   const [listfunds, setListfunds] = React.useState([]);
   const [listnetworth, setListnetworth] = React.useState([]);
 
+  const [webimg, setWebimg] = React.useState("");
+
   const [client, setClient] = React.useState("");
   const [clientpic, setClientpic] = React.useState("");
   const [jointholder, setJointholder] = React.useState("");
@@ -85,11 +100,16 @@ function index() {
   const [profile, setProfile] = React.useState("");
   const [profilepic, setProfilepic] = React.useState("");
 
+  const [srclient, setSrcclient] = React.useState("");
+
   const inputFileRef = useRef(null);
   const inputFileRef1 = useRef(null);
   const inputFileRef2 = useRef(null);
   const inputFileRef3 = useRef(null);
   const inputFileRef4 = useRef(null);
+
+  const [captchaverified, setCaptchaverified] = React.useState("");
+  const [errorcamera, setErrorcamera] = React.useState("");
 
   const onBtnClick = () => {
     inputFileRef.current.click();
@@ -107,12 +127,85 @@ function index() {
     inputFileRef4.current.click();
   };
 
-  function trylang() {
-    console.log(JSON.stringify(newcorporate));
+  const webcamRef = React.useRef(null);
+
+  function handleOnUserMedia() {
+    webcamRef.current.stream.addEventListener("inactive", (target) => {
+      console.log("Webcam was stopped");
+      console.log({ target });
+    });
   }
 
-  function verifyCaptcha(response) {
-    console.log("lets go!");
+  const capture = React.useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    console.log(imageSrc);
+    $(".imgProfile").attr("src", imageSrc);
+    swal(
+      <div style={{ width: "450px", padding: "20px 8px" }}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-2" style={{ padding: "0px" }}>
+              <img
+                src="Image/check.png"
+                style={{ width: "32px", marginTop: "0px" }}
+              ></img>
+            </div>
+            <div className="col-lg-10 " style={{ padding: "0px" }}>
+              <p className="pError">Camera captured</p>
+              <p className="pErrorSub">Successfuly captured.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    var url = imageSrc;
+
+    fetch(url)
+      .then((res) => res.blob())
+      .then((blob) => {
+        setWebimg(blob);
+        console.log(blob);
+      });
+    setProfile("");
+    setProfilepic("");
+    $(".divUploadyourself").show();
+    $(".box").css("height", "auto");
+    $(".divUploadprofile").attr("style", "2px solid #9098A9");
+    $(".pUploadyourself").text("capture_webcam.jpg");
+  }, [webcamRef]);
+
+  function errorWebcam(err) {
+    console.log;
+    console.log("error loading webcam");
+    setErrorcamera("true");
+  }
+
+  function trylang() {
+    if (errorcamera == "true") {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 col-sm-10 col-10 col-md-10" style={{ padding: "0px" }}>
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">
+                  Please allow the website to access your camera.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      $("#modalWebcam").modal("show");
+    }
   }
 
   function saveaccount() {
@@ -134,7 +227,10 @@ function index() {
     formdata.append("middlename", mname);
     formdata.append("telephone_no", telnum);
     formdata.append("mobile_no", mobilenum);
-    formdata.append("address", address);
+    formdata.append("address1", address);
+    formdata.append("address2", address1);
+    formdata.append("address3", address2);
+    formdata.append("birthplace", birthplace);
     formdata.append("birthdate", moment(birthtDate).format("YYYY-MM-DD"));
     formdata.append("tin_no", tin);
     formdata.append("nationality", nationality);
@@ -142,7 +238,9 @@ function index() {
     formdata.append("civil_status", civilstatus);
     formdata.append("employer", employer);
     formdata.append("job_title", jobtitle);
-    formdata.append("business_address", busadd);
+    formdata.append("business_address1", busadd);
+    formdata.append("business_address2", busadd1);
+    formdata.append("business_address3", busadd2);
     formdata.append("account_type", accounttype);
     formdata.append("bank_name", bank);
     formdata.append("branch_name", branch);
@@ -168,14 +266,22 @@ function index() {
       formdata.append("corporate_accounts", "");
     }
     formdata.append("client_signature_image", client, client.name);
-    formdata.append(
-      "joint_account_signature_image",
-      jointholder,
-      jointholder.name
-    );
+    if (!jointholder) {
+    } else {
+      formdata.append(
+        "joint_account_signature_image",
+        jointholder,
+        jointholder.name
+      );
+    }
     formdata.append("valid_id_one", validid1, validid1.name);
     formdata.append("valid_id_two", validid2, validid2.name);
-    formdata.append("self_image", profile, profile.name);
+
+    if (webimg) {
+      formdata.append("self_image", webimg, "capture.png");
+    } else {
+      formdata.append("self_image", profile, profile.name);
+    }
 
     const apiUrl_add_account =
       appglobal.api.base_api + appglobal.api.add_account;
@@ -183,43 +289,21 @@ function index() {
     axios
       .post(apiUrl_add_account, formdata, options)
       .then((result) => {
-        for (var pair of formdata.entries()) {
-          console.log(pair[0] + ", " + pair[1]);
-        }
-        console.log(result);
         $("#modalVerify").modal("hide");
-        swal(
-          <div style={{ width: "450px", padding: "20px 8px" }}>
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
-                  <img
-                    src="Image/check.png"
-                    style={{ width: "32px", marginTop: "0px" }}
-                  ></img>
-                </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
-                  <p className="pError">Success</p>
-                  <p className="pErrorSub">Account succesfully created.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+        router.push("/success");
       })
       .catch((err) => {
-        console.log(err);
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
-            <div className="container">
+            <div className="container-fluid">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-sm-10 col-10 col-md-10" style={{ padding: "0px" }}>
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">Your profile cannot be saved.</p>
                 </div>
@@ -227,61 +311,192 @@ function index() {
             </div>
           </div>
         );
+        $("#modalVerify").modal("hide");
       });
   }
 
   function handleFile(e) {
+    var reader = new FileReader();
     let file = e.target.files[0];
-    console.log(file.name);
-    $(".pUploadclient").text(file.name);
-    setClientpic(file.name);
-    setClient(file);
-    $(".divClient").attr("style", "2px solid #9098A9");
+    let size = Math.floor(file.size / 1024 / 1024);
+
+    if (size > 4) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      $(".pUploadclient").text(file.name);
+      setClientpic(file.name);
+      setClient(file);
+      reader.onloadend = function () {
+        $(".imgClientpic").attr("src", reader.result);
+      };
+      reader.readAsDataURL(file);
+
+      $(".divClient").attr("style", "2px solid #9098A9");
+      $(".divUploadclient").show();
+      $(".box").css("height", "auto");
+    }
   }
 
   function handleFile1(e) {
+    var reader = new FileReader();
     let file = e.target.files[0];
-    console.log(file.name);
-    $(".pUploadjoint").text(file.name);
-    setJointholderpic(file.name);
-    setJointholder(file);
-    $(".divJoint").attr("style", "2px solid #9098A9");
+    let size = Math.floor(file.size / 1024 / 1024);
+
+    if (size > 4) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2 col-sm-10 col-md-10 col-10" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      let file = e.target.files[0];
+
+      $(".pUploadjoint").text(file.name);
+      setJointholderpic(file.name);
+      setJointholder(file);
+      $(".divJoint").attr("style", "2px solid #9098A9");
+      reader.onloadend = function () {
+        $(".imgJoint").attr("src", reader.result);
+      };
+      reader.readAsDataURL(file);
+      $(".divUploadjoint").show();
+      $(".box").css("height", "auto");
+    }
   }
 
   function handleFile2(e) {
+    var reader = new FileReader();
     let file = e.target.files[0];
-    console.log(file.name);
-    $(".pUploadvalid1").text(file.name);
-    setValidid1pic(file.name);
-    setValidid1(file);
-    $(".divValid1").attr("style", "2px solid #9098A9");
-  }
+    let size = Math.floor(file.size / 1024 / 1024);
 
-  function handleFile3(e) {
-    let file = e.target.files[0];
-    console.log(file.name);
-    $(".pUploadvalid2").text(file.name);
-    setValidid2pic(file.name);
-    setValidid2(file);
-    $(".divValid2").attr("style", "2px solid #9098A9");
+    if (size > 4) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      if (!validid1) {
+        let file = e.target.files[0];
+
+        $(".pUploadvalid1").text(file.name);
+        setValidid1pic(file.name);
+        setValidid1(file);
+        reader.onloadend = function () {
+          $(".imgValid1").attr("src", reader.result);
+        };
+        reader.readAsDataURL(file);
+        $(".divValid1").attr("style", "2px solid #9098A9");
+        $(".divUploadvalid1").show();
+        $(".box").css("height", "auto");
+      } else {
+        let file = e.target.files[0];
+
+        $(".pUploadvalid2").text(file.name);
+        setValidid2pic(file.name);
+        setValidid2(file);
+        reader.onloadend = function () {
+          $(".imgValid2").attr("src", reader.result);
+        };
+        reader.readAsDataURL(file);
+        $(".divValid2").attr("style", "2px solid #9098A9");
+        $(".divUploadvalid2").show();
+        $(".box").css("height", "auto");
+      }
+    }
   }
 
   function handleFile4(e) {
+    var reader = new FileReader();
     let file = e.target.files[0];
-    console.log(file.name);
-    $(".pProfilepic").text(file.name);
-    setProfilepic(file.name);
-    setProfile(file);
+    let size = Math.floor(file.size / 1024 / 1024);
+
+    if (size > 4) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      let file = e.target.files[0];
+      setWebimg("");
+      $(".pUploadyourself").text(file.name);
+      setProfilepic(file.name);
+      setProfile(file);
+      reader.onloadend = function () {
+        $(".imgProfile").attr("src", reader.result);
+      };
+      reader.readAsDataURL(file);
+      $(".divUploadyourself").show();
+      $(".box").css("height", "auto");
+      $(".divUploadprofile").attr("style", "2px solid #9098A9");
+    }
   }
 
   function setAccount(e) {
+    setAccounttypetext(e.currentTarget.id);
     setAccounttype(e.currentTarget.className);
-    console.log(e.currentTarget.className);
   }
 
   function changeFname(e) {
     setFname(e.currentTarget.value);
-    console.log(e.currentTarget.value);
+
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
@@ -296,21 +511,19 @@ function index() {
   }
 
   function changeTelnum(e) {
-    if (!Number(e.currentTarget.value)) {
-      return;
-    } else {
-      setTelnum(e.currentTarget.value);
-      $(e.currentTarget).css("border", "1px solid #CECECE");
-    }
+    setTelnum(e.currentTarget.value);
+    $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
   function changeMobilenum(e) {
-    if (!Number(e.currentTarget.value)) {
-      return;
-    } else {
-      setMobilenum(e.currentTarget.value);
-      $(e.currentTarget).css("border", "1px solid #CECECE");
-    }
+    setMobilenum(e.currentTarget.value);
+    $(e.currentTarget).css("border", "1px solid #CECECE");
+  }
+
+  function numOnly(event) {
+    let value = event.currentTarget.value;
+    let numbers = value.replace(/[^0-9]/g, "");
+    event.currentTarget.value = numbers;
   }
 
   function changeBirthplace(e) {
@@ -323,33 +536,23 @@ function index() {
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
-  function changeBirthdate(date) {
-    console.log(moment(date).format("l"));
-    var filter = moment().diff(date, "years");
-    if (filter > 17) {
-      setBirthdate(date);
-    } else {
-      swal(
-        <div style={{ width: "450px", padding: "20px 8px" }}>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-2" style={{ padding: "0px" }}>
-                <img
-                  src="Image/error.png"
-                  style={{ width: "32px", marginTop: "0px" }}
-                ></img>
-              </div>
-              <div className="col-lg-10 " style={{ padding: "0px" }}>
-                <p className="pError">Oooops!</p>
-                <p className="pErrorSub">Must be 18yrs old above.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+  function changeAddress1(e) {
+    setAddress1(e.currentTarget.value);
+    $(e.currentTarget).css("border", "1px solid #CECECE");
+  }
 
-    $(".react-datepicker__input-container").css("border", "1px solid #CECECE");
+    function changeAddress2(e) {
+    setAddress2(e.currentTarget.value);
+    $(e.currentTarget).css("border", "1px solid #CECECE");
+  }
+
+
+
+  function changeBirthdate(date) {
+    var filter = moment().diff(date, "years");
+    setFilterdate(filter);
+
+    setBirthdate(date);
   }
 
   function changetin(e) {
@@ -358,14 +561,16 @@ function index() {
   }
 
   function changeNationality(e) {
-    setNationality(e.currentTarget.value);
-    $(e.currentTarget).css("border", "1px solid #CECECE");
+    setNationality(e.label);
+    setNationalitypick({ value: e.value, label: e.label });
+
+    setErrorselectnationality("");
   }
 
   function changeGender(e) {
     setGender(e.label);
     setGenderpick({ value: e.value, label: e.label });
-    console.log(e.label);
+
     setErrorselectgender("");
   }
 
@@ -390,6 +595,20 @@ function index() {
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
+  function changeBusadd1(e) {
+    setBusadd1(e.currentTarget.value);
+    $(e.currentTarget).css("border", "1px solid #CECECE");
+  }
+
+  function changeBusadd2(e) {
+    setBusadd2(e.currentTarget.value);
+    $(e.currentTarget).css("border", "1px solid #CECECE");
+  }
+
+
+
+  function bankKey(e) {}
+
   function changeBank(e) {
     setBank(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
@@ -412,7 +631,6 @@ function index() {
 
   function changeInvestmentobjective(e) {
     setInvestmentobjective(e.currentTarget.id);
-    console.log(e.currentTarget.className);
   }
 
   function changeSourceoffunds(e) {
@@ -458,6 +676,7 @@ function index() {
   }
 
   function changeUsername(e) {
+    
     setUsername(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
@@ -497,8 +716,283 @@ function index() {
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
+  function removeClientpic() {
+    setClient("");
+    setClientpic("");
+    $(".inputFile1").val("");
+    $(".divUploadclient").hide();
+  }
+
+  function removeValidpic1() {
+    setValidid1("");
+    setValidid1pic("");
+    $(".inputFile3").val("");
+    $(".divUploadvalid1").hide();
+  }
+
+  function removeValidpic2() {
+    setValidid2("");
+    setValidid2pic("");
+    $(".inputFile3").val("");
+    $(".divUploadvalid2").hide();
+  }
+
+  function removeYourself() {
+    setProfile("");
+    setProfilepic("");
+    setWebimg("");
+    $(".inputFile4").val("");
+    $(".divUploadyourself").hide();
+  }
+
+  function removeJoint() {
+    setProfile("");
+    setProfilepic("");
+    $(".inputFile4").val("");
+    $(".divUploadjoint").hide();
+  }
+
+  function viewClient() {
+    $(".imgHide").removeClass("d-flex");
+    $(".imgHide").hide();
+    $(".imgClientpic").addClass("d-flex");
+    $(".imgClientpic").show();
+  }
+
+  function viewValid1() {
+    $(".imgHide").removeClass("d-flex");
+    $(".imgHide").hide();
+    $(".imgValid1").addClass("d-flex");
+    $(".imgValid1").show();
+  }
+
+  function viewValid2() {
+    $(".imgHide").removeClass("d-flex");
+    $(".imgHide").hide();
+    $(".imgValid2").addClass("d-flex");
+    $(".imgValid2").show();
+  }
+
+  function viewJoint() {
+    $(".imgHide").removeClass("d-flex");
+    $(".imgHide").hide();
+    $(".imgJoint").addClass("d-flex");
+    $(".imgJoint").show();
+  }
+
+  function viewProfile() {
+    $(".imgHide").removeClass("d-flex");
+    $(".imgHide").hide();
+    $(".imgProfile").addClass("d-flex");
+    $(".imgProfile").show();
+  }
+
+  function verifyCaptcha(resonse) {
+    setCaptchaverified("true");
+  }
+
+  function testlang() {
+    console.log(captchaverified);
+  }
+
   const listyear = [];
   const listsourcefunds = [];
+
+  const options_nationality = [
+    { value: "Filipino", label: "Filipino" },
+    { value: "Afghan", label: "Afghan" },
+    { value: "Albanian", label: "Albanian" },
+    { value: "Algerian", label: "Algerian" },
+    { value: "Albanian", label: "Albanian" },
+    { value: "American", label: "American" },
+    { value: "Andorran", label: "Andorran" },
+    { value: "Angolan", label: "Angolan" },
+    { value: "Antiguans", label: "Antiguans" },
+    { value: "Argentinean", label: "Argentinean" },
+    { value: "Armenian", label: "Armenian" },
+    { value: "Australian", label: "Australian" },
+    { value: "Azerbaijani", label: "Azerbaijani" },
+    { value: "Bahamian", label: "Bahamian" },
+
+    { value: "Bahraini", label: "Bahraini" },
+    { value: "Bangladeshi", label: "Bangladeshi" },
+    { value: "Barbadian", label: "Barbadian" },
+    { value: "Bahraini", label: "Bahraini" },
+    { value: "Batswana", label: "Batswana" },
+    { value: "Belarusian", label: "Belarusian" },
+    { value: "Belgian", label: "Belgian" },
+    { value: "Belizean", label: "Belizean" },
+    { value: "Beninese", label: "Beninese" },
+    { value: "Bhutanese", label: "Bhutanese" },
+    { value: "Bolivian", label: "Bolivian" },
+    { value: "Bosnian", label: "Bosnian" },
+    { value: "Brazilian", label: "Brazilian" },
+    { value: "British", label: "British" },
+    { value: "Bruneian", label: "Bruneian" },
+    { value: "Bulgarian", label: "Bulgarian" },
+    { value: "Burkinabe", label: "Burkinabe" },
+    { value: "Burmese", label: "Burmese" },
+    { value: "Burundian", label: "Burundian" },
+    { value: "Cambodian", label: "Cambodian" },
+    { value: "Cameroonian", label: "Cameroonian" },
+    { value: "Canadian", label: "Canadian" },
+    { value: "Cape Verdean", label: "Cape Verdean" },
+    { value: "Central African", label: "Central African" },
+    { value: "Chadian", label: "Chadian" },
+    { value: "Chilean", label: "Chilean" },
+    { value: "Chinese", label: "Chinese" },
+    { value: "Colombian", label: "Colombian" },
+    { value: "Comoran", label: "Comoran" },
+    { value: "Congolese", label: "Congolese" },
+    { value: "Costa Rican", label: "Costa Rican" },
+    { value: "Croatian", label: "Croatian" },
+    { value: "Cuban", label: "Cuban" },
+    { value: "Cypriot", label: "Cypriot" },
+    { value: "Czech", label: "Czech" },
+    { value: "Danish", label: "Danish" },
+    { value: "Djibouti", label: "Djibouti" },
+    { value: "Dominican", label: "Dominican" },
+    { value: "Dutch", label: "Dutch" },
+    { value: "East Timorese", label: "East Timorese" },
+    { value: "Ecuadorean", label: "Ecuadorean" },
+    { value: "Egyptian", label: "Egyptian" },
+    { value: "Emirian", label: "Emirian" },
+    { value: "Equatorial Guinean", label: "Equatorial Guinean" },
+    { value: "Eritrea", label: "Eritrea" },
+    { value: "Estonian", label: "Estonian" },
+    { value: "Ethiopian", label: "Ethiopian" },
+    { value: "Fijian", label: "Fijian" },
+    { value: "Filipino", label: "Filipino" },
+    { value: "Finnish", label: "Finnish" },
+    { value: "French", label: "French" },
+    { value: "Gabonese", label: "Gabonese" },
+    { value: "Gambian", label: "Gambian" },
+    { value: "Georgian", label: "Georgian" },
+    { value: "German", label: "German" },
+    { value: "Ghanaian", label: "Ghanaian" },
+    { value: "Greek", label: "Greek" },
+    { value: "Grenadian", label: "Grenadian" },
+    { value: "Guatemalan", label: "Guatemalan" },
+    { value: "Guinea-Bissauan", label: "Guinea-Bissauan" },
+    { value: "Guinean", label: "Guinean" },
+    { value: "Guyanese", label: "Guyanese" },
+    { value: "Haitian", label: "Haitian" },
+    { value: "Herzegovinian", label: "Herzegovinian" },
+    { value: "Honduran", label: "Honduran" },
+    { value: "Hungarian", label: "Hungarian" },
+    { value: "Icelander", label: "Icelander" },
+    { value: "Indian", label: "Indian" },
+    { value: "Indonesian", label: "Indonesian" },
+    { value: "Iranian", label: "Iranian" },
+    { value: "Iraqi", label: "Iraqi" },
+    { value: "Irish", label: "Irish" },
+    { value: "Israeli", label: "Israeli" },
+    { value: "Italian", label: "Italian" },
+    { value: "Ivorian", label: "Ivorian" },
+    { value: "Jamaican", label: "Jamaican" },
+    { value: "Japanese", label: "Japanese" },
+    { value: "Jordanian", label: "Jordanian" },
+    { value: "Kazakhstani", label: "Kazakhstani" },
+    { value: "Kenyan", label: "Kenyan" },
+    { value: "Kittian and Nevisian", label: "Kittian and Nevisian" },
+    { value: "Kuwaiti", label: "Kuwaiti" },
+    { value: "Kyrgyz", label: "Kyrgyz" },
+    { value: "Laotian", label: "Laotian" },
+    { value: "Latvian", label: "Latvian" },
+    { value: "Lebanese", label: "Lebanese" },
+    { value: "Liberian", label: "Liberian" },
+    { value: "Libyan", label: "Libyan" },
+    { value: "Liechtensteiner", label: "Liechtensteiner" },
+    { value: "Lithuanian", label: "Lithuanian" },
+    { value: "Luxembourger", label: "Luxembourger" },
+    { value: "Macedonian", label: "Macedonian" },
+    { value: "Malagasy", label: "Malagasy" },
+    { value: "Malawian", label: "Malawian" },
+    { value: "Malaysian", label: "Malaysian" },
+    { value: "Maldivan", label: "Maldivan" },
+    { value: "Malian", label: "Malian" },
+    { value: "Maltese", label: "Maltese" },
+    { value: "Marshallese", label: "Marshallese" },
+    { value: "Mauritanian", label: "Mauritanian" },
+    { value: "Mauritian", label: "Mauritian" },
+    { value: "Mexican", label: "Mexican" },
+    { value: "Micronesian", label: "Micronesian" },
+    { value: "Moldovan", label: "Moldovan" },
+    { value: "Monacan", label: "Monacan" },
+    { value: "Mongolian", label: "Mongolian" },
+    { value: "Moroccan", label: "Moroccan" },
+    { value: "Mosotho", label: "Mosotho" },
+    { value: "Motswana", label: "Motswana" },
+    { value: "Mozambican", label: "Mozambican" },
+    { value: "Namibian", label: "Namibian" },
+    { value: "Nauruan", label: "Nauruan" },
+    { value: "Nepalese", label: "Nepalese" },
+    { value: "New Zealander", label: "New Zealander" },
+    { value: "Ni-Vanuatu", label: "Ni-Vanuatu" },
+    { value: "Nicaraguan", label: "Nicaraguan" },
+    { value: "North Korean", label: "North Korean" },
+    { value: "Northern Irish", label: "Northern Irish" },
+    { value: "Norwegian", label: "Norwegian" },
+    { value: "Omani", label: "Omani" },
+    { value: "Pakistani", label: "Pakistani" },
+    { value: "Palauan", label: "Palauan" },
+    { value: "Panamanian", label: "Panamanian" },
+    { value: "Papua New Guinean", label: "Papua New Guinean" },
+    { value: "Paraguayan", label: "Paraguayan" },
+    { value: "Peruvian", label: "Peruvian" },
+    { value: "Polish", label: "Polish" },
+    { value: "Portuguese", label: "Portuguese" },
+    { value: "Qatari", label: "Qatari" },
+    { value: "Romanian", label: "Romanian" },
+    { value: "Russian", label: "Russian" },
+    { value: "Rwandan", label: "Rwandan" },
+    { value: "Saint Lucian", label: "Saint Lucian" },
+    { value: "Salvadoran", label: "Salvadoran" },
+    { value: "Samoan", label: "Samoan" },
+    { value: "San Marinese", label: "San Marinese" },
+    { value: "Sao Tomean", label: "Sao Tomean" },
+    { value: "Saudi", label: "Saudi" },
+    { value: "Scottish", label: "Scottish" },
+    { value: "Senegalese", label: "Senegalese" },
+    { value: "Serbian", label: "Serbian" },
+    { value: "Seychellois", label: "Seychellois" },
+    { value: "Sierra Leonean", label: "Sierra Leonean" },
+    { value: "Singaporean", label: "Singaporean" },
+    { value: "Slovakian", label: "Slovakian" },
+    { value: "Slovenian", label: "Slovenian" },
+    { value: "Solomon Islander", label: "Solomon Islander" },
+    { value: "Somali", label: "Somali" },
+    { value: "South African", label: "South African" },
+    { value: "South Korean", label: "South Korean" },
+    { value: "Spanish", label: "Spanish" },
+    { value: "Sri Lankan", label: "Sri Lankan" },
+    { value: "Sudanese", label: "Sudanese" },
+    { value: "Surinamer", label: "Surinamer" },
+    { value: "Swazi", label: "Swazi" },
+    { value: "Swedish", label: "Swedish" },
+    { value: "Swiss", label: "Swiss" },
+    { value: "Syrian", label: "Syrian" },
+    { value: "Taiwanese", label: "Taiwanese" },
+    { value: "Tajik", label: "Tajik" },
+    { value: "Tanzanian", label: "Tanzanian" },
+    { value: "Thai", label: "Thai" },
+    { value: "Togolese", label: "Togolese" },
+    { value: "Tongan", label: "Tongan" },
+    { value: "Trinidadian or Tobagonian", label: "Trinidadian or Tobagonian" },
+    { value: "Tunisian", label: "Tunisian" },
+    { value: "Turkish", label: "Turkish" },
+    { value: "Tuvaluan", label: "Tuvaluan" },
+    { value: "Ugandan", label: "Ugandan" },
+    { value: "Ukrainian", label: "Ukrainian" },
+    { value: "Uruguayan", label: "Uruguayan" },
+    { value: "Uzbekistani", label: "Uzbekistani" },
+    { value: "Venezuelan", label: "Venezuelan" },
+    { value: "Vietnamese", label: "Vietnamese" },
+    { value: "Welsh", label: "Welsh" },
+    { value: "Yemenite", label: "Yemenite" },
+    { value: "Zambian", label: "Zambian" },
+    { value: "Zimbabwean", label: "Zimbabwean" },
+  ];
 
   const options_gender = [
     { value: "Male", label: "Male" },
@@ -585,13 +1079,13 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">Please select an account type.</p>
                 </div>
@@ -604,17 +1098,16 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-sm-10 col-md-10 col-10" style={{ padding: "0px" }}>
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">
-                    Please aggree to our terms and conditions and privacy
-                    policy.
+                    Please agree to our terms and conditions and privacy policy.
                   </p>
                 </div>
               </div>
@@ -622,29 +1115,20 @@ function index() {
           </div>
         );
       } else {
+        $(".divForm11").fadeIn(200);
+        $(".divForm1").hide();
+        $(".box").css("height", "300px");
+        $(window).scrollTop(0);
         if ($(window).width() < 501) {
-          $(".imgRight").css("width", "50%");
-          $(".colImage").addClass("col-sm-4 col-4");
-          $(".box").css("margin-top", "50px");
-          $(".circle2").addClass("circleactivemobile");
-          $(".circle1").addClass("circlenotactivemobile");
+          $(".imgRight").css("width", "70%");
+          $(".colImage").removeClass("col-sm-4 col-4");
         } else {
           $(".imgRight").css("width", "auto");
-          $(".imgCircle2").css("width", "25px");
-          $(".imgCircle1").css("width", "15px");
-          $(".circle2").removeClass("circlenotactive");
-          $(".circle1").addClass("circlenotactive");
         }
-        $(".colLeft").removeClass("col-lg-6");
-        $(".colLeft").addClass("col-lg-8");
-        $(".colRight").removeClass("col-lg-6");
-        $(".colRight").addClass("col-lg-4");
-        $(".divForm2").fadeIn(200);
-        $(".divForm1").hide();
-        $(".box").css("height", "500px");
+        $(".imgRight").css("width", "80%");
         $(".imgRight").addClass("animate__animated animate__zoomIn");
-        $(".imgRight").attr("src", "Image/form2.svg");
-        $(".pForm1").fadeIn(200);
+        $(".imgRight").attr("src", "Image/phone1.png");
+        $(".pForm").hide();
 
         $(window).scrollTop(0);
         $(".colBack").show();
@@ -658,22 +1142,24 @@ function index() {
         !mobilenum ||
         !birthplace ||
         !address ||
-        !birthtDate
+        !birthtDate ||
+        !address1 ||
+        !address2
       ) {
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
-                    Please fill up all the missing fields.
+                    Please fill out all the missing fields.
                   </p>
                 </div>
               </div>
@@ -693,23 +1179,30 @@ function index() {
             "1px solid red"
           );
         }
-      } else {
-        $(".divForm3").fadeIn(200);
-        $(".divForm2").hide();
-        $(".box").css("height", "450px");
-        $(".box").css("margin-top", "-40px");
-        $(window).scrollTop(0);
-      }
-    } else if ($(".divForm3").css("display") == "block") {
-      if (
-        !gender ||
-        !tin ||
-        !nationality ||
-        !civilstatus ||
-        !employer ||
-        !jobtitle ||
-        !busadd
-      ) {
+      } else if (filterdate < 18) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">Must be 18 years old above.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        $(".react-datepicker__input-container").css(
+          "border",
+          "1px solid #CECECE"
+        );
+      } else if (filterdate > 100) {
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
@@ -723,7 +1216,50 @@ function index() {
                 <div className="col-lg-10 " style={{ padding: "0px" }}>
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
-                    Please fill up all the missing fields.
+                    Age should not be over 100 years old.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        $(".react-datepicker__input-container").css(
+          "border",
+          "1px solid #CECECE"
+        );
+      } else {
+        $(".divForm3").fadeIn(200);
+        $(".divForm2").hide();
+        $(".box").css("height", "auto");
+        $(".box").css("margin-top", "-40px");
+        $(window).scrollTop(0);
+      }
+    } else if ($(".divForm3").css("display") == "block") {
+      if (
+        !gender ||
+        !tin ||
+        !nationality ||
+        !civilstatus ||
+        !employer ||
+        !jobtitle ||
+        !busadd || 
+        !busadd1 ||
+        !busadd2
+      ) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">
+                    Please fill out all the missing fields.
                   </p>
                 </div>
               </div>
@@ -744,6 +1280,9 @@ function index() {
         if (!civilstatus) {
           setErrorselectcivil("1");
         }
+        if (!nationality) {
+          setErrorselectnationality("1");
+        }
       } else {
         if ($(window).width() < 501) {
           $(".imgRight").css("width", "50%");
@@ -761,7 +1300,7 @@ function index() {
         }
         $(".divForm4").fadeIn(200);
         $(".divForm3").hide();
-        $(".box").css("height", "520px");
+        $(".box").css("height", "auto");
 
         $(".pForm").hide();
         $(".box").css("margin-top", "10px");
@@ -780,16 +1319,16 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
-                    Please fill up all the missing fields.
+                    Please fill out all the missing fields.
                   </p>
                 </div>
               </div>
@@ -806,7 +1345,7 @@ function index() {
       } else {
         $(".divForm5").fadeIn(200);
         $(".divForm4").hide();
-        $(".box").css("height", "550px");
+        $(".box").css("height", "auto");
         $(window).scrollTop(0);
       }
     } else if ($(".divForm5").css("display") == "block") {
@@ -815,16 +1354,16 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
-                    Please fill up all the missing fields.
+                    Please fill out all the missing fields.
                   </p>
                 </div>
               </div>
@@ -841,23 +1380,21 @@ function index() {
         $(window).scrollTop(0);
       }
     } else if ($(".divForm6").css("display") == "block") {
-      console.log(associated);
-      console.log(officer);
       if (!associated || !officer) {
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2" style={{ padding: "0px" }}>
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
-                    Please fill up all the missing fields.
+                    Please fill out all the missing fields.
                   </p>
                 </div>
               </div>
@@ -866,8 +1403,48 @@ function index() {
         );
       } else if (associated == "1" && !associatedcompany) {
         $(".txtass").css("border", "1px solid red");
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">
+                    Please fill out all the missing fields.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       } else if (officer == "1" && !officername) {
         $(".txtofficername").css("border", "1px solid red");
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">
+                    Please fill out all the missing fields.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       } else {
         if (accounttype == "3") {
           $(".colLeft").removeClass("col-lg-8");
@@ -897,7 +1474,7 @@ function index() {
           $(".colRight").addClass("col-lg-6");
           $(".divForm8").fadeIn(200);
           $(".divForm6").hide();
-          $(".box").css("height", "350px");
+          $(".box").css("height", "auto");
           $(window).scrollTop(0);
         }
       }
@@ -956,25 +1533,72 @@ function index() {
         }
         $(".divForm8").fadeIn(200);
         $(".divForm7").hide();
-        $(".box").css("height", "350px");
+        $(".box").css("height", "auto");
         $(window).scrollTop(0);
       }
     } else if ($(".divForm8").css("display") == "block") {
       if (!clientpic) {
         $(".divClient").attr("style", "border: 2px dashed red !important");
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                  <p className="pError">Something went wrong</p>
+                  <p className="pErrorSub">
+                  Please upload a file with extension Jpg and Png.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       } else {
-        $(".divForm9").fadeIn(200);
-        $(".divForm8").hide();
-        $(".box").css("height", "350px");
-        $(window).scrollTop(0);
+        if (accounttypetext == "Joint") {
+          $(".divForm9").fadeIn(200);
+          $(".divForm8").hide();
+          $(".box").css("height", "auto");
+          $(window).scrollTop(0);
+        } else {
+          $(".divForm10").fadeIn(200);
+          $(".divForm8").hide();
+          $(".box").css("height", "auto");
+          $(window).scrollTop(0);
+        }
       }
     } else if ($(".divForm9").css("display") == "block") {
       if (!jointholderpic) {
         $(".divJoint").attr("style", "border: 2px dashed red !important");
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-sm-10 col-md-10 col-10" style={{ padding: "0px" }}>
+                  <p className="pError">Something went wrong</p>
+                  <p className="pErrorSub">
+                  Please upload a file with extension Jpg and Png.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       } else {
         $(".divForm10").fadeIn(200);
         $(".divForm9").hide();
-        $(".box").css("height", "450px");
+        $(".box").css("height", "auto");
         $(window).scrollTop(0);
       }
     } else if ($(".divForm10").css("display") == "block") {
@@ -983,25 +1607,42 @@ function index() {
           "style",
           "border: 2px dashed red !important"
         );
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                  <p className="pError">Something went wrong</p>
+                  <p className="pErrorSub">
+                  Please upload a file with extension Jpg and Png.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       } else if (!validid1pic) {
         $(".divValid1").attr("style", "border: 2px dashed red !important");
       } else if (!validid2pic) {
         $(".divValid2").attr("style", "border: 2px dashed red !important");
       } else {
-        $(".divForm11").fadeIn(200);
+        $(".pBox").css("font-size", "2.2rem");
+        $(".divForm12").fadeIn(200);
         $(".divForm10").hide();
-        $(".box").css("height", "300px");
-        $(window).scrollTop(0);
-        if ($(window).width() < 501) {
-          $(".imgRight").css("width", "70%");
-          $(".colImage").removeClass("col-sm-4 col-4");
-        } else {
-          $(".imgRight").css("width", "auto");
-        }
         $(".imgRight").css("width", "80%");
         $(".imgRight").addClass("animate__animated animate__zoomIn");
-        $(".imgRight").attr("src", "Image/phone1.png");
+        $(".imgRight").attr("src", "Image/selfie.svg");
+        $(".box").css("height", "auto");
         $(".pForm").hide();
+        $(".pForm8").show();
+        $(".btnNext").html("CREATE");
+        $(window).scrollTop(0);
       }
     } else if ($(".divForm11").css("display") == "block") {
       if (!username || !emailadd) {
@@ -1012,7 +1653,72 @@ function index() {
             $(this).css("border", "1px solid red");
           }
         });
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10  col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">
+                    Please fill out all the missing fields.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      } else if (username.length > 9 || username.length < 3) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">
+                    Username must contain 3 - 8 Characters.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      } else if (!isEmail(emailadd)) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">
+                    Please input a valid email format.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        $(".txtEmail").css("border", "1px solid red");
+        return false;
       } else {
+        $("#modalVerify").modal("show");
         const options = {
           headers: {
             Accept: "application/json, text/plain, */*",
@@ -1031,32 +1737,53 @@ function index() {
             options
           )
           .then((response) => {
-            console.log(response);
-            $(".pBox").css("font-size", "2.2rem");
-            $(".divForm12").fadeIn(200);
+            $("#close-modal").click();
+            if ($(window).width() < 501) {
+              $(".imgRight").css("width", "50%");
+              $(".colImage").addClass("col-sm-4 col-4");
+              $(".box").css("margin-top", "50px");
+              $(".circle2").addClass("circleactivemobile");
+              $(".circle1").addClass("circlenotactivemobile");
+            } else {
+              $(".imgRight").css("width", "auto");
+              $(".imgCircle2").css("width", "25px");
+              $(".imgCircle1").css("width", "15px");
+              $(".circle2").removeClass("circlenotactive");
+              $(".circle1").addClass("circlenotactive");
+            }
+            $(".colLeft").removeClass("col-lg-6");
+            $(".colLeft").addClass("col-lg-8");
+            $(".colRight").removeClass("col-lg-6");
+            $(".colRight").addClass("col-lg-4");
+            $(".divForm2").fadeIn(200);
             $(".divForm11").hide();
-            $(".imgRight").css("width", "80%");
+            $(".box").css("height", "auto");
             $(".imgRight").addClass("animate__animated animate__zoomIn");
-            $(".imgRight").attr("src", "Image/selfie.svg");
-            $(".box").css("height", "315px");
-            $(".pForm").hide();
-            $(".pForm8").show();
-            $(".btnNext").html("CREATE");
+            $(".imgRight").attr("src", "Image/form2.svg");
+            $(".pForm1").fadeIn(200);
+
             $(window).scrollTop(0);
+            $(".colBack").show();
           })
           .catch((err) => {
-            console.log(err.response);
+            $("#close-modal").click();
             swal(
               <div style={{ width: "450px", padding: "20px 8px" }}>
                 <div className="container">
                   <div className="row">
-                    <div className="col-lg-2" style={{ padding: "0px" }}>
+                    <div
+                      className="col-lg-2 col-sm-2 col-2"
+                      style={{ padding: "0px" }}
+                    >
                       <img
                         src="Image/error.png"
                         style={{ width: "32px", marginTop: "0px" }}
                       ></img>
                     </div>
-                    <div className="col-lg-10 " style={{ padding: "0px" }}>
+                    <div
+                      className="col-lg-10 col-sm-10 col-10"
+                      style={{ padding: "0px" }}
+                    >
                       <p className="pError">Oooops!</p>
                       <p className="pErrorSub">{err.response.data.message}</p>
                     </div>
@@ -1066,39 +1793,85 @@ function index() {
             );
           });
       }
-    } else if ($(".divForm12  ").css("display") == "block") {
-      $("#modalVerify").modal("show");
-      saveaccount();
+    } else if ($(".divForm12").css("display") == "block") {
+      if (!profile && !webimg) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">Upload a photo of yourself</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        $(".divUploadprofile").attr(
+          "style",
+          "border: 2px dashed red !important"
+        );
+      } else if (!captchaverified) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 " style={{ padding: "0px" }}>
+                  <p className="pError">Oooops!</p>
+                  <p className="pErrorSub">Invalid captcha response.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      } else {
+        $("#modalVerify").modal("show");
+        saveaccount();
+      }
     }
+  }
+
+  function expiredCaptcha(response) {
+    setCaptchaverified("false");
   }
 
   function prevForm() {
     if ($(".divForm2").css("display") == "block") {
       if ($(window).width() < 501) {
-        $(".imgRight").css("width", "70%");
-        $(".colImage").removeClass("col-sm-4 col-4");
-
-        $(".circle1").addClass("circleactivemobile");
-
-        $(".circle2").removeClass("circleactivemobile");
+        $(".imgRight").css("width", "50%");
+        $(".colImage").addClass("col-sm-4 col-4");
+        $(".box").css("margin-top", "50px");
+        $(".circle2").addClass("circleactivemobile");
+        $(".circle1").addClass("circlenotactivemobile");
       } else {
         $(".imgRight").css("width", "auto");
+        $(".imgCircle2").css("width", "25px");
+        $(".imgCircle1").css("width", "15px");
+        $(".circle2").removeClass("circlenotactive");
+        $(".circle1").addClass("circlenotactive");
       }
       $(".colLeft").removeClass("col-lg-8");
       $(".colLeft").addClass("col-lg-6");
       $(".colRight").removeClass("col-lg-4");
       $(".colRight").addClass("col-lg-6");
-      $(".divForm1").fadeIn(200);
+      $(".divForm11").fadeIn(200);
       $(".divForm2").hide();
-      $(".box").css("height", "350px");
+      $(".box").css("height", "auto");
       $(".imgRight").addClass("animate__animated animate__zoomIn");
-      $(".imgRight").attr("src", "Image/phone1.png");
-      $(".pForm").hide();
-      $(".imgCircle1").css("width", "25px");
-      $(".imgCircle2").css("width", "15px");
-      $(".circle1").removeClass("circlenotactive");
-      $(".circle2").addClass("circlenotactive");
-      $(".colBack").hide();
+      $(".imgRight").attr("src", "Image/form2.svg");
+      $(".pForm1").fadeIn(200);
     } else if ($(".divForm3").css("display") == "block") {
       $(".divForm2").fadeIn(200);
       $(".divForm3").hide();
@@ -1151,13 +1924,11 @@ function index() {
     } else if ($(".divForm8").css("display") == "block") {
       if (accounttype == "3") {
         newcorporate.length = 0;
-        console.log("namo ka");
+
         $(".divForm7").fadeIn(200);
         $(".divForm8").hide();
         $(".box").css("height", "450px");
       } else {
-        console.log(accounttype);
-        console.log("pota lang");
         if ($(window).width() < 501) {
           $(".imgRight").css("width", "50%");
           $(".colImage").addClass("col-sm-4 col-4");
@@ -1180,27 +1951,47 @@ function index() {
     } else if ($(".divForm9").css("display") == "block") {
       $(".divForm8").fadeIn(200);
       $(".divForm9").hide();
-      $(".box").css("height", "350px");
+      $(".box").css("height", "auto");
     } else if ($(".divForm10").css("display") == "block") {
-      $(".divForm9").fadeIn(200);
-      $(".divForm10").hide();
-      $(".box").css("height", "350px");
+      if (accounttypetext == "Joint") {
+        $(".divForm9").fadeIn(200);
+        $(".divForm10").hide();
+        $(".box").css("height", "auto");
+      } else {
+        $(".divForm8").fadeIn(200);
+        $(".divForm10").hide();
+        $(".box").css("height", "auto");
+      }
     } else if ($(".divForm11").css("display") == "block") {
       if ($(window).width() < 501) {
-        $(".imgRight").css("width", "50%");
+        $(".imgRight").css("width", "70%");
+        $(".colImage").removeClass("col-sm-4 col-4");
+
+        $(".circle1").addClass("circleactivemobile");
+
+        $(".circle2").removeClass("circleactivemobile");
       } else {
         $(".imgRight").css("width", "auto");
       }
-      $(".imgRight").addClass("animate__animated animate__zoomIn");
-      $(".imgRight").attr("src", "Image/form7.svg");
-      $(".pForm7").show();
-      $(".divForm10").fadeIn(200);
+      $(".colLeft").removeClass("col-lg-8");
+      $(".colLeft").addClass("col-lg-6");
+      $(".colRight").removeClass("col-lg-4");
+      $(".colRight").addClass("col-lg-6");
+      $(".divForm1").fadeIn(200);
       $(".divForm11").hide();
-      $(".box").css("height", "450px");
+      $(".box").css("height", "350px");
+      $(".imgRight").addClass("animate__animated animate__zoomIn");
+      $(".imgRight").attr("src", "Image/phone1.png");
+      $(".pForm").hide();
+      $(".imgCircle1").css("width", "25px");
+      $(".imgCircle2").css("width", "15px");
+      $(".circle1").removeClass("circlenotactive");
+      $(".circle2").addClass("circlenotactive");
+      $(".colBack").hide();
     } else if ($(".divForm12").css("display") == "block") {
-      $(".divForm11").fadeIn(200);
+      $(".divForm10").fadeIn(200);
       $(".divForm12").hide();
-      $(".box").css("height", "300px");
+      $(".box").css("height", "auto");
       $(".imgRight").addClass("animate__animated animate__zoomIn");
       $(".imgRight").attr("src", "Image/Phone.png");
       $(".pForm").hide();
@@ -1220,9 +2011,38 @@ function index() {
 
       listyear.push({ value: year, label: year });
     }
+
+    
   }
 
   useEffect(() => {
+
+    
+    
+
+
+    navigator.getMedia =
+      navigator.getUserMedia || // use the proper vendor prefix
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia;
+
+    navigator.getMedia(
+      { video: true },
+      function () {},
+      function () {
+        setErrorcamera("true");
+      }
+    );
+
+    console.log(window.location.host);
+
+    if (window.location.hose == "signup.aaa-equities.com.ph") {
+      setSitekey("6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi");
+    } else {
+      setSitekey("6LdRr3EaAAAAAPesAXqAcOtWx_acUh9IpDAdtzse");
+    }
+
     const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -1247,35 +2067,27 @@ function index() {
     axios
       .get(apiUrl_fetch_accounts, {}, options)
       .then((result) => {
-        console.log(result);
         setListaccounttype(result.data.data);
         setError1("1");
       })
       .catch((err) => {
         setError1("2");
-        console.log(err);
       });
     axios
       .get(apiUrl_investment_objectives, {}, options)
       .then((result) => {
-        console.log(result);
         setError7("1");
         setListinvestmentobjectives(result.data.data);
       })
       .catch((err) => {
         setError1("2");
-        console.log(err);
       });
 
     axios
       .get(apiUrl_source_of_funds, {}, options)
       .then((response) => {
-        console.log(response.data.data.length);
         const funds = [];
         for (var i = 0; i < response.data.data.length; i++) {
-          console.log(
-            response.data.data[i].id + " " + response.data.data[i].name
-          );
           funds.push({
             value: response.data.data[i].id,
             label: response.data.data[i].name,
@@ -1291,50 +2103,53 @@ function index() {
     axios
       .get(apiUrl_investment_objectives, {}, options)
       .then((result) => {
-        console.log(result);
         setListinvestmentobjectives(result.data.data);
         setError3("1");
       })
       .catch((err) => {
-        console.log(err);
         setError3("2");
       });
 
     axios
       .get(apiUrl_total_assets, {}, options)
       .then((result) => {
-        console.log(result);
         setlistTotalassets(result.data.data);
         setError4("1");
       })
       .catch((err) => {
-        console.log(err);
         setError4("2");
       });
 
     axios
       .get(apiUrl_annual_income, {}, options)
       .then((result) => {
-        console.log(result);
         setListannualincome(result.data.data);
         setError5("1");
       })
       .catch((err) => {
-        console.log(err);
         setError5("2");
       });
 
     axios
       .get(apiUrl_net_worth, {}, options)
       .then((result) => {
-        console.log(result);
         setListnetworth(result.data.data);
         setError6("1");
       })
       .catch((err) => {
-        console.log(err);
         setError6("2");
       });
+  }, []);
+  function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
+
+  useEffect(() => {
+    console.log(
+      "%cStop!",
+      "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;"
+    );
   }, []);
 
   useEffect(() => {
@@ -1359,13 +2174,13 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2" style={{ padding: "0px" }}>
+              <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 " style={{ padding: "0px" }}>
+              <div className="col-lg-10 col-10 col-sm-10 col-md-10" style={{ padding: "0px" }}>
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">Please refresh the website.</p>
               </div>
@@ -1432,14 +2247,10 @@ function index() {
               </div>
 
               <div className="divForm1">
-                <p className="pBox">Account Type</p>
-              <div
-                    className="g-recaptcha"
-                    data-sitekey="6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi"
-                    data-callback= "verifyCaptcha"
-                  
-                  />
-                
+                <p className="pBox" onClick={testlang}>
+                  Account Type
+                </p>
+
                 <div className="cntr">
                   {listaccounttype.map((item) => (
                     <label htmlFor={item.name} className="btn-radio">
@@ -1478,10 +2289,16 @@ function index() {
                         <polyline points="1.5 6 4.5 9 10.5 1" />
                       </svg>
                     </span>
+                  </label>
+                  <a
+                    target="_blank"
+                    href="https://aaa-equities.com.ph/terms-conditions/"
+                  >
                     <span className="pCheck">
                       I agree to the terms and conditions
                     </span>
-                  </label>
+                  </a>
+                  <br></br>
                   <input
                     className="inp-cbx"
                     id="cbx1"
@@ -1494,14 +2311,22 @@ function index() {
                         <polyline points="1.5 6 4.5 9 10.5 1" />
                       </svg>
                     </span>
+                  </label>
+                  <a
+                    target="_blank"
+                    href="https://aaa-equities.com.ph/privacy-policy/"
+                  >
                     <span className="pCheck">
                       I have read the privacy policy
                     </span>
-                  </label>
+                  </a>
                 </div>
               </div>
               <div className="divForm2">
                 <p className="pBox">Personal Information</p>
+                <p className="pBoxSub1" style={{ fontWeight: "normal" }}>
+                  Fields marked with * are mandatory
+                </p>
                 <div className="row" style={{ marginTop: "10px" }}>
                   <div className="col-lg-6">
                     <input
@@ -1510,7 +2335,7 @@ function index() {
                       value={fname}
                       autocomplete="false"
                       onChange={changeFname}
-                      placeholder="First name"
+                      placeholder="First name *"
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1520,7 +2345,7 @@ function index() {
                       value={mname}
                       autocomplete="false"
                       onChange={changeMname}
-                      placeholder="Middle name"
+                      placeholder="Middle name *"
                     ></input>
                   </div>
                 </div>
@@ -1532,7 +2357,7 @@ function index() {
                       value={lname}
                       autocomplete="false"
                       onChange={changeLname}
-                      placeholder="Last name"
+                      placeholder="Last name *"
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1541,8 +2366,14 @@ function index() {
                       className="txtBox txtForm2"
                       value={telnum}
                       autocomplete="false"
+                      onKeyPress={(event) => {
+                        if (!/[0-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
+                      onInput={numOnly}
                       onChange={changeTelnum}
-                      placeholder="Telephone number"
+                      placeholder="Telephone number *"
                     ></input>
                   </div>
                 </div>
@@ -1553,8 +2384,14 @@ function index() {
                       className="txtBox txtForm2"
                       value={mobilenum}
                       autocomplete="false"
+                      onKeyPress={(event) => {
+                        if (!/[0-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
+                      onInput={numOnly}
                       onChange={changeMobilenum}
-                      placeholder="Mobile number"
+                      placeholder="Mobile number *"
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -1564,19 +2401,45 @@ function index() {
                       value={birthplace}
                       autocomplete="false"
                       onChange={changeBirthplace}
-                      placeholder="Birthplace"
+                      onKeyPress={(event) => {
+                        if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
+                        } else {
+                          event.preventDefault();
+                        }
+                      }}
+                      placeholder="Birthplace *"
                     ></input>
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: "10px" }}>
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <input
                       type="text"
                       className="txtBox txtForm2"
                       value={address}
                       autocomplete="false"
                       onChange={changeAddress}
-                      placeholder="Residential address"
+                      placeholder="Home address *"
+                    ></input>
+                  </div>
+                  <div className="col-lg-4">
+                    <input
+                      type="text"
+                      className="txtBox txtForm2"
+                      value={address1}
+                      autocomplete="false"
+                      onChange={changeAddress1}
+                      placeholder="Subdivision/Barangay *"
+                    ></input>
+                  </div>
+                  <div className="col-lg-4">
+                    <input
+                      type="text"
+                      className="txtBox txtForm2"
+                      value={address2}
+                      autocomplete="false"
+                      onChange={changeAddress2}
+                      placeholder="City/Province *"
                     ></input>
                   </div>
                 </div>
@@ -1589,36 +2452,53 @@ function index() {
                   </div>
                   <div className="col-lg-4 col-md-4">
                     <DatePicker
-                      placeholderText="Click to select a date"
+                      placeholderText="YYYY/MM/DD *"
                       dateFormat="yyyy/MM/dd"
                       selected={birthtDate}
                       onChange={changeBirthdate}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
                   </div>
                 </div>
               </div>
               <div className="divForm3">
                 <p className="pBox">Personal Information</p>
+                <p className="pBoxSub1" style={{ fontWeight: "normal" }}>
+                  Fields marked with * are mandatory
+                </p>
                 <div className="row" style={{ marginTop: "10px" }}>
                   <div className="col-lg-6">
                     <input
                       type="text"
                       className="txtBox txtForm3"
-                      placeholder="TIN"
+                      placeholder="TIN *"
                       value={tin}
                       autocomplete="false"
+                      onKeyPress={(event) => {
+                        if (!/[0-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
+                      maxLength = "9"
+                      onInput={numOnly}
                       onChange={changetin}
                     ></input>
                   </div>
                   <div className="col-lg-6">
-                    <input
-                      type="text"
-                      className="txtBox txtForm3"
-                      placeholder="Nationality"
-                      autocomplete="false"
-                      value={nationality}
+                    <Select
+                      options={options_nationality}
+                      styles={
+                        errorselectnationality
+                          ? customStyles_error
+                          : customStyles
+                      }
+                      value={nationalitypick}
                       onChange={changeNationality}
-                    ></input>
+                      placeholder = "Filipino"
+                    />
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: "18px" }}>
@@ -1630,7 +2510,7 @@ function index() {
                       }
                       value={genderpick}
                       onChange={changeGender}
-                      placeholder="Gender"
+                      placeholder="Gender *"
                     />
                   </div>
                   <div className="col-lg-6">
@@ -1641,7 +2521,7 @@ function index() {
                       }
                       value={civilstatuspick}
                       onChange={changeCivil}
-                      placeholder="Civil Status"
+                      placeholder="Civil Status *"
                     />
                   </div>
                 </div>
@@ -1650,7 +2530,7 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtForm3"
-                      placeholder="Employer"
+                      placeholder="Employer *"
                       autocomplete="false"
                       value={employer}
                       onChange={changeEmployer}
@@ -1661,21 +2541,41 @@ function index() {
                       type="text"
                       className="txtBox txtForm3"
                       autocomplete="false"
-                      placeholder="Job title"
+                      placeholder="Job title *"
                       value={jobtitle}
                       onChange={changeJobtitle}
                     ></input>
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: "10px" }}>
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <input
                       type="text"
                       autocomplete="false"
                       className="txtBox txtForm3"
-                      placeholder="Business address"
+                      placeholder="Business address *"
                       value={busadd}
                       onChange={changeBusadd}
+                    ></input>
+                  </div>
+                  <div className="col-lg-4">
+                    <input
+                      type="text"
+                      autocomplete="false"
+                      className="txtBox txtForm3"
+                      placeholder="Subdivision/Barangay *"
+                      value={busadd1}
+                      onChange={changeBusadd1}
+                    ></input>
+                  </div>
+                  <div className="col-lg-4">
+                    <input
+                      type="text"
+                      autocomplete="false"
+                      className="txtBox txtForm3"
+                      placeholder="City/Province *"
+                      value={busadd2}
+                      onChange={changeBusadd2}
                     ></input>
                   </div>
                 </div>
@@ -1688,9 +2588,15 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtForm4"
-                      placeholder="Bank"
+                      placeholder="Bank *"
                       autocomplete="false"
                       value={bank}
+                      onKeyPress={(event) => {
+                        if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
+                        } else {
+                          event.preventDefault();
+                        }
+                      }}
                       onChange={changeBank}
                     ></input>
                   </div>
@@ -1698,7 +2604,7 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtForm4"
-                      placeholder="Branch"
+                      placeholder="Branch *"
                       autocomplete="false"
                       value={branch}
                       onChange={changeBranch}
@@ -1710,7 +2616,7 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtForm4"
-                      placeholder="Account name"
+                      placeholder="Account name *"
                       autocomplete="false"
                       value={accountname}
                       onChange={changeAccountname}
@@ -1720,9 +2626,15 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtForm4"
-                      placeholder="Account number"
+                      placeholder="Account number *"
                       autocomplete="false"
                       value={accountnumber}
+                      onKeyPress={(event) => {
+                        if (!/[0-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
+                      onInput={numOnly}
                       onChange={changeAccountnumber}
                     ></input>
                   </div>
@@ -1731,7 +2643,7 @@ function index() {
                   Tell us how to help
                 </p>
                 <p className="pBoxSub1" style={{ marginTop: "10px" }}>
-                  Investment Objective
+                  Investment Objective *
                 </p>
                 <div className="row flex" style={{ marginTop: "10px" }}>
                   {listinvestmentobjectives.map((item) => (
@@ -1775,7 +2687,7 @@ function index() {
                       styles={
                         errorselectfunds ? customStyles_error : customStyles
                       }
-                      placeholder="Source of funds"
+                      placeholder="Source of funds *"
                       value={sourceoffundspick}
                       onChange={changeSourceoffunds}
                     />
@@ -1812,7 +2724,7 @@ function index() {
                   ))}
                 </div>
                 <p className="pBoxSub1" style={{ marginTop: "18px" }}>
-                  Annaual Income
+                  Annual Income
                 </p>
                 <div className="row " style={{ marginTop: "10px" }}>
                   {listannualincome.map((item) => (
@@ -2085,17 +2997,49 @@ function index() {
                   ref={inputFileRef}
                   id="file-upload"
                   type="file"
+                  className="inputFile1"
                   accept=".jpg, .png, .jpeg|image"
                   style={{ display: "none" }}
                 />
                 <div className="divUpload divClient" onClick={onBtnClick}>
-                  <img
-                    src="Image/upload.png"
-                    className="img-fluid mx-auto d-flex"
-                  ></img>
-                  <p className="pUpload pUploadclient">
-                    Client Signature over <br /> Printed Name
+                  <p className="pUpload">
+                    <b style={{ color: "#00634A" }}>Browse</b> client signature
+                    over printed Name
                   </p>
+                  <p className="pUpload">Max file size: 4mb</p>
+                  <p className="pUpload">Accepted file type: Jpg and Png</p>
+                </div>
+                <div className="container divUploadclient">
+                  <div className="row">
+                    <div className="col-lg-2 col-sm-2 col-2">
+                      <img
+                        src="Image/jpg.png"
+                        className="img-fluid mx-auto d-flex"
+                        style={{ width: "45px" }}
+                      ></img>
+                    </div>
+                    <div
+                      className="col-lg-10 col-sm-10 col-10"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        src="Image/trash-can.png"
+                        className="imgTrash"
+                        onClick={removeClientpic}
+                      ></img>
+                      <p className="pUploadname pUploadclient">
+                        Sample file.png
+                      </p>
+                      <p
+                        className="pView"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={viewClient}
+                      >
+                        View image
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="divForm9">
@@ -2105,18 +3049,49 @@ function index() {
                   ref={inputFileRef1}
                   id="file-upload"
                   type="file"
+                  className="inputFile2"
                   accept=".jpg, .png, .jpeg|image"
                   style={{ display: "none" }}
                 />
                 <div className="divUpload divJoint" onClick={onBtnClick1}>
-                  <img
-                    src="Image/upload.png"
-                    className="img-fluid mx-auto d-flex"
-                  ></img>
-                  <p className="pUpload pUploadjoint">
-                    Joint Account Holder's
-                    <br /> Siognature over Printed Name
+                  <p className="pUpload">
+                    <b style={{ color: "#00634A" }}>Browse</b> joint account
+                    holder's signature <br></br>over printed name{" "}
                   </p>
+                  <p className="pUpload">Max file size: 4mb</p>
+                  <p className="pUpload">Accepted file type: Jpg and Png</p>
+                </div>
+                <div className="container divUploadjoint">
+                  <div className="row">
+                    <div className="col-lg-2 col-sm-2 col-2">
+                      <img
+                        src="Image/jpg.png"
+                        className="img-fluid mx-auto d-flex"
+                        style={{ width: "45px" }}
+                      ></img>
+                    </div>
+                    <div
+                      className="col-lg-10 col-sm-10 col-10"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        src="Image/trash-can.png"
+                        className="imgTrash"
+                        onClick={removeJoint}
+                      ></img>
+                      <p className="pUploadname pUploadvalid1">
+                        Sample file.png
+                      </p>
+                      <p
+                        className="pView"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={viewJoint}
+                      >
+                        View image
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="divForm10">
@@ -2125,33 +3100,81 @@ function index() {
                   onChange={(e) => handleFile2(e)}
                   ref={inputFileRef2}
                   id="file-upload"
+                  className="inputFile3"
                   type="file"
                   accept=".jpg, .png, .jpeg|image"
                   style={{ display: "none" }}
                 />
                 <div className="divUpload divValid1" onClick={onBtnClick2}>
-                  <img
-                    src="Image/upload.png"
-                    className="img-fluid mx-auto d-flex"
-                  ></img>
-                  <p className="pUpload pUploadvalid1">Upload first ID photo</p>
-                </div>
-                <input
-                  onChange={(e) => handleFile3(e)}
-                  ref={inputFileRef3}
-                  id="file-upload"
-                  type="file"
-                  accept=".jpg, .png, .jpeg|image"
-                  style={{ display: "none" }}
-                />
-                <div className="divUpload divValid2" onClick={onBtnClick3}>
-                  <img
-                    src="Image/upload.png"
-                    className="img-fluid mx-auto d-flex"
-                  ></img>
-                  <p className="pUpload pUploadvalid2">
-                    Upload second ID photo
+                  <p className="pUpload">
+                    <b style={{ color: "#00634A" }}>Browse</b> two valid IDs
                   </p>
+                  <p className="pUpload">Max file size: 4mb</p>
+                  <p className="pUpload">Accepted file type: Jpg and Png</p>
+                </div>
+                <div className="container divUploadvalid1">
+                  <div className="row">
+                    <div className="col-lg-2 col-sm-2 col-2">
+                      <img
+                        src="Image/jpg.png"
+                        className="img-fluid mx-auto d-flex"
+                        style={{ width: "45px" }}
+                      ></img>
+                    </div>
+                    <div
+                      className="col-lg-10 col-sm-10 col-10"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        src="Image/trash-can.png"
+                        className="imgTrash"
+                        onClick={removeValidpic1}
+                      ></img>
+                      <p className="pUploadname pUploadvalid1">
+                        Sample file.png
+                      </p>
+                      <p
+                        className="pView"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={viewValid1}
+                      >
+                        View image
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="container divUploadvalid2">
+                  <div className="row">
+                    <div className="col-lg-2 col-sm-2 col-2">
+                      <img
+                        src="Image/jpg.png"
+                        className="img-fluid mx-auto d-flex"
+                        style={{ width: "45px" }}
+                      ></img>
+                    </div>
+                    <div
+                      className="col-lg-10 col-sm-10 col-10"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        src="Image/trash-can.png"
+                        className="imgTrash"
+                        onClick={removeValidpic2}
+                      ></img>
+                      <p className="pUploadname pUploadvalid2">
+                        Sample file.png
+                      </p>
+                      <p
+                        className="pView"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={viewValid2}
+                      >
+                        View image
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="divForm11">
@@ -2163,7 +3186,17 @@ function index() {
                       className="txtBox txtForm11"
                       placeholder="Username"
                       autocomplete="false"
+                      maxLength = "8"
                       value={username}
+                      onKeyPress={(event) => {
+                        if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
+                        } else {
+                          event.preventDefault();
+                        }
+                      }}
+                      onPaste={(event) => {
+                        event.preventDefault();
+                      }}
                       onChange={changeUsername}
                     ></input>
                   </div>
@@ -2172,7 +3205,7 @@ function index() {
                   <div className="col-lg-6">
                     <input
                       type="text"
-                      className="txtBox txtForm11"
+                      className="txtBox txtForm11 txtEmail"
                       placeholder="Email address"
                       autocomplete="false"
                       value={emailadd}
@@ -2187,17 +3220,67 @@ function index() {
                   onChange={(e) => handleFile4(e)}
                   ref={inputFileRef4}
                   id="file-upload"
+                  className="inputFile4"
                   type="file"
                   accept=".jpg, .png, .jpeg|image"
                   style={{ display: "none" }}
                 />
-                <p className="pBox">Upload a photo of your self</p>
-                <div className="divUpload" onClick={onBtnClick4}>
-                  <img
-                    src="Image/upload.png"
-                    className="img-fluid mx-auto d-flex"
-                  ></img>
-                  <p className="pUpload pProfilepic">Take a photo</p>
+                <p className="pBox">Upload a photo of yourself</p>
+                <div
+                  className="divUpload divUploadprofile"
+                  onClick={onBtnClick4}
+                >
+                  <p className="pUpload">
+                    <b style={{ color: "#00634A" }}>Browse</b> a photo of
+                    yourself{" "}
+                  </p>
+                  <p className="pUpload">Max file size: 4mb</p>
+                  <p className="pUpload">Accepted file type: Jpg and Png</p>
+                </div>
+                <div className = "form-inline">
+                  <img src = "Image/webcam.png" className = "img-fluid" style = {{width: "18px", marginRight: "8px"}}></img>
+                  <p className="pWebcam" onClick={trylang}>
+                  Open webcam
+                </p>
+                </div>
+                <div className="container divUploadyourself">
+                  <div className="row">
+                    <div className="col-lg-2 col-sm-2 col-2">
+                      <img
+                        src="Image/jpg.png"
+                        className="img-fluid mx-auto d-flex"
+                        style={{ width: "45px" }}
+                      ></img>
+                    </div>
+                    <div
+                      className="col-lg-10 col-sm-10 col-10"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        src="Image/trash-can.png"
+                        className="imgTrash"
+                        onClick={removeYourself}
+                      ></img>
+                      <p className="pUploadname pUploadyourself">
+                        Sample file.png
+                      </p>
+                      <p
+                        className="pView"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={viewProfile}
+                      >
+                        View image
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ marginTop: "12px" }}>
+                  <ReCAPTCHA
+                    sitekey="6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi"
+                    onChange={verifyCaptcha}
+                    onBtnClick={expiredCaptcha}
+                  />
                 </div>
               </div>
               <div className="row" style={{ marginTop: "15px" }}>
@@ -2247,7 +3330,7 @@ function index() {
         </div>
       </div>
       <div
-        className="modal fade"
+        className="modal "
         id="modalVerify"
         data-backdrop="static"
         data-keyboard="false"
@@ -2257,7 +3340,7 @@ function index() {
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
+          <div className="modal-content modalBorder">
             <div className="modal-body">
               <div className="container">
                 <div className="row  ">
@@ -2270,9 +3353,122 @@ function index() {
                       </div>
                     </div>
                     <p className="pModal">
+                      <button
+                        type="button"
+                        className="btn btn-secondary d-none"
+                        id="close-modal"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
                       Please wait while we verify your account
                     </p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="modalWebcam"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          className="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+          style={{ padding: "0px" }}
+        >
+          <div
+            className="modal-content"
+            style={{
+              padding: "0px",
+              overflow: "hidden",
+              backgroundColor: "transparent",
+              border: "0px",
+            }}
+          >
+            <div
+              className="modal-body"
+              style={{ padding: "0px", overflow: "hidden" }}
+            >
+              <div
+                className="container"
+                style={{ padding: "0px", overflow: "hidden" }}
+              >
+                <div className="row  " style={{ padding: "0px" }}>
+                  <div
+                    className="col-lg-12 "
+                    style={{ padding: "0px", position: "relative" }}
+                  >
+                    <Webcam
+                      audio={false}
+                      ref={webcamRef}
+                      height="100%"
+                      width="100%"
+                      screenshotFormat="image/jpeg"
+                      onUserMedia={handleOnUserMedia}
+                      onUserMediaError={errorWebcam}
+                      screenshotQuality="1"
+                    />
+
+                    <div className="divCam">
+                      <img
+                        src="Image/camera.png"
+                        onClick={capture}
+                        className="imgCamera img-fluid"
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="exampleModalCenter"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          className="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+          style={{ padding: "0px" }}
+        >
+          <div className="modal-content modalPic">
+            <div className="container conPic" style={{ padding: "0px" }}>
+              <div className="row" style={{ padding: "0px" }}>
+                <div className="col-lg-12" style={{ padding: "0px" }}>
+                  <img
+                    src=""
+                    className="img-fluid mx-auto d-flex imgHide imgClientpic"
+                  ></img>
+                  <img
+                    src=""
+                    className="img-fluid mx-auto d-flex  imgHide imgJoint"
+                  ></img>
+                  <img
+                    src=""
+                    className="img-fluid mx-auto d-flex imgHide imgValid1"
+                  ></img>
+                  <img
+                    src=""
+                    className="img-fluid mx-auto d-flex imgHide imgValid2"
+                  ></img>
+                  <img
+                    src=""
+                    className="img-fluid mx-auto d-flex imgHide imgProfile"
+                  ></img>
                 </div>
               </div>
             </div>

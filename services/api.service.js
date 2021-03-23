@@ -9,5 +9,6 @@ module.exports = appglobal = {
       net_worth:  "/api/net_worth",
       add_account:  "/api/accounts",
       check_user_exist: "/api/check_user_exists",
+      upgrade_request:"/api/upgrade_accounts/request",
     },
   };
