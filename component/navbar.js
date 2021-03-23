@@ -3,6 +3,12 @@ import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import axios from "axios";
 import swal from "@sweetalert/with-react";
+
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+
 export class navbar extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +29,34 @@ export class navbar extends Component {
   verifyEmail() {
     if (this.state.email == "") {
       $(".pErroremail").show();
-    } else {
+    }else if (!isEmail(this.state.email)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-sm-2 col-md-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-10 col-sm-10"
+                style={{ padding: "0px" }}
+              >
+                <p className="pError">Oooops!</p>
+                <p className="pErrorSub">Please input a valid email format.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    else {
       const options = {
         headers: {
           Accept: "application/json, text/plain, */*",
