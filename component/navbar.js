@@ -40,7 +40,25 @@ export class navbar extends Component {
       axios
       .post(api_upgrade, formdata, options)
       .then((result) => {
-        console.log(result)
+        $("#exampleModalCenter").modal("hide");
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                  <img
+                    src="Image/check.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div className="col-lg-10 col-sm-10 col-10 col-md-10" style={{ padding: "0px" }}>
+                  <p className="pError">Success</p>
+                  <p className="pErrorSub">We have sent an email to {this.state.email}. Please click the link included to start upgrading your account.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       })
       .catch((err) => {
         swal(
