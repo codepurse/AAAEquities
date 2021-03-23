@@ -415,7 +415,7 @@ function form() {
                       </label>
                      
                  
-                       <a target = "_blank" href = "/margin_agreement">
+                       <a target = "_blank" href = "https://docs.google.com/viewer?url=https://aaaequities.vercel.app/others/margin_agreement.pdf">
                         <span className="pCheck"  >
                           I have read the margin trading agreement.
                         </span>
