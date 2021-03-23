@@ -1,9 +1,11 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import Header from "../../component/header";
 import Head from "next/head";
+import Link from "next/link";
 import swal from "@sweetalert/with-react";
 import getApi from "../../services/api.service";
 import axios from "axios";
+
 function form() {
   const inputFileRef = useRef(null);
   const [marginamount, setMarginamount] = React.useState("");
@@ -411,14 +413,15 @@ function form() {
                           </svg>
                         </span>
                       </label>
-                      <a
-                        target="_blank"
-                        href="https://aaa-equities.com.ph/privacy-policy/"
-                      >
-                        <span className="pCheck">
+                     
+                 
+                       <a target = "_blank" href = "/margin_agreement">
+                        <span className="pCheck"  >
                           I have read the margin trading agreement.
                         </span>
-                      </a>
+                        </a>
+                      
+                     
                     </div>
                     <div
                       className="mx-auto d-flex text-center"
@@ -545,6 +548,7 @@ function form() {
           </div>
         </div>
       </div>
+     
     </>
   );
 }
