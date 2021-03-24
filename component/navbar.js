@@ -231,7 +231,7 @@ export class navbar extends Component {
                       <p className="pQuestions">
                         Questions? Email us at{" "}
                         <span className="spanEmail">
-                          sample@aaaequities.com
+                          support@aaa-equities.com
                         </span>
                       </p>
                     </div>

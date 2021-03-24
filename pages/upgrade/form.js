@@ -211,7 +211,7 @@ function form() {
                     style={{ padding: "0px" }}
                   >
                     <img
-                      src="Image/check.png"
+                      src="../Image/check.png"
                       style={{ width: "32px", marginTop: "0px" }}
                     ></img>
                   </div>
