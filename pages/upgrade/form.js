@@ -41,6 +41,13 @@ function form() {
   function changeEmail(e) {
     setEmail(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
+    
+  }
+
+  function keydownSpace(e) {
+    if (e.keyCode == 32) {
+      e.preventDefault();
+      }
   }
 
   function changeUsername(e) {
@@ -335,6 +342,7 @@ function form() {
                       type="text"
                       className="txtBox txtForm2 txtEmail"
                       onChange={changeEmail}
+                      onKeyDown = {keydownSpace}
                     ></input>
                     <p className="pUpgradesub">Margin amount</p>
                     <input

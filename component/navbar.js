@@ -19,11 +19,18 @@ export class navbar extends Component {
 
     this.verifyEmail = this.verifyEmail.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
+    this.emailkeyDown = this.emailkeyDown.bind(this);
   }
 
   changeEmail(e) {
     $(".pErroremail").hide();
     this.setState({email: e.target.value})
+  }
+
+  emailkeyDown(e) {
+    if (e.keyCode == 32) {
+    e.preventDefault();
+    }
   }
 
   verifyEmail() {
@@ -221,6 +228,10 @@ export class navbar extends Component {
                         className="txtEmailverify"
                         placeholder="Ex. sample@gmail.com"
                         onChange={this.changeEmail}
+                        onKeyDown = {this.emailkeyDown}
+                        onPaste={(event) => {
+                          event.preventDefault();
+                        }}
                       ></input>
                       <p className="pErroremail">
                         Email address cannot be blank.

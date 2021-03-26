@@ -3277,7 +3277,7 @@ function index() {
                 </div>
                 <div style={{ marginTop: "12px" }}>
                   <ReCAPTCHA
-                    sitekey="6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi"
+                    sitekey="6LdRr3EaAAAAAPesAXqAcOtWx_acUh9IpDAdtzse"
                     onChange={verifyCaptcha}
                     onBtnClick={expiredCaptcha}
                   />
