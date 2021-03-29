@@ -221,7 +221,7 @@ function form() {
               >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">
-                  Please agree to our terms and conditions and privacy policy.
+                  Please agree to our terms and conditions of our Margin Trading Agreement.
                 </p>
               </div>
             </div>

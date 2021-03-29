@@ -101,6 +101,7 @@ export class navbar extends Component {
         );
       })
       .catch((err) => {
+        console.log(err)
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container-fluid">
@@ -113,7 +114,7 @@ export class navbar extends Component {
                 </div>
                 <div className="col-lg-10 col-sm-10 col-10 col-md-10" style={{ padding: "0px" }}>
                   <p className="pError">Something went wrong</p>
-                  <p className="pErrorSub">This email doesn't exist.</p>
+                  <p className="pErrorSub">{err.response.data.message}</p>
                 </div>
               </div>
             </div>

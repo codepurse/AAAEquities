@@ -2266,7 +2266,7 @@ function index() {
     if (window.location.host == "signup.aaa-equities.com.ph") {
       setSitekey("6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi");
     } else {
-      setSitekey("6LdRr3EaAAAAAPesAXqAcOtWx_acUh9IpDAdtzse");
+      setSitekey("6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI");
     }
 
     const options = {
@@ -2568,7 +2568,7 @@ function index() {
               </div>
               <div className="divForm2">
                 <p className="pBox">Personal Information</p>
-                <p className="pBoxSub1" style={{ fontWeight: "normal" }}>
+                <p className="pBoxSub1" style={{ fontWeight: "normal", color: "black" }}>
                   Fields marked with "*" are mandatory
                 </p>
                 <div className="row" style={{ marginTop: "10px" }}>
@@ -2692,7 +2692,7 @@ function index() {
                   style={{ marginTop: "15px" }}
                 >
                   <div className="col-lg-3 col-md-3">
-                    <p className="pBoxTitle pbox">Birth Date</p>
+                    <p className="pBoxTitle pbox" style = {{color: "black"}}>Birth Date</p>
                   </div>
                   <div className="col-lg-4 col-md-4">
                     <DatePicker
@@ -2710,7 +2710,7 @@ function index() {
               </div>
               <div className="divForm3">
                 <p className="pBox">Personal Information</p>
-                <p className="pBoxSub1" style={{ fontWeight: "normal" }}>
+                <p className="pBoxSub1" style={{ fontWeight: "normal", color: "black" }}>
                   Fields marked with "*" are mandatory
                 </p>
                 <div className="row" style={{ marginTop: "10px" }}>
