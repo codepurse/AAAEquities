@@ -23,6 +23,52 @@ function form() {
     const token = query.get("token");
     setFormtoken(token);
     console.log(token);
+ const options = {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "content-type": "application/json",
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+      },
+    };
+
+    const api_upgrade_validate =
+    appglobal.api.base_api + appglobal.api.validate_upgrade;
+
+    axios
+    .get(api_upgrade_validate, {params: { token: token }}, options)
+    .then((result) => {
+      console.log(result);
+      $(".conUpgrade1").show();
+    })
+    .catch((err) => {
+      console.log(err.response.data.message)
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-sm-2 col-2 col-md-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="../Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-10 col-sm-10 col-md-10"
+                style={{ padding: "0px" }}
+              >
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">{err.response.data.message}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ); 
+    });
+
   }, []);
 
   function removeClientpic() {
@@ -315,7 +361,7 @@ function form() {
       <Head>
         <link rel="stylesheet" href="../Css/index.css"></link>
       </Head>
-      <div className="container h-100">
+      <div className="container h-100 conUpgrade1">
         <div
           className="row h-100 align-items-center"
           style={{ mmarginBottom: "100px" }}

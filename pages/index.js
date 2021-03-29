@@ -14,7 +14,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import countryList from 'react-select-country-list'
 function index() {
   const router = useRouter();
-  const [sitekey, setSitekey] = React.useState("");
+  const [sitekey, setSitekey] = React.useState("123");
   const [accounttype, setAccounttype] = React.useState("");
   const [listaccounttype, setListaccounttype] = React.useState([]);
   const [fname, setFname] = React.useState("");
@@ -2577,7 +2577,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={fname}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeFname}
                       placeholder="First name *"
                     ></input>
@@ -2587,7 +2587,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={mname}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeMname}
                       placeholder="Middle name *"
                     ></input>
@@ -2599,7 +2599,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={lname}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeLname}
                       placeholder="Last name *"
                     ></input>
@@ -2609,7 +2609,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={telnum}
-                      autocomplete="false"
+                      autoComplete="false"
                       onKeyPress={(event) => {
                         if (!/[0-9]/.test(event.key)) {
                           event.preventDefault();
@@ -2627,7 +2627,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={mobilenum}
-                      autocomplete="false"
+                      autoComplete="false"
                       onKeyPress={(event) => {
                         if (!/[0-9]/.test(event.key)) {
                           event.preventDefault();
@@ -2643,7 +2643,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={birthplace}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeBirthplace}
                       onKeyPress={(event) => {
                         if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
@@ -2661,7 +2661,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={address}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeAddress}
                       placeholder="Home address *"
                     ></input>
@@ -2671,7 +2671,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={address1}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeAddress1}
                       placeholder="Subdivision/Barangay *"
                     ></input>
@@ -2681,7 +2681,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm2"
                       value={address2}
-                      autocomplete="false"
+                      autoComplete="false"
                       onChange={changeAddress2}
                       placeholder="City/Province *"
                     ></input>
@@ -2720,7 +2720,7 @@ function index() {
                       className="txtBox txtForm3"
                       placeholder="TIN *"
                       value={tin}
-                      autocomplete="false"
+                      autoComplete="false"
                       onKeyPress={(event) => {
                         if (!/[0-9]/.test(event.key)) {
                           event.preventDefault();
@@ -2777,7 +2777,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm3"
                       placeholder="Employer *"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={employer}
                       onChange={changeEmployer}
                     ></input>
@@ -2786,7 +2786,7 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtForm3"
-                      autocomplete="false"
+                      autoComplete="false"
                       placeholder="Job title *"
                       value={jobtitle}
                       onChange={changeJobtitle}
@@ -2797,7 +2797,7 @@ function index() {
                   <div className="col-lg-4">
                     <input
                       type="text"
-                      autocomplete="false"
+                      autoComplete="false"
                       className="txtBox txtForm3"
                       placeholder="Business address *"
                       value={busadd}
@@ -2807,7 +2807,7 @@ function index() {
                   <div className="col-lg-4">
                     <input
                       type="text"
-                      autocomplete="false"
+                      autoComplete="false"
                       className="txtBox txtForm3"
                       placeholder="Subdivision/Barangay *"
                       value={busadd1}
@@ -2817,7 +2817,7 @@ function index() {
                   <div className="col-lg-4">
                     <input
                       type="text"
-                      autocomplete="false"
+                      autoComplete="false"
                       className="txtBox txtForm3"
                       placeholder="City/Province *"
                       value={busadd2}
@@ -2835,7 +2835,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm4"
                       placeholder="Bank *"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={bank}
                       onKeyPress={(event) => {
                         if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
@@ -2851,7 +2851,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm4"
                       placeholder="Branch *"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={branch}
                       onChange={changeBranch}
                     ></input>
@@ -2863,7 +2863,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm4"
                       placeholder="Account name *"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={accountname}
                       onChange={changeAccountname}
                     ></input>
@@ -2873,7 +2873,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm4"
                       placeholder="Account number *"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={accountnumber}
                       onKeyPress={(event) => {
                         if (!/[0-9]/.test(event.key)) {
@@ -3190,7 +3190,7 @@ function index() {
                     <input
                       type="text"
                       className="txtBox txtname1"
-                      autocomplete="false"
+                      autoComplete="false"
                       placeholder="Name"
                       id="txtname1"
                       value={corporatename1}
@@ -3202,7 +3202,7 @@ function index() {
                       type="text"
                       className="txtBox txtposition1"
                       id="txtposition1"
-                      autocomplete="false"
+                      autoComplete="false"
                       placeholder="Position"
                       value={corporateposition1}
                       onChange={changeCorporateposition1}
@@ -3215,7 +3215,7 @@ function index() {
                       type="text"
                       className="txtname2 txtBox"
                       placeholder="Name"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={corporatename2}
                       onChange={changeCorporatename2}
                     ></input>
@@ -3225,7 +3225,7 @@ function index() {
                       type="text"
                       className="txtBox txtposition2"
                       placeholder="Position"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={corporateposition2}
                       onChange={changeCorporateposition2}
                     ></input>
@@ -3237,7 +3237,7 @@ function index() {
                       type="text"
                       className="txtBox txtname3"
                       placeholder="Name"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={corporatename3}
                       onChange={changeCorporatename3}
                     ></input>
@@ -3247,7 +3247,7 @@ function index() {
                       type="text"
                       className="txtBox txtposition3"
                       placeholder="Position"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={corporateposition3}
                       onChange={changeCorporateposition3}
                     ></input>
@@ -3465,7 +3465,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm11"
                       placeholder="Username"
-                      autocomplete="false"
+                      autoComplete="false"
                       maxLength="8"
                       pattern="[^\s]+"
                       value={username}
@@ -3490,7 +3490,7 @@ function index() {
                       type="text"
                       className="txtBox txtForm11 txtEmail"
                       placeholder="Email address"
-                      autocomplete="false"
+                      autoComplete="false"
                       value={emailadd}
                       style={{ marginTop: "5px" }}
                       onChange={changeEmailadd}

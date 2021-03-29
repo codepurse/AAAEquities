@@ -11,5 +11,6 @@ module.exports = appglobal = {
       check_user_exist: "/api/check_user_exists",
       upgrade_request:"/api/upgrade_accounts/request",
       upgrade_accounts:"/api/upgrade_accounts",
+      validate_upgrade: "/api/upgrade_accounts/validate"
     },
   };
