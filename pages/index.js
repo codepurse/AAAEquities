@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { Component, useState, useEffect, useRef, useMemo  } from "react";
 import Header from "../component/header";
 import Navbar from "../component/navbar";
 import { useRouter } from "next/router";
@@ -11,6 +11,7 @@ import getApi from "../services/api.service";
 import swal from "@sweetalert/with-react";
 import Webcam from "react-webcam";
 import ReCAPTCHA from "react-google-recaptcha";
+import countryList from 'react-select-country-list'
 function index() {
   const router = useRouter();
   const [sitekey, setSitekey] = React.useState("");
@@ -27,7 +28,7 @@ function index() {
   const [address2, setAddress2] = React.useState("");
   const [birthtDate, setBirthdate] = React.useState("");
   const [tin, setTin] = React.useState("");
-  const [nationality, setNationality] = React.useState("Filipino");
+  const [nationality, setNationality] = React.useState("Philippines");
   const [gender, setGender] = React.useState("");
   const [genderpick, setGenderpick] = React.useState([]);
   const [nationalitypick, setNationalitypick] = React.useState([]);
@@ -40,6 +41,10 @@ function index() {
   const [busadd2, setBusadd2] = React.useState("");
   const [errorselectgender, setErrorselectgender] = React.useState("");
   const [errorselectcivil, setErrorselectcivil] = React.useState("");
+
+  const options_country = useMemo(() => countryList().getData(), [])
+
+
   const [errorselectnationality, setErrorselectnationality] = React.useState(
     ""
   );
@@ -67,6 +72,8 @@ function index() {
   const [corporatename3, setCorporatename3] = React.useState("");
   const [corporateposition3, setCorporateposition3] = React.useState("");
   const [accounttypetext, setAccounttypetext] = React.useState("");
+
+    var resizewindows = 0;
 
   const [filterdate, setFilterdate] = React.useState("");
 
@@ -187,13 +194,19 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-2 col-sm-2 col-2 col-md-2"
+                style={{ padding: "0px" }}
+              >
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 col-sm-10 col-10 col-md-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-10 col-sm-10 col-10 col-md-10"
+                style={{ padding: "0px" }}
+              >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">
                   Please allow the website to access your camera.
@@ -297,13 +310,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container-fluid">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-sm-10 col-10 col-md-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-sm-10 col-10 col-md-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">Your profile cannot be saved.</p>
                 </div>
@@ -325,13 +344,19 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
               </div>
@@ -364,13 +389,19 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2 col-sm-10 col-md-10 col-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-2 col-sm-10 col-md-10 col-10"
+                style={{ padding: "0px" }}
+              >
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
               </div>
@@ -404,13 +435,19 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-2 col-sm-2 col-md-2 col-2"
+                style={{ padding: "0px" }}
+              >
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
               </div>
@@ -419,32 +456,87 @@ function index() {
         </div>
       );
     } else {
-      if (!validid1) {
-        let file = e.target.files[0];
+      let file = e.target.files[0];
 
-        $(".pUploadvalid1").text(file.name);
-        setValidid1pic(file.name);
-        setValidid1(file);
-        reader.onloadend = function () {
-          $(".imgValid1").attr("src", reader.result);
-        };
-        reader.readAsDataURL(file);
-        $(".divValid1").attr("style", "2px solid #9098A9");
-        $(".divUploadvalid1").show();
-        $(".box").css("height", "auto");
-      } else {
-        let file = e.target.files[0];
+      $(".pUploadvalid1").text(file.name);
+      setValidid1pic(file.name);
+      setValidid1(file);
+      reader.onloadend = function () {
+        $(".imgValid1").attr("src", reader.result);
+      };
+      reader.readAsDataURL(file);
+      $(".divValid1").attr("style", "2px solid #9098A9");
+      $(".divUploadvalid1").show();
+      $(".box").css("height", "auto");
 
-        $(".pUploadvalid2").text(file.name);
-        setValidid2pic(file.name);
-        setValidid2(file);
-        reader.onloadend = function () {
-          $(".imgValid2").attr("src", reader.result);
-        };
-        reader.readAsDataURL(file);
-        $(".divValid2").attr("style", "2px solid #9098A9");
-        $(".divUploadvalid2").show();
-        $(".box").css("height", "auto");
+      var div = $(".conMain").height();
+      var win = $(window).height();
+      if (div > win) {
+        var resize = 1;
+        $(".conMain").removeClass("h-100");
+        $(".conMain").css("margin-top", "130px")
+      }else {
+        var resize = 0;
+        $(".conMain").addClass("h-100");
+        $(".conMain").css("margin-top", "0px")
+      }
+    }
+  }
+
+  function handleFile3(e) {
+    var reader = new FileReader();
+    let file = e.target.files[0];
+    let size = Math.floor(file.size / 1024 / 1024);
+
+    if (size > 4) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-sm-2 col-md-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      let file = e.target.files[0];
+
+      $(".pUploadvalid2").text(file.name);
+      setValidid2pic(file.name);
+      setValidid2(file);
+      reader.onloadend = function () {
+        $(".imgValid2").attr("src", reader.result);
+      };
+      reader.readAsDataURL(file);
+      $(".divValid2").attr("style", "2px solid #9098A9");
+      $(".divUploadvalid2").show();
+      $(".box").css("height", "auto");
+
+      var div = $(".conMain").height();
+      var win = $(window).height();
+      if (div > win) {
+        var resize = 1;
+        $(".conMain").removeClass("h-100");
+        $(".conMain").css("margin-top", "130px")
+      }else {
+        var resize = 0;
+        $(".conMain").addClass("h-100");
+         $(".conMain").css("margin-top", "0px")
       }
     }
   }
@@ -459,13 +551,19 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-10 col-md-10 col-10 col-sm-10"
+                style={{ padding: "0px" }}
+              >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">Invalid! Maximum size is 4mb.</p>
               </div>
@@ -541,12 +639,10 @@ function index() {
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
-    function changeAddress2(e) {
+  function changeAddress2(e) {
     setAddress2(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
-
-
 
   function changeBirthdate(date) {
     var filter = moment().diff(date, "years");
@@ -604,8 +700,6 @@ function index() {
     setBusadd2(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
-
-
 
   function bankKey(e) {}
 
@@ -676,9 +770,13 @@ function index() {
   }
 
   function changeUsername(e) {
-    
-    setUsername(e.currentTarget.value);
+    let regSpace= new RegExp(/\s/);
+    if (regSpace.test(e.currentTarget.value)) {
+      return false;
+    }else {
+      setUsername(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
+    }
   }
 
   function changeEmailadd(e) {
@@ -728,13 +826,33 @@ function index() {
     setValidid1pic("");
     $(".inputFile3").val("");
     $(".divUploadvalid1").hide();
+    
+    var div = $(".conMain").height();
+    var win = $(window).height();
+    if (div > win) {
+      $(".conMain").removeClass("h-100");
+      $(".conMain").css("margin-top", "130px")
+    }else {
+      $(".conMain").addClass("h-100");
+       $(".conMain").css("margin-top", "0px")
+    }
   }
 
   function removeValidpic2() {
     setValidid2("");
     setValidid2pic("");
-    $(".inputFile3").val("");
+    $(".inputFile5").val("");
     $(".divUploadvalid2").hide();
+    
+    var div = $(".conMain").height();
+    var win = $(window).height();
+    if (div > win) {
+      $(".conMain").removeClass("h-100");
+      $(".conMain").css("margin-top", "130px")
+    }else {
+      $(".conMain").addClass("h-100");
+       $(".conMain").css("margin-top", "0px")
+    }
   }
 
   function removeYourself() {
@@ -1073,19 +1191,34 @@ function index() {
   };
 
   function nextForm() {
+  
+    if (resizewindows == 1) {
+      $(".conMain").removeClass("h-100");
+      $(".conMain").css("margin-top", "130px")
+    }else {
+      $(".conMain").addClass("h-100");
+      $(".conMain").css("margin-top", "0px")
+    }
+
     if ($(".divForm1").css("display") == "block") {
       if (!accounttype) {
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-10 col-sm-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">Please select an account type.</p>
                 </div>
@@ -1098,13 +1231,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2 col-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-sm-10 col-md-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-sm-10 col-md-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">
                     Please agree to our terms and conditions and privacy policy.
@@ -1150,13 +1289,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-10 col-sm-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1242,7 +1387,7 @@ function index() {
         !civilstatus ||
         !employer ||
         !jobtitle ||
-        !busadd || 
+        !busadd ||
         !busadd1 ||
         !busadd2
       ) {
@@ -1250,13 +1395,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-sm-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1319,13 +1470,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-10 col-sm-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1354,13 +1511,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-10 col-sm-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1385,13 +1548,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-sm-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1407,13 +1576,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-sm-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1429,13 +1604,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-sm-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1543,16 +1724,22 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-md-2 col-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-10 col-sm-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">
-                  Please upload a file with extension Jpg and Png.
+                    Please upload a file with extension Jpg and Png.
                   </p>
                 </div>
               </div>
@@ -1566,10 +1753,12 @@ function index() {
           $(".box").css("height", "auto");
           $(window).scrollTop(0);
         } else {
+       
           $(".divForm10").fadeIn(200);
           $(".divForm8").hide();
           $(".box").css("height", "auto");
           $(window).scrollTop(0);
+        
         }
       }
     } else if ($(".divForm9").css("display") == "block") {
@@ -1579,16 +1768,22 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-md-2 col-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-sm-10 col-md-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-sm-10 col-md-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">
-                  Please upload a file with extension Jpg and Png.
+                    Please upload a file with extension Jpg and Png.
                   </p>
                 </div>
               </div>
@@ -1596,6 +1791,7 @@ function index() {
           </div>
         );
       } else {
+      
         $(".divForm10").fadeIn(200);
         $(".divForm9").hide();
         $(".box").css("height", "auto");
@@ -1603,24 +1799,38 @@ function index() {
       }
     } else if ($(".divForm10").css("display") == "block") {
       if (!validid1pic || !validid2pic) {
-        $(".divValid1, .divValid2").attr(
-          "style",
-          "border: 2px dashed red !important"
-        );
+        if (!validid1pic) {
+          $(".divValid1").attr("style", "border: 2px dashed red !important");
+        }
+        if (!validid2pic) {
+          $(".divValid2").attr("style", "border: 2px dashed red !important");
+        }
+        if (!validid1pic && !validid2pic) {
+          $(".divValid1, .divValid2").attr(
+            "style",
+            "border: 2px dashed red !important"
+          );
+        }
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2 col-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-sm-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Something went wrong</p>
                   <p className="pErrorSub">
-                  Please upload a file with extension Jpg and Png.
+                    Please upload a file with extension Jpg and Png.
                   </p>
                 </div>
               </div>
@@ -1657,13 +1867,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10  col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10  col-md-10 col-sm-10 col-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please fill out all the missing fields.
@@ -1699,13 +1915,19 @@ function index() {
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container">
               <div className="row">
-                <div className="col-lg-2 col-sm-2 col-md-2 col-2" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-2 col-sm-2 col-md-2 col-2"
+                  style={{ padding: "0px" }}
+                >
                   <img
                     src="Image/error.png"
                     style={{ width: "32px", marginTop: "0px" }}
                   ></img>
                 </div>
-                <div className="col-lg-10 col-md-10 col-10 col-sm-10" style={{ padding: "0px" }}>
+                <div
+                  className="col-lg-10 col-md-10 col-10 col-sm-10"
+                  style={{ padding: "0px" }}
+                >
                   <p className="pError">Oooops!</p>
                   <p className="pErrorSub">
                     Please input a valid email format.
@@ -1848,6 +2070,13 @@ function index() {
   }
 
   function prevForm() {
+    if (resizewindows == 1) {
+      $(".conMain").removeClass("h-100");
+      $(".conMain").css("margin-top", "130px")
+    }else {
+      $(".conMain").addClass("h-100");
+      $(".conMain").css("margin-top", "0px")
+    }
     if ($(".divForm2").css("display") == "block") {
       if ($(window).width() < 501) {
         $(".imgRight").css("width", "50%");
@@ -1989,7 +2218,10 @@ function index() {
       $(".circle2").addClass("circlenotactive");
       $(".colBack").hide();
     } else if ($(".divForm12").css("display") == "block") {
+    
+    
       $(".divForm10").fadeIn(200);
+
       $(".divForm12").hide();
       $(".box").css("height", "auto");
       $(".imgRight").addClass("animate__animated animate__zoomIn");
@@ -1998,6 +2230,7 @@ function index() {
       $(".pForm7").show();
 
       $(".btnNext").html("NEXT");
+    
     }
   }
 
@@ -2011,16 +2244,9 @@ function index() {
 
       listyear.push({ value: year, label: year });
     }
-
-    
   }
 
   useEffect(() => {
-
-    
-    
-
-
     navigator.getMedia =
       navigator.getUserMedia || // use the proper vendor prefix
       navigator.webkitGetUserMedia ||
@@ -2035,9 +2261,9 @@ function index() {
       }
     );
 
-    console.log(window.location.host);
+    console.log(window.location.hostname);
 
-    if (window.location.hose == "signup.aaa-equities.com.ph") {
+    if (window.location.host == "signup.aaa-equities.com.ph") {
       setSitekey("6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi");
     } else {
       setSitekey("6LdRr3EaAAAAAPesAXqAcOtWx_acUh9IpDAdtzse");
@@ -2052,6 +2278,8 @@ function index() {
       },
     };
 
+    const getcountry = "https://restcountries.eu/rest/v2/all"
+
     const apiUrl_fetch_accounts =
       appglobal.api.base_api + appglobal.api.account_types;
     const apiUrl_annual_income =
@@ -2063,6 +2291,16 @@ function index() {
     const apiUrl_total_assets =
       appglobal.api.base_api + appglobal.api.total_assets;
     const apiUrl_net_worth = appglobal.api.base_api + appglobal.api.net_worth;
+
+    axios
+    .get(getcountry, {}, options)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+
 
     axios
       .get(apiUrl_fetch_accounts, {}, options)
@@ -2174,13 +2412,19 @@ function index() {
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-2 col-sm-2 col-2 col-md-2"
+                style={{ padding: "0px" }}
+              >
                 <img
                   src="Image/error.png"
                   style={{ width: "32px", marginTop: "0px" }}
                 ></img>
               </div>
-              <div className="col-lg-10 col-10 col-sm-10 col-md-10" style={{ padding: "0px" }}>
+              <div
+                className="col-lg-10 col-10 col-sm-10 col-md-10"
+                style={{ padding: "0px" }}
+              >
                 <p className="pError">Something went wrong</p>
                 <p className="pErrorSub">Please refresh the website.</p>
               </div>
@@ -2325,7 +2569,7 @@ function index() {
               <div className="divForm2">
                 <p className="pBox">Personal Information</p>
                 <p className="pBoxSub1" style={{ fontWeight: "normal" }}>
-                  Fields marked with * are mandatory
+                  Fields marked with "*" are mandatory
                 </p>
                 <div className="row" style={{ marginTop: "10px" }}>
                   <div className="col-lg-6">
@@ -2467,7 +2711,7 @@ function index() {
               <div className="divForm3">
                 <p className="pBox">Personal Information</p>
                 <p className="pBoxSub1" style={{ fontWeight: "normal" }}>
-                  Fields marked with * are mandatory
+                  Fields marked with "*" are mandatory
                 </p>
                 <div className="row" style={{ marginTop: "10px" }}>
                   <div className="col-lg-6">
@@ -2482,14 +2726,14 @@ function index() {
                           event.preventDefault();
                         }
                       }}
-                      maxLength = "9"
+                      maxLength="9"
                       onInput={numOnly}
                       onChange={changetin}
                     ></input>
                   </div>
                   <div className="col-lg-6">
                     <Select
-                      options={options_nationality}
+                      options={options_country}
                       styles={
                         errorselectnationality
                           ? customStyles_error
@@ -2497,8 +2741,10 @@ function index() {
                       }
                       value={nationalitypick}
                       onChange={changeNationality}
-                      placeholder = "Filipino"
+                      placeholder="Philippines"
                     />
+
+                   
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: "18px" }}>
@@ -2642,7 +2888,10 @@ function index() {
                 <p className="pBoxSub" style={{ marginTop: "15px" }}>
                   Tell us how to help
                 </p>
-                <p className="pBoxSub1" style={{ marginTop: "10px" }}>
+                <p
+                  className="pBoxSub1"
+                  style={{ marginTop: "10px", color: "#212121" }}
+                >
                   Investment Objective *
                 </p>
                 <div className="row flex" style={{ marginTop: "10px" }}>
@@ -2693,7 +2942,10 @@ function index() {
                     />
                   </div>
                 </div>
-                <p className="pBoxSub1" style={{ marginTop: "18px" }}>
+                <p
+                  className="pBoxSub1"
+                  style={{ marginTop: "18px", color: "#212121" }}
+                >
                   Total Assets
                 </p>
                 <div className="row " style={{ marginTop: "10px" }}>
@@ -2723,7 +2975,10 @@ function index() {
                     </div>
                   ))}
                 </div>
-                <p className="pBoxSub1" style={{ marginTop: "18px" }}>
+                <p
+                  className="pBoxSub1"
+                  style={{ marginTop: "18px", color: "#212121" }}
+                >
                   Annual Income
                 </p>
                 <div className="row " style={{ marginTop: "10px" }}>
@@ -2756,7 +3011,10 @@ function index() {
                     </div>
                   ))}
                 </div>
-                <p className="pBoxSub1" style={{ marginTop: "18px" }}>
+                <p
+                  className="pBoxSub1"
+                  style={{ marginTop: "18px", color: "#212121" }}
+                >
                   Net Worth
                 </p>
                 <div className="row " style={{ marginTop: "10px" }}>
@@ -2789,7 +3047,10 @@ function index() {
               </div>
               <div className="divForm6">
                 <p className="pBox">Account Information</p>
-                <p className="pBoxTitle" style={{ marginBottom: "18px" }}>
+                <p
+                  className="pBoxTitle"
+                  style={{ marginBottom: "18px", color: "#212121" }}
+                >
                   Are you associated with another broker or dealer?
                 </p>
                 <div className="radio">
@@ -2853,7 +3114,10 @@ function index() {
                   </svg>
                   <span className="pRadio">No</span>
                 </label>
-                <p className="pBoxTitle" style={{ marginBottom: "20px" }}>
+                <p
+                  className="pBoxTitle"
+                  style={{ marginBottom: "20px", color: "#212121" }}
+                >
                   Are you an officer/director of a listed company?
                 </p>
                 <label htmlFor="rdo-13" className="btn-radio">
@@ -3105,9 +3369,25 @@ function index() {
                   accept=".jpg, .png, .jpeg|image"
                   style={{ display: "none" }}
                 />
+                <input
+                  onChange={(e) => handleFile3(e)}
+                  ref={inputFileRef3}
+                  id="file-upload"
+                  className="inputFile5"
+                  type="file"
+                  accept=".jpg, .png, .jpeg|image"
+                  style={{ display: "none" }}
+                />
                 <div className="divUpload divValid1" onClick={onBtnClick2}>
                   <p className="pUpload">
-                    <b style={{ color: "#00634A" }}>Browse</b> two valid IDs
+                    <b style={{ color: "#00634A" }}>Browse</b> one valid ID
+                  </p>
+                  <p className="pUpload">Max file size: 4mb</p>
+                  <p className="pUpload">Accepted file type: Jpg and Png</p>
+                </div>
+                <div className="divUpload divValid2" onClick={onBtnClick3}>
+                  <p className="pUpload">
+                    <b style={{ color: "#00634A" }}>Browse</b> one valid ID
                   </p>
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
@@ -3186,14 +3466,17 @@ function index() {
                       className="txtBox txtForm11"
                       placeholder="Username"
                       autocomplete="false"
-                      maxLength = "8"
+                      maxLength="8"
+                      pattern="[^\s]+"
                       value={username}
                       onKeyPress={(event) => {
                         if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
+                        } else if (event === 32) {
                         } else {
                           event.preventDefault();
                         }
                       }}
+                   
                       onPaste={(event) => {
                         event.preventDefault();
                       }}
@@ -3237,11 +3520,15 @@ function index() {
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
                 </div>
-                <div className = "form-inline">
-                  <img src = "Image/webcam.png" className = "img-fluid" style = {{width: "18px", marginRight: "8px"}}></img>
+                <div className="form-inline">
+                  <img
+                    src="Image/webcam.png"
+                    className="img-fluid"
+                    style={{ width: "18px", marginRight: "8px" }}
+                  ></img>
                   <p className="pWebcam" onClick={trylang}>
-                  Open webcam
-                </p>
+                    Open webcam
+                  </p>
                 </div>
                 <div className="container divUploadyourself">
                   <div className="row">
@@ -3277,7 +3564,7 @@ function index() {
                 </div>
                 <div style={{ marginTop: "12px" }}>
                   <ReCAPTCHA
-                    sitekey="6LdRr3EaAAAAAPesAXqAcOtWx_acUh9IpDAdtzse"
+                    sitekey= {sitekey}
                     onChange={verifyCaptcha}
                     onBtnClick={expiredCaptcha}
                   />

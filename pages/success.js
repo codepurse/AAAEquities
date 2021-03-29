@@ -73,12 +73,9 @@ function success() {
                 >
                   here
                 </a>
-                .
+                
               </p>
 
-              <a href="https://trade.aaa-equities.com.ph" style = {{textDecoration: "none"}}>
-                <button className="bubbly-button">Go login</button>
-              </a>
             </div>
           </div>
         </div>
