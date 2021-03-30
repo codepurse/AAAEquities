@@ -3297,7 +3297,7 @@ function index() {
                       <p
                         className="pView"
                         data-toggle="modal"
-                        data-target="#exampleModalCenter"
+                        data-target="#exampleModalCenter1"
                         onClick={viewClient}
                       >
                         View image
@@ -3349,7 +3349,7 @@ function index() {
                       <p
                         className="pView"
                         data-toggle="modal"
-                        data-target="#exampleModalCenter"
+                        data-target="#exampleModalCenter1"
                         onClick={viewJoint}
                       >
                         View image
@@ -3416,7 +3416,7 @@ function index() {
                       <p
                         className="pView"
                         data-toggle="modal"
-                        data-target="#exampleModalCenter"
+                        data-target="#exampleModalCenter1"
                         onClick={viewValid1}
                       >
                         View image
@@ -3448,7 +3448,7 @@ function index() {
                       <p
                         className="pView"
                         data-toggle="modal"
-                        data-target="#exampleModalCenter"
+                        data-target="#exampleModalCenter1"
                         onClick={viewValid2}
                       >
                         View image
@@ -3554,7 +3554,7 @@ function index() {
                       <p
                         className="pView"
                         data-toggle="modal"
-                        data-target="#exampleModalCenter"
+                        data-target="#exampleModalCenter1"
                         onClick={viewProfile}
                       >
                         View image
@@ -3721,7 +3721,7 @@ function index() {
 
       <div
         className="modal fade"
-        id="exampleModalCenter"
+        id="exampleModalCenter1"
         tabIndex={-1}
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"

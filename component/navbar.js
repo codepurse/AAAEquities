@@ -22,6 +22,15 @@ export class navbar extends Component {
     this.emailkeyDown = this.emailkeyDown.bind(this);
   }
 
+  componentDidMount() {
+    
+    if (window.location.host == "signup.aaa-equities.com.ph") {
+      $(".btnUpgrade").hide()
+    } else {
+      $(".btnUpgrade").show()
+    }
+  }
+
   changeEmail(e) {
     $(".pErroremail").hide();
     this.setState({email: e.target.value})
