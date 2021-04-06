@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/upgrade/form": [
+    "/upgrade": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/upgrade/form.js"
+      "static/chunks/pages/upgrade.js"
     ]
   },
   "ampFirstPages": []

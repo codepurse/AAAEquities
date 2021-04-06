@@ -3529,7 +3529,8 @@ function index() {
                   className="inputFile4"
                   type="file"
                   accept=".jpg, .png, .jpeg|image"
-                  style={{ display: "none" }}
+                  style={{ display: "none" }} data-toggle="modal"
+                  data-target="#exampleModalCenter1"
                 />
                 <p className="pBox">Upload a photo of yourself</p>
                 <div

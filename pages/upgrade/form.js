@@ -368,7 +368,7 @@ function form() {
         >
           <div className="col-lg-12">
             <img
-              src="../Image/upgrade.png"
+              src="../Image/gif.gif"
               className="img-fluid mx-auto d-flex"
               style={{ width: "350px" }}
             ></img>
@@ -471,11 +471,12 @@ function form() {
                       </label>
                      
                  
-                       <a target = "_blank" href = "https://docs.google.com/viewer?url=https://aaaequities.vercel.app/others/margin_agreement.pdf">
-                        <span className="pCheck"  >
+                       
+                        <span className="pCheck"  data-toggle="modal"
+                            data-target="#exampleModalCenter2" >
                           I have read the margin trading agreement.
                         </span>
-                        </a>
+                        
                       
                      
                     </div>
