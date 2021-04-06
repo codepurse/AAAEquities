@@ -13,6 +13,7 @@ module.exports = {
           ],
           referrerPolicy: "same-origin",
           xssProtection: "block-rendering",
+          frameGuard: "sameorigin"
         }),
       },
     ];

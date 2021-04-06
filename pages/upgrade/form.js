@@ -390,7 +390,8 @@ function form() {
                       onChange={changeEmail}
                       onKeyDown = {keydownSpace}
                     ></input>
-                    <p className="pUpgradesub">Margin amount</p>
+                    <p className="pUpgradesub">Margin limit requested</p>
+                  
                     <input
                       type="text"
                       className="txtBox txtForm2 txtMargin"
@@ -404,6 +405,7 @@ function form() {
                       onInput={numOnly}
                       maxLength="6"
                     ></input>
+                      <p className = "pUpgradesub" style = {{color: "#212121", fontSize: "0.9rem"}}>Your Margin Limit Request must be less than or equal to your Cash Balance at the time of request</p>
                     <input
                       onChange={(e) => handleFile(e)}
                       ref={inputFileRef}
@@ -596,6 +598,32 @@ function form() {
                     src=""
                     className="img-fluid mx-auto d-flex imgHide imgClientpic"
                   ></img>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+         <div
+        className="modal fade"
+        id="exampleModalCenter2"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          className="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+          style={{ padding: "0px" }}
+        >
+          <div className="modal-content modalPic">
+            <div className="container conPic" style={{ padding: "0px" }}>
+              <div className="row" style={{ padding: "0px" }}>
+                <div className="col-lg-12" style={{ padding: "0px" }}>
+                <embed src="../others/margin_agreement.pdf" frameborder="0" width="100%" height="400px"/>
+               
                 </div>
               </div>
             </div>

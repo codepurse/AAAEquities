@@ -121,8 +121,11 @@ function index() {
   const onBtnClick = () => {
     inputFileRef.current.click();
   };
-  const onBtnClick1 = () => {
+  const onBtnClick1 = (event) => {
+   
     inputFileRef1.current.click();
+
+
   };
   const onBtnClick2 = () => {
     inputFileRef2.current.click();
@@ -814,14 +817,16 @@ function index() {
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
-  function removeClientpic() {
+  function removeClientpic(event) {
+    event.stopPropagation();
     setClient("");
     setClientpic("");
     $(".inputFile1").val("");
     $(".divUploadclient").hide();
   }
 
-  function removeValidpic1() {
+  function removeValidpic1(event) {
+    event.stopPropagation();
     setValidid1("");
     setValidid1pic("");
     $(".inputFile3").val("");
@@ -838,7 +843,8 @@ function index() {
     }
   }
 
-  function removeValidpic2() {
+  function removeValidpic2(event) {
+    event.stopPropagation();
     setValidid2("");
     setValidid2pic("");
     $(".inputFile5").val("");
@@ -855,7 +861,8 @@ function index() {
     }
   }
 
-  function removeYourself() {
+  function removeYourself(event) {
+    event.stopPropagation();
     setProfile("");
     setProfilepic("");
     setWebimg("");
@@ -863,42 +870,54 @@ function index() {
     $(".divUploadyourself").hide();
   }
 
-  function removeJoint() {
+  function removeJoint(event) {
+    event.stopPropagation();
     setProfile("");
     setProfilepic("");
     $(".inputFile4").val("");
     $(".divUploadjoint").hide();
   }
 
-  function viewClient() {
+  function viewClient(event) {
+    event.stopPropagation();
+    $("#exampleModalCenter1").modal("show");
     $(".imgHide").removeClass("d-flex");
     $(".imgHide").hide();
     $(".imgClientpic").addClass("d-flex");
     $(".imgClientpic").show();
   }
 
-  function viewValid1() {
+  function viewValid1(event) {
+    event.stopPropagation();
+    $("#exampleModalCenter1").modal("show");
     $(".imgHide").removeClass("d-flex");
     $(".imgHide").hide();
     $(".imgValid1").addClass("d-flex");
     $(".imgValid1").show();
   }
 
-  function viewValid2() {
+  function viewValid2(event) {
+    event.stopPropagation();
+    $("#exampleModalCenter1").modal("show");
     $(".imgHide").removeClass("d-flex");
     $(".imgHide").hide();
     $(".imgValid2").addClass("d-flex");
     $(".imgValid2").show();
   }
 
-  function viewJoint() {
-    $(".imgHide").removeClass("d-flex");
-    $(".imgHide").hide();
-    $(".imgJoint").addClass("d-flex");
-    $(".imgJoint").show();
+  function viewJoint(event) {
+    
+    event.stopPropagation();
+      $("#exampleModalCenter1").modal("show");
+      $(".imgHide").removeClass("d-flex");
+      $(".imgHide").hide();
+      $(".imgJoint").addClass("d-flex");
+      $(".imgJoint").show();
   }
 
-  function viewProfile() {
+  function viewProfile(event) {
+    event.stopPropagation();
+    $("#exampleModalCenter1").modal("show");
     $(".imgHide").removeClass("d-flex");
     $(".imgHide").hide();
     $(".imgProfile").addClass("d-flex");
@@ -3272,8 +3291,7 @@ function index() {
                   </p>
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
-                </div>
-                <div className="container divUploadclient">
+                  <div className="container divUploadclient">
                   <div className="row">
                     <div className="col-lg-2 col-sm-2 col-2">
                       <img
@@ -3305,6 +3323,8 @@ function index() {
                     </div>
                   </div>
                 </div>
+                </div>
+               
               </div>
               <div className="divForm9">
                 <p className="pBox">Upload signature</p>
@@ -3324,8 +3344,7 @@ function index() {
                   </p>
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
-                </div>
-                <div className="container divUploadjoint">
+                  <div className="container divUploadjoint">
                   <div className="row">
                     <div className="col-lg-2 col-sm-2 col-2">
                       <img
@@ -3357,6 +3376,8 @@ function index() {
                     </div>
                   </div>
                 </div>
+                </div>
+                
               </div>
               <div className="divForm10">
                 <p className="pBox">Upload two valid IDs</p>
@@ -3384,15 +3405,7 @@ function index() {
                   </p>
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
-                </div>
-                <div className="divUpload divValid2" onClick={onBtnClick3}>
-                  <p className="pUpload">
-                    <b style={{ color: "#00634A" }}>Browse</b> one valid ID
-                  </p>
-                  <p className="pUpload">Max file size: 4mb</p>
-                  <p className="pUpload">Accepted file type: Jpg and Png</p>
-                </div>
-                <div className="container divUploadvalid1">
+                  <div className="container divUploadvalid1">
                   <div className="row">
                     <div className="col-lg-2 col-sm-2 col-2">
                       <img
@@ -3424,7 +3437,14 @@ function index() {
                     </div>
                   </div>
                 </div>
-                <div className="container divUploadvalid2">
+                </div>
+                <div className="divUpload divValid2" onClick={onBtnClick3}>
+                  <p className="pUpload">
+                    <b style={{ color: "#00634A" }}>Browse</b> one valid ID
+                  </p>
+                  <p className="pUpload">Max file size: 4mb</p>
+                  <p className="pUpload">Accepted file type: Jpg and Png</p>
+                  <div className="container divUploadvalid2">
                   <div className="row">
                     <div className="col-lg-2 col-sm-2 col-2">
                       <img
@@ -3456,6 +3476,9 @@ function index() {
                     </div>
                   </div>
                 </div>
+                </div>
+               
+              
               </div>
               <div className="divForm11">
                 <p className="pBox">User Information</p>
@@ -3519,18 +3542,7 @@ function index() {
                   </p>
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
-                </div>
-                <div className="form-inline">
-                  <img
-                    src="Image/webcam.png"
-                    className="img-fluid"
-                    style={{ width: "18px", marginRight: "8px" }}
-                  ></img>
-                  <p className="pWebcam" onClick={trylang}>
-                    Open webcam
-                  </p>
-                </div>
-                <div className="container divUploadyourself">
+                  <div className="container divUploadyourself">
                   <div className="row">
                     <div className="col-lg-2 col-sm-2 col-2">
                       <img
@@ -3562,6 +3574,18 @@ function index() {
                     </div>
                   </div>
                 </div>
+                </div>
+                <div className="form-inline">
+                  <img
+                    src="Image/webcam.png"
+                    className="img-fluid"
+                    style={{ width: "18px", marginRight: "8px" }}
+                  ></img>
+                  <p className="pWebcam" onClick={trylang}>
+                    Open webcam
+                  </p>
+                </div>
+               
                 <div style={{ marginTop: "12px" }}>
                   <ReCAPTCHA
                     sitekey= {sitekey}

@@ -27,7 +27,8 @@ function success() {
                     <input type="text" className="txtBox txtForm2"></input>
                     <p className="pUpgradesub">Email</p>
                     <input type="text" className="txtBox txtForm2"></input>
-                    <p className="pUpgradesub">Margin amount</p>
+                    <p className="pUpgradesub">Margin limit requested</p>
+                    <p className = "pUpgradesub" style = {{color: "#212121"}}>*Your Margin Limit Request must be less than or equal to your Cash Balance at the time of request</p>
                     <input type="text" className="txtBox txtForm2"></input>
                     <input
                       onChange={(e) => handleFile(e)}
