@@ -670,7 +670,7 @@ body, html {
 }
 
 .divUploadclient, .divUploadvalid1, .divUploadvalid2, .divUploadyourself, .divUploadjoint {
-  border: 1px solid lightgray;
+    border: 1px solid lightgray;
     border-radius: 10px;
     width: 95% !important;
     height: auto;
@@ -902,7 +902,7 @@ body, html {
 
 .pVerify {
     font-family: "GilroyExtraBold";
-    color: #313131; 
+    color: #313131;
     font-size: 1.5rem;
     margin-top: 15px;
     margin-bottom: 2px;
@@ -985,28 +985,52 @@ body, html {
 }
 
 .divText {
-    background-color: white;
+    background-image: linear-gradient(to right bottom, #61fac0, #00e0e1, #00c1ff, #009aff, #1c66f7);
     -webkit-box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     padding: 25px;
+    position: relative;
 }
 
 .pUpgradetext {
     font-family: "Proxima";
-    color: #212121;
+    color: white;
     font-weight: 600;
     font-size: 2rem;
-    text-align:center;
+    text-align: center;
 }
 
 .pCheck1 {
     font-family: "GilroyMedium";
-    color: #004EBA;
-    font-size: 0.9rem;
+    color: white;
+    font-size: 1rem;
     font-weight: 400;
-    margin-left: 15px;
-    margin-top: -2px;
     cursor: pointer;
+    margin: 0 auto;
     text-align: left !important;
+    width: 90%;
+    padding-bottom: 18px;
+}
+
+.btnNewupgrade {
+    font-family: "GilroyMedium";
+    color: #506EEC;
+    font-size: 1.2rem;
+    border: 0px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 25px;
+    position: absolute;
+    bottom: -20px;
+    width: 200px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
+    outline: none !important;
 }
