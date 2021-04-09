@@ -71,7 +71,8 @@ function form() {
 
   }, []);
 
-  function removeClientpic() {
+  function removeClientpic(event) {
+    event.stopPropagation();
     setClient("");
     setClientpic("");
     $(".inputFile1").val("");
@@ -109,6 +110,11 @@ function form() {
   function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
+  }
+
+  function viewPic(event) {
+    event.stopPropagation();
+    $("#exampleModalCenter1").modal("show");
   }
 
   function goSubmit() {
@@ -422,8 +428,7 @@ function form() {
                       </p>
                       <p className="pUpload">Max file size: 4mb</p>
                       <p className="pUpload">Accepted file type: Jpg and Png</p>
-                    </div>
-                    <div className="container divUploadclient">
+                      <div className="container divUploadclient">
                       <div className="row">
                         <div className="col-lg-2 col-sm-2 col-2">
                           <img
@@ -446,8 +451,7 @@ function form() {
                           </p>
                           <p
                             className="pView"
-                            data-toggle="modal"
-                            data-target="#exampleModalCenter1"
+                            onClick={viewPic}
                          
                           >
                             View image
@@ -455,6 +459,8 @@ function form() {
                         </div>
                       </div>
                     </div>
+                    </div>
+                  
                     <div style={{ marginTop: "10px" }}>
                       <input
                         className="inp-cbx"
@@ -615,7 +621,7 @@ function form() {
         aria-hidden="true"
       >
         <div
-          className="modal-dialog modal-dialog-centered modal-lg"
+          className="modal-dialog modal-dialog-centered modal-xl"
           role="document"
           style={{ padding: "0px" }}
         >
@@ -623,7 +629,7 @@ function form() {
             <div className="container conPic" style={{ padding: "0px" }}>
               <div className="row" style={{ padding: "0px" }}>
                 <div className="col-lg-12" style={{ padding: "0px" }}>
-                <embed src="../others/margin_agreement.pdf" frameborder="0" width="100%" height="400px"/>
+                <embed src="../others/margin_agreement.pdf" frameborder="0" width="100%" height="100%"/>
                
                 </div>
               </div>
