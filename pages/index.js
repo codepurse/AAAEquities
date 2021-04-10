@@ -2266,19 +2266,20 @@ function index() {
   }
 
   useEffect(() => {
-    navigator.getMedia =
-      navigator.getUserMedia || // use the proper vendor prefix
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia;
+    const constraints = {
+      video: true,
+    };
+    
 
-    navigator.getMedia(
-      { video: true },
-      function () {},
-      function () {
-        setErrorcamera("true");
-      }
-    );
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then(function(stream) {
+      console.log("merong camera")
+    })
+    .catch(function(err) {
+      console.log(err);
+     setErrorcamera("true");
+    });
+    
 
     console.log(window.location.hostname);
 
