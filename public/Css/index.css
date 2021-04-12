@@ -714,6 +714,10 @@ body, html {
     font-weight: 600;
     color: #424242;
     margin-bottom: 4px;
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .pImportant {
@@ -1033,4 +1037,68 @@ body, html {
     -webkit-box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
     outline: none !important;
+}
+
+.modalAgreement {
+    border-radius: 10px !important;
+    padding-bottom: 40px !important;
+    padding: 20px !important;
+    
+    border: 0px !important;
+    overflow: hidden;
+}
+
+.pMargin {
+    font-family: "GilroyMedium";
+    color: #506EEC;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.pMarginsub {
+    font-family: "GilroyMedium";
+    color: gray;
+    font-size: 1rem;
+}
+
+.pMarginTitle {
+    font-family: "GilroyMedium";
+    color: #212121;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 30px;
+}
+
+.divScroll {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.btnDecline {
+    font-family: "GilroyMedium";
+    color: #e53935;
+    border: 2px solid #e53935;
+    background-color: transparent;
+    padding: 10px 20px;
+    width: 170px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+}
+
+.btnAccept {
+    font-family: "GilroyMedium";
+    color: #506EEC;
+    border: 2px solid #506EEC;
+    background-color: transparent;
+    padding: 10px 20px;
+    width: 170px;
+    margin-top: 10px;
+
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    
 }

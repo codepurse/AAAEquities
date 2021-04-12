@@ -34,7 +34,7 @@ function success() {
                 src="Image/gif.gif"
                 className="img-fluid mx-auto d-flex"
               ></img>
-              <p className="pReady">Ready to Liftoff!</p>
+              <p className="pReady">Ready for Liftoff!</p>
               <p className="pYour">Your account application is under review</p>
 
               <p className="pCheck">

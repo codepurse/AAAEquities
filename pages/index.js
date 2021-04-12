@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef, useMemo  } from "react";
+import React, { Component, useState, useEffect, useRef, useMemo } from "react";
 import Header from "../component/header";
 import Navbar from "../component/navbar";
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ import getApi from "../services/api.service";
 import swal from "@sweetalert/with-react";
 import Webcam from "react-webcam";
 import ReCAPTCHA from "react-google-recaptcha";
-import countryList from 'react-select-country-list'
+import countryList from "react-select-country-list";
 function index() {
   const router = useRouter();
   const [sitekey, setSitekey] = React.useState("123");
@@ -42,8 +42,7 @@ function index() {
   const [errorselectgender, setErrorselectgender] = React.useState("");
   const [errorselectcivil, setErrorselectcivil] = React.useState("");
 
-  const options_country = useMemo(() => countryList().getData(), [])
-
+  const options_country = useMemo(() => countryList().getData(), []);
 
   const [errorselectnationality, setErrorselectnationality] = React.useState(
     ""
@@ -73,7 +72,7 @@ function index() {
   const [corporateposition3, setCorporateposition3] = React.useState("");
   const [accounttypetext, setAccounttypetext] = React.useState("");
 
-    var resizewindows = 0;
+  var resizewindows = 0;
 
   const [filterdate, setFilterdate] = React.useState("");
 
@@ -122,10 +121,7 @@ function index() {
     inputFileRef.current.click();
   };
   const onBtnClick1 = (event) => {
-   
     inputFileRef1.current.click();
-
-
   };
   const onBtnClick2 = () => {
     inputFileRef2.current.click();
@@ -477,15 +473,16 @@ function index() {
       if (div > win) {
         var resize = 1;
         $(".conMain").removeClass("h-100");
-        $(".conMain").css("margin-top", "130px")
-      }else {
+        $(".conMain").css("margin-top", "130px");
+      } else {
         var resize = 0;
         $(".conMain").addClass("h-100");
-        $(".conMain").css("margin-top", "0px")
+        $(".conMain").css("margin-top", "0px");
       }
     }
   }
 
+ 
   function handleFile3(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
@@ -535,11 +532,11 @@ function index() {
       if (div > win) {
         var resize = 1;
         $(".conMain").removeClass("h-100");
-        $(".conMain").css("margin-top", "130px")
-      }else {
+        $(".conMain").css("margin-top", "130px");
+      } else {
         var resize = 0;
         $(".conMain").addClass("h-100");
-         $(".conMain").css("margin-top", "0px")
+        $(".conMain").css("margin-top", "0px");
       }
     }
   }
@@ -773,12 +770,12 @@ function index() {
   }
 
   function changeUsername(e) {
-    let regSpace= new RegExp(/\s/);
+    let regSpace = new RegExp(/\s/);
     if (regSpace.test(e.currentTarget.value)) {
       return false;
-    }else {
+    } else {
       setUsername(e.currentTarget.value);
-    $(e.currentTarget).css("border", "1px solid #CECECE");
+      $(e.currentTarget).css("border", "1px solid #CECECE");
     }
   }
 
@@ -831,15 +828,15 @@ function index() {
     setValidid1pic("");
     $(".inputFile3").val("");
     $(".divUploadvalid1").hide();
-    
+
     var div = $(".conMain").height();
     var win = $(window).height();
     if (div > win) {
       $(".conMain").removeClass("h-100");
-      $(".conMain").css("margin-top", "130px")
-    }else {
+      $(".conMain").css("margin-top", "130px");
+    } else {
       $(".conMain").addClass("h-100");
-       $(".conMain").css("margin-top", "0px")
+      $(".conMain").css("margin-top", "0px");
     }
   }
 
@@ -849,15 +846,15 @@ function index() {
     setValidid2pic("");
     $(".inputFile5").val("");
     $(".divUploadvalid2").hide();
-    
+
     var div = $(".conMain").height();
     var win = $(window).height();
     if (div > win) {
       $(".conMain").removeClass("h-100");
-      $(".conMain").css("margin-top", "130px")
-    }else {
+      $(".conMain").css("margin-top", "130px");
+    } else {
       $(".conMain").addClass("h-100");
-       $(".conMain").css("margin-top", "0px")
+      $(".conMain").css("margin-top", "0px");
     }
   }
 
@@ -906,13 +903,12 @@ function index() {
   }
 
   function viewJoint(event) {
-    
     event.stopPropagation();
-      $("#exampleModalCenter1").modal("show");
-      $(".imgHide").removeClass("d-flex");
-      $(".imgHide").hide();
-      $(".imgJoint").addClass("d-flex");
-      $(".imgJoint").show();
+    $("#exampleModalCenter1").modal("show");
+    $(".imgHide").removeClass("d-flex");
+    $(".imgHide").hide();
+    $(".imgJoint").addClass("d-flex");
+    $(".imgJoint").show();
   }
 
   function viewProfile(event) {
@@ -1210,13 +1206,12 @@ function index() {
   };
 
   function nextForm() {
-  
     if (resizewindows == 1) {
       $(".conMain").removeClass("h-100");
-      $(".conMain").css("margin-top", "130px")
-    }else {
+      $(".conMain").css("margin-top", "130px");
+    } else {
       $(".conMain").addClass("h-100");
-      $(".conMain").css("margin-top", "0px")
+      $(".conMain").css("margin-top", "0px");
     }
 
     if ($(".divForm1").css("display") == "block") {
@@ -1772,12 +1767,10 @@ function index() {
           $(".box").css("height", "auto");
           $(window).scrollTop(0);
         } else {
-       
           $(".divForm10").fadeIn(200);
           $(".divForm8").hide();
           $(".box").css("height", "auto");
           $(window).scrollTop(0);
-        
         }
       }
     } else if ($(".divForm9").css("display") == "block") {
@@ -1810,7 +1803,6 @@ function index() {
           </div>
         );
       } else {
-      
         $(".divForm10").fadeIn(200);
         $(".divForm9").hide();
         $(".box").css("height", "auto");
@@ -2091,10 +2083,10 @@ function index() {
   function prevForm() {
     if (resizewindows == 1) {
       $(".conMain").removeClass("h-100");
-      $(".conMain").css("margin-top", "130px")
-    }else {
+      $(".conMain").css("margin-top", "130px");
+    } else {
       $(".conMain").addClass("h-100");
-      $(".conMain").css("margin-top", "0px")
+      $(".conMain").css("margin-top", "0px");
     }
     if ($(".divForm2").css("display") == "block") {
       if ($(window).width() < 501) {
@@ -2237,8 +2229,6 @@ function index() {
       $(".circle2").addClass("circlenotactive");
       $(".colBack").hide();
     } else if ($(".divForm12").css("display") == "block") {
-    
-    
       $(".divForm10").fadeIn(200);
 
       $(".divForm12").hide();
@@ -2249,7 +2239,6 @@ function index() {
       $(".pForm7").show();
 
       $(".btnNext").html("NEXT");
-    
     }
   }
 
@@ -2269,17 +2258,16 @@ function index() {
     const constraints = {
       video: true,
     };
-    
 
-    navigator.mediaDevices.getUserMedia(constraints)
-    .then(function(stream) {
-      console.log("merong camera")
-    })
-    .catch(function(err) {
-      console.log(err);
-     setErrorcamera("true");
-    });
-    
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(function (stream) {
+        console.log("merong camera");
+      })
+      .catch(function (err) {
+        console.log(err);
+        setErrorcamera("true");
+      });
 
     console.log(window.location.hostname);
 
@@ -2298,7 +2286,7 @@ function index() {
       },
     };
 
-    const getcountry = "https://restcountries.eu/rest/v2/all"
+    const getcountry = "https://restcountries.eu/rest/v2/all";
 
     const apiUrl_fetch_accounts =
       appglobal.api.base_api + appglobal.api.account_types;
@@ -2313,14 +2301,13 @@ function index() {
     const apiUrl_net_worth = appglobal.api.base_api + appglobal.api.net_worth;
 
     axios
-    .get(getcountry, {}, options)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-
+      .get(getcountry, {}, options)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     axios
       .get(apiUrl_fetch_accounts, {}, options)
@@ -2415,7 +2402,7 @@ function index() {
       $(".conLoader")
         .show()
         .fadeOut(500, function () {
-          $(".conMain").fadeIn(250);
+          $(".conMain").fadeIn(500);
         });
     }
 
@@ -2588,7 +2575,10 @@ function index() {
               </div>
               <div className="divForm2">
                 <p className="pBox">Personal Information</p>
-                <p className="pBoxSub1" style={{ fontWeight: "normal", color: "black" }}>
+                <p
+                  className="pBoxSub1"
+                  style={{ fontWeight: "normal", color: "black" }}
+                >
                   Fields marked with "*" are mandatory
                 </p>
                 <div className="row" style={{ marginTop: "10px" }}>
@@ -2712,7 +2702,9 @@ function index() {
                   style={{ marginTop: "15px" }}
                 >
                   <div className="col-lg-3 col-md-3">
-                    <p className="pBoxTitle pbox" style = {{color: "black"}}>Birth Date</p>
+                    <p className="pBoxTitle pbox" style={{ color: "black" }}>
+                      Birth Date
+                    </p>
                   </div>
                   <div className="col-lg-4 col-md-4">
                     <DatePicker
@@ -2730,7 +2722,10 @@ function index() {
               </div>
               <div className="divForm3">
                 <p className="pBox">Personal Information</p>
-                <p className="pBoxSub1" style={{ fontWeight: "normal", color: "black" }}>
+                <p
+                  className="pBoxSub1"
+                  style={{ fontWeight: "normal", color: "black" }}
+                >
                   Fields marked with "*" are mandatory
                 </p>
                 <div className="row" style={{ marginTop: "10px" }}>
@@ -2763,8 +2758,6 @@ function index() {
                       onChange={changeNationality}
                       placeholder="Philippines"
                     />
-
-                   
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: "18px" }}>
@@ -3293,39 +3286,38 @@ function index() {
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
                   <div className="container divUploadclient">
-                  <div className="row">
-                    <div className="col-lg-2 col-sm-2 col-2">
-                      <img
-                        src="Image/jpg.png"
-                        className="img-fluid mx-auto d-flex"
-                        style={{ width: "45px" }}
-                      ></img>
-                    </div>
-                    <div
-                      className="col-lg-10 col-sm-10 col-10"
-                      style={{ position: "relative" }}
-                    >
-                      <img
-                        src="Image/trash-can.png"
-                        className="imgTrash"
-                        onClick={removeClientpic}
-                      ></img>
-                      <p className="pUploadname pUploadclient">
-                        Sample file.png
-                      </p>
-                      <p
-                        className="pView"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter1"
-                        onClick={viewClient}
+                    <div className="row">
+                      <div className="col-lg-2 col-sm-2 col-2">
+                        <img
+                          src="Image/jpg.png"
+                          className="img-fluid mx-auto d-flex"
+                          style={{ width: "45px" }}
+                        ></img>
+                      </div>
+                      <div
+                        className="col-lg-10 col-sm-10 col-10"
+                        style={{ position: "relative" }}
                       >
-                        View image
-                      </p>
+                        <img
+                          src="Image/trash-can.png"
+                          className="imgTrash"
+                          onClick={removeClientpic}
+                        ></img>
+                        <p className="pUploadname pUploadclient">
+                          Sample file.png
+                        </p>
+                        <p
+                          className="pView"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter1"
+                          onClick={viewClient}
+                        >
+                          View image
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                </div>
-               
               </div>
               <div className="divForm9">
                 <p className="pBox">Upload signature</p>
@@ -3346,39 +3338,38 @@ function index() {
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
                   <div className="container divUploadjoint">
-                  <div className="row">
-                    <div className="col-lg-2 col-sm-2 col-2">
-                      <img
-                        src="Image/jpg.png"
-                        className="img-fluid mx-auto d-flex"
-                        style={{ width: "45px" }}
-                      ></img>
-                    </div>
-                    <div
-                      className="col-lg-10 col-sm-10 col-10"
-                      style={{ position: "relative" }}
-                    >
-                      <img
-                        src="Image/trash-can.png"
-                        className="imgTrash"
-                        onClick={removeJoint}
-                      ></img>
-                      <p className="pUploadname pUploadvalid1">
-                        Sample file.png
-                      </p>
-                      <p
-                        className="pView"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter1"
-                        onClick={viewJoint}
+                    <div className="row">
+                      <div className="col-lg-2 col-sm-2 col-2">
+                        <img
+                          src="Image/jpg.png"
+                          className="img-fluid mx-auto d-flex"
+                          style={{ width: "45px" }}
+                        ></img>
+                      </div>
+                      <div
+                        className="col-lg-10 col-sm-10 col-10"
+                        style={{ position: "relative" }}
                       >
-                        View image
-                      </p>
+                        <img
+                          src="Image/trash-can.png"
+                          className="imgTrash"
+                          onClick={removeJoint}
+                        ></img>
+                        <p className="pUploadname pUploadvalid1">
+                          Sample file.png
+                        </p>
+                        <p
+                          className="pView"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter1"
+                          onClick={viewJoint}
+                        >
+                          View image
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                </div>
-                
               </div>
               <div className="divForm10">
                 <p className="pBox">Upload two valid IDs</p>
@@ -3407,37 +3398,37 @@ function index() {
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
                   <div className="container divUploadvalid1">
-                  <div className="row">
-                    <div className="col-lg-2 col-sm-2 col-2">
-                      <img
-                        src="Image/jpg.png"
-                        className="img-fluid mx-auto d-flex"
-                        style={{ width: "45px" }}
-                      ></img>
-                    </div>
-                    <div
-                      className="col-lg-10 col-sm-10 col-10"
-                      style={{ position: "relative" }}
-                    >
-                      <img
-                        src="Image/trash-can.png"
-                        className="imgTrash"
-                        onClick={removeValidpic1}
-                      ></img>
-                      <p className="pUploadname pUploadvalid1">
-                        Sample file.png
-                      </p>
-                      <p
-                        className="pView"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter1"
-                        onClick={viewValid1}
+                    <div className="row">
+                      <div className="col-lg-2 col-sm-2 col-2">
+                        <img
+                          src="Image/jpg.png"
+                          className="img-fluid mx-auto d-flex"
+                          style={{ width: "45px" }}
+                        ></img>
+                      </div>
+                      <div
+                        className="col-lg-10 col-sm-10 col-10"
+                        style={{ position: "relative" }}
                       >
-                        View image
-                      </p>
+                        <img
+                          src="Image/trash-can.png"
+                          className="imgTrash"
+                          onClick={removeValidpic1}
+                        ></img>
+                        <p className="pUploadname pUploadvalid1">
+                          Sample file.png
+                        </p>
+                        <p
+                          className="pView"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter1"
+                          onClick={viewValid1}
+                        >
+                          View image
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
                 </div>
                 <div className="divUpload divValid2" onClick={onBtnClick3}>
                   <p className="pUpload">
@@ -3446,40 +3437,38 @@ function index() {
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
                   <div className="container divUploadvalid2">
-                  <div className="row">
-                    <div className="col-lg-2 col-sm-2 col-2">
-                      <img
-                        src="Image/jpg.png"
-                        className="img-fluid mx-auto d-flex"
-                        style={{ width: "45px" }}
-                      ></img>
-                    </div>
-                    <div
-                      className="col-lg-10 col-sm-10 col-10"
-                      style={{ position: "relative" }}
-                    >
-                      <img
-                        src="Image/trash-can.png"
-                        className="imgTrash"
-                        onClick={removeValidpic2}
-                      ></img>
-                      <p className="pUploadname pUploadvalid2">
-                        Sample file.png
-                      </p>
-                      <p
-                        className="pView"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter1"
-                        onClick={viewValid2}
+                    <div className="row">
+                      <div className="col-lg-2 col-sm-2 col-2">
+                        <img
+                          src="Image/jpg.png"
+                          className="img-fluid mx-auto d-flex"
+                          style={{ width: "45px" }}
+                        ></img>
+                      </div>
+                      <div
+                        className="col-lg-10 col-sm-10 col-10"
+                        style={{ position: "relative" }}
                       >
-                        View image
-                      </p>
+                        <img
+                          src="Image/trash-can.png"
+                          className="imgTrash"
+                          onClick={removeValidpic2}
+                        ></img>
+                        <p className="pUploadname pUploadvalid2">
+                          Sample file.png
+                        </p>
+                        <p
+                          className="pView"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter1"
+                          onClick={viewValid2}
+                        >
+                          View image
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                </div>
-               
-              
               </div>
               <div className="divForm11">
                 <p className="pBox">User Information</p>
@@ -3500,7 +3489,6 @@ function index() {
                           event.preventDefault();
                         }
                       }}
-                   
                       onPaste={(event) => {
                         event.preventDefault();
                       }}
@@ -3530,8 +3518,8 @@ function index() {
                   className="inputFile4"
                   type="file"
                   accept=".jpg, .png, .jpeg|image"
-                  style={{ display: "none" }} data-toggle="modal"
-                  data-target="#exampleModalCenter1"
+                  style={{ display: "none" }}
+             
                 />
                 <p className="pBox">Upload a photo of yourself</p>
                 <div
@@ -3545,37 +3533,37 @@ function index() {
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
                   <div className="container divUploadyourself">
-                  <div className="row">
-                    <div className="col-lg-2 col-sm-2 col-2">
-                      <img
-                        src="Image/jpg.png"
-                        className="img-fluid mx-auto d-flex"
-                        style={{ width: "45px" }}
-                      ></img>
-                    </div>
-                    <div
-                      className="col-lg-10 col-sm-10 col-10"
-                      style={{ position: "relative" }}
-                    >
-                      <img
-                        src="Image/trash-can.png"
-                        className="imgTrash"
-                        onClick={removeYourself}
-                      ></img>
-                      <p className="pUploadname pUploadyourself">
-                        Sample file.png
-                      </p>
-                      <p
-                        className="pView"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter1"
-                        onClick={viewProfile}
+                    <div className="row">
+                      <div className="col-lg-2 col-sm-2 col-2">
+                        <img
+                          src="Image/jpg.png"
+                          className="img-fluid mx-auto d-flex"
+                          style={{ width: "45px" }}
+                        ></img>
+                      </div>
+                      <div
+                        className="col-lg-10 col-sm-10 col-10"
+                        style={{ position: "relative" }}
                       >
-                        View image
-                      </p>
+                        <img
+                          src="Image/trash-can.png"
+                          className="imgTrash"
+                          onClick={removeYourself}
+                        ></img>
+                        <p className="pUploadname pUploadyourself">
+                          Sample file.png
+                        </p>
+                        <p
+                          className="pView"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter1"
+                          onClick={viewProfile}
+                        >
+                          View image
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
                 </div>
                 <div className="form-inline">
                   <img
@@ -3587,10 +3575,10 @@ function index() {
                     Open webcam
                   </p>
                 </div>
-               
+
                 <div style={{ marginTop: "12px" }}>
                   <ReCAPTCHA
-                    sitekey= {sitekey}
+                    sitekey={sitekey}
                     onChange={verifyCaptcha}
                     onBtnClick={expiredCaptcha}
                   />
