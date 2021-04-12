@@ -165,9 +165,9 @@ export class navbar extends Component {
           </nav>
           <div className="collapse navbar-collapse" id="collapse">
             <div className="col2 ml-auto">
-              <ul className="nav navbar-nav" style={{ marginRight: "15px" }}>
+              <ul className="nav navbar-nav d-none" style={{ marginRight: "15px" }}>
                 <li>
-                  <button className="btnUpgrade" onClick={this.showModal}>
+                  <button className="btnUpgrade d-none" onClick={this.showModal}>
                     Upgrade account
                   </button>
                 </li>
@@ -176,40 +176,7 @@ export class navbar extends Component {
           </div>
         </nav>
         <div>
-          <nav
-            className="navbar navbar-expand-md fixed-top"
-            style={{ padding: "20px 20px" }}
-          >
-            <button
-              className="navbar-toggler"
-              data-toggle="collapse"
-              data-target="#collapse"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            <nav className="navbar-brand" href="#">
-              <Link href="/">
-                <a>
-                  <img
-                    src="Image/imglogo.png"
-                    className="img-fluid imglogo"
-                    style={{ width: "130px", marginLeft: "20px" }}
-                  />
-                </a>
-              </Link>
-            </nav>
-            <div className="collapse navbar-collapse" id="collapse">
-              <div className="col2 ml-auto">
-                <ul className="nav navbar-nav" style={{ marginRight: "15px" }}>
-                  <li>
-                    <button className="btnUpgrade" onClick={this.showModal}>
-                      Upgrade account
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+       
           <div
             className="modal fade"
             id="exampleModalCenter"
