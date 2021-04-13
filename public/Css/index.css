@@ -82,6 +82,14 @@
     .divForm3 {
         margin-top: 15px;
     }
+
+    .divUpgradebox {
+        width: auto !important;
+    }
+    .btnAccept, .btnDecline {
+        width: 100% !important;
+        float: none !important;
+    }
 }
 
 @font-face {

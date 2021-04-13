@@ -74,16 +74,16 @@ function form() {
   
   function goDecline() {
     swal(
-      <div style={{ width: "450px", padding: "20px 8px" }}>
+      <div style={{ padding: "20px 8px" }}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-2" style={{ padding: "0px" }}>
+            <div className="col-lg-2 col-md-2 col-sm-2 col-2" style={{ padding: "0px" }}>
               <img
                 src="../Image/error.png"
                 style={{ width: "32px", marginTop: "0px" }}
               ></img>
             </div>
-            <div className="col-lg-10 " style={{ padding: "0px" }}>
+            <div className="col-lg-10 col-md-10 col-sm-10 col-10" style={{ padding: "0px" }}>
               <p className="pError">Cannot proceed.</p>
               <p className="pErrorSub">You must accept our margin facility agreement.</p>
             </div>
@@ -1086,10 +1086,10 @@ function form() {
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: "18px",marginBottom: "18px" }}>
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                     <button className="btnDecline" onClick = {goDecline}>Decline</button>
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                     <button className="btnAccept" onClick = {goAccept}>Accept</button>
                   </div>
                 </div>
