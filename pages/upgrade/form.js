@@ -235,34 +235,7 @@ function form() {
         </div>
       );
       $(".txtMargin").css("border", "1px solid red");
-    } else if (!$("#cbx1").is(":checked")) {
-      swal(
-        <div style={{ width: "450px", padding: "20px 8px" }}>
-          <div className="container">
-            <div className="row">
-              <div
-                className="col-lg-2 col-md-2 col-sm-2 col-2"
-                style={{ padding: "0px" }}
-              >
-                <img
-                  src="../Image/error.png"
-                  style={{ width: "32px", marginTop: "0px" }}
-                ></img>
-              </div>
-              <div
-                className="col-lg-10 col-sm-10 col-md-10 col-10"
-                style={{ padding: "0px" }}
-              >
-                <p className="pError">Something went wrong</p>
-                <p className="pErrorSub">
-                  Please agree to our terms and conditions of our Margin Trading Agreement.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
+    }  else {
       $("#modalVerify").modal("hide");
 
       const options = {
@@ -489,30 +462,6 @@ function form() {
                     </div>
                     </div>
                   
-                    <div style={{ marginTop: "10px" }}>
-                      <input
-                        className="inp-cbx"
-                        id="cbx1"
-                        type="checkbox"
-                        style={{ display: "none" }}
-                      />
-                      <label className="cbx" htmlFor="cbx1">
-                        <span>
-                          <svg width="12px" height="10px" viewBox="0 0 12 10">
-                            <polyline points="1.5 6 4.5 9 10.5 1" />
-                          </svg>
-                        </span>
-                      </label>
-                     
-                 
-                       
-                        <span className="pCheck">
-                          I have read the margin trading agreement.
-                        </span>
-                        
-                      
-                     
-                    </div>
                     <div
                       className="mx-auto d-flex text-center"
                       style={{ width: "100px" }}
