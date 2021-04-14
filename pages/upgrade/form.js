@@ -419,7 +419,7 @@ function form() {
                       id="file-upload"
                       type="file"
                       className="inputFile1"
-                      accept=".jpg, .png, .jpeg|image"
+                      accept="image/*"
                       style={{ display: "none" }}
                     />
                     <div className="divUpload divClient" onClick={onBtnClick}>
