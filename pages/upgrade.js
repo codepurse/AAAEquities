@@ -80,7 +80,7 @@ function isEmail(email) {
         $("#modalVerify").modal("hide")
         $("#exampleModalCenter").modal("hide");
         swal(
-          <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div style={{ padding: "20px 8px" }}>
             <div className="container-fluid">
               <div className="row">
                 <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
@@ -102,7 +102,7 @@ function isEmail(email) {
         $("#modalVerify").modal("hide")
         console.log(err)
         swal(
-          <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className = "divSwalmessage" style={{ padding: "20px 8px" }}>
             <div className="container-fluid">
               <div className="row">
                 <div className="col-lg-2 col-sm-2 col-2 col-md-2" style={{ padding: "0px" }}>
@@ -139,49 +139,44 @@ function isEmail(email) {
             </div>
             <div className="col-lg-5">
               <div className="divText">
-                <p className="pUpgradetext">Ready for Liftoff!</p>
+                <p className="pUpgradetext">Lets Go Turbo</p>
 
                 <p className="pCheck1">
                   <span>
                     <img
-                      src="Image/check.png"
+                      src="Image/circle.png"
                       style={{ width: "15px", marginRight: "10px" }}
                     ></img>
                   </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
+                 Upgrade to a AAA Turbo Margin Account to double your buying power.
                 </p>
 
                 <p className="pCheck1">
                   <span>
                     <img
-                      src="Image/check.png"
+                      src="Image/circle.png"
                       style={{ width: "15px", marginRight: "10px" }}
                     ></img>
                   </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
-                </p>
-
-                <p className="pCheck1">
-                  <span>
-                    <img
-                      src="Image/check.png"
-                      style={{ width: "15px", marginRight: "10px" }}
-                    ></img>
-                  </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
+                You may apply for a margin limit up tp 100% of your current cash balance.
                 </p>
                 <p className="pCheck1">
                   <span>
                     <img
-                      src="Image/check.png"
+                      src="Image/circle.png"
                       style={{ width: "15px", marginRight: "10px" }}
                     ></img>
                   </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
+                  Your account must have at least P100,000 cash to be considered for margin.
+                </p>
+                   <p className="pCheck1">
+                  <span>
+                    <img
+                      src="Image/circle.png"
+                      style={{ width: "15px", marginRight: "10px" }}
+                    ></img>
+                  </span>
+               To learn more about margin, please visit our <span style = {{color: "#004EBA"}}>FAQs</span>
                 </p>
                 <div className="divUpgradebutton mx-auto d-flex">
                   <button className="btnNewupgrade" onClick={showModal}>

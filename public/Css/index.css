@@ -103,6 +103,16 @@
     .pMargin {
         font-size: 1.2rem !important;
     }
+    .conUpgradeweb {
+        padding-top: 40px;
+    }
+    .divText {
+        margin-top: 30px !important;
+        margin-bottom: 40px !important;
+    }
+    .divSwalmessage {
+        width: 300px !important;
+    }
 }
 
 @font-face {
@@ -314,6 +324,9 @@ body, html {
 
 .colLeft, .colRight {
     transition: all 0.2s;
+}
+.divSwalmessage {
+    width: 450px;
 }
 
 .box {
@@ -994,10 +1007,7 @@ body, html {
 }
 
 .conUpgradeweb {
-    background-image: url("../Image/upgradebg.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    
     overflow-x: hidden;
 }
 
@@ -1010,7 +1020,6 @@ body, html {
 }
 
 .divText {
-    background-image: linear-gradient(to right bottom, #61fac0, #00e0e1, #00c1ff, #009aff, #1c66f7);
     -webkit-box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 0px 35px -6px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
@@ -1019,16 +1028,18 @@ body, html {
 }
 
 .pUpgradetext {
-    font-family: "Proxima";
-    color: white;
+    font-family: "ProximaNovaBlack";
+    color: #004EBA;
     font-weight: 600;
     font-size: 2rem;
     text-align: center;
 }
 
+
+
 .pCheck1 {
     font-family: "GilroyMedium";
-    color: white;
+    color: #212121;
     font-size: 1rem;
     font-weight: 400;
     cursor: pointer;
