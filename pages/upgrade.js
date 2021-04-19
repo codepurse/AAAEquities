@@ -176,7 +176,7 @@ function isEmail(email) {
                       style={{ width: "15px", marginRight: "10px" }}
                     ></img>
                   </span>
-               To learn more about margin, please visit our <span style = {{color: "#004EBA"}}>FAQs</span>
+               To learn more about margin, please visit our <span style = {{color: "#004EBA"}}><a href = "https://aaa-equities.com.ph/faq/">FAQs</a></span>
                 </p>
                 <div className="divUpgradebutton mx-auto d-flex">
                   <button className="btnNewupgrade" onClick={showModal}>
