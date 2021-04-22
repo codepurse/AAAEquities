@@ -1,6 +1,6 @@
 module.exports = appglobal = {
     api: {
-      base_api: "https://kyc.aaa-equities.com.ph",
+      base_api: "https://kyc-staging.aaa-equities.com.ph",
       account_types: "/api/account_types",
       annual_income: "/api/annual_income",
       investment_objective: "/api/investment_objectives",
