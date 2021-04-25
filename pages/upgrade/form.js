@@ -389,6 +389,7 @@ function form() {
                       type="text"
                       className="txtBox txtForm2"
                       onChange={changeUsername}
+                      placeholder = "Username"
                     ></input>
                     <p className="pUpgradesub">Email</p>
                     <input
@@ -396,6 +397,7 @@ function form() {
                       className="txtBox txtForm2 txtEmail"
                       onChange={changeEmail}
                       onKeyDown = {keydownSpace}
+                      placeholder = "Email address"
                     ></input>
                     <p className="pUpgradesub">Margin limit requested</p>
                   
@@ -410,6 +412,7 @@ function form() {
                       onChange={changeMargin}
                       value={marginamount}
                       onInput={numOnly}
+                      placeholder = "Margin limit"
                       maxLength="6"
                     ></input>
                       <p className = "pUpgradesub" style = {{color: "#212121", fontSize: "0.9rem"}}>Your Margin Limit Request must be less than or equal to your Cash Balance at the time of request</p>

@@ -139,7 +139,7 @@ function isEmail(email) {
             </div>
             <div className="col-lg-5">
               <div className="divText">
-                <p className="pUpgradetext">Lets Go Turbo</p>
+                <p className="pUpgradetext">Lets Go Turbo!</p>
 
                 <p className="pCheck1">
                   <span>
