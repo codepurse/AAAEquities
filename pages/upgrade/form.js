@@ -165,7 +165,7 @@ function form() {
                 style={{ padding: "0px" }}
               >
                 <p className="pError">Something went wrong</p>
-                <p className="pErrorSub">Fill up all the missing fields.</p>
+                <p className="pErrorSub">Fill out all the missing fields.</p>
               </div>
             </div>
           </div>
