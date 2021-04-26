@@ -24,11 +24,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/upgrade": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/upgrade.js"
-    ],
     "/upgrade/form": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
