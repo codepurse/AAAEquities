@@ -317,6 +317,12 @@ function form() {
         });
     }
   }
+  function disableEnye (event) {
+    let value = event.currentTarget.value;
+    let numbers = value.replace("Ñ", "").replace("ñ","");
+    event.currentTarget.value = numbers;
+  }
+
 
   function handleFile(e) {
     var reader = new FileReader();
@@ -390,6 +396,7 @@ function form() {
                       className="txtBox txtForm2"
                       onChange={changeUsername}
                       placeholder = "Username"
+                      onInput = {disableEnye}
                     ></input>
                   
                     <input
@@ -398,6 +405,7 @@ function form() {
                       onChange={changeEmail}
                       onKeyDown = {keydownSpace}
                       placeholder = "Email address"
+                      onInput = {disableEnye}
                     ></input>
                   
                   
@@ -414,6 +422,7 @@ function form() {
                       onInput={numOnly}
                       placeholder = "Margin limit requested"
                       maxLength="6"
+                      onInput = {disableEnye}
                     ></input>
                       <p className = "pUpgradesub" style = {{color: "#212121", fontSize: "0.9rem"}}>Your Margin Limit Request must be less than or equal to your Cash Balance at the time of request</p>
                     <input
