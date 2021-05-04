@@ -158,7 +158,7 @@ function isEmail(email) {
                       style={{ width: "15px", marginRight: "10px" }}
                     ></img>
                   </span>
-                You may apply for a margin limit up tp 100% of your current cash balance.
+                You may apply for a margin limit up to 100% of your current cash balance.
                 </p>
                 <p className="pCheck1">
                   <span>

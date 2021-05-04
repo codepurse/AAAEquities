@@ -279,8 +279,8 @@ function form() {
                     className="col-lg-10 col-sm-10 col-10 col-md-10"
                     style={{ padding: "0px" }}
                   >
-                    <p className="pError">Success</p>
-                    <p className="pErrorSub">Account succesfully upgraded.</p>
+                    <p className="pError">Application Received</p>
+                    <p className="pErrorSub">Your margin application is now under review.</p>
                   </div>
                 </div>
               </div>
