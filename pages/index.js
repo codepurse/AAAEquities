@@ -336,9 +336,13 @@ function index() {
   function handleFile(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
-    let size = Math.floor(file.size / 1024 / 1024);
-
-    if (size > 4) {
+    let size = (file.size / 1024 / 1024).toFixed(2);
+    console.log(size)
+    if (size > 4.0) {
+      setClient("");
+    setClientpic("");
+    $(".inputFile1").val("");
+    $(".divUploadclient").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -381,9 +385,13 @@ function index() {
   function handleFile1(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
-    let size = Math.floor(file.size / 1024 / 1024);
+    let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4) {
+    if (size > 4.0) {
+      setProfile("");
+    setProfilepic("");
+    $(".inputFile4").val("");
+    $(".divUploadjoint").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -427,9 +435,13 @@ function index() {
   function handleFile2(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
-    let size = Math.floor(file.size / 1024 / 1024);
+    let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4) {
+    if (size > 4.0) {
+      setValidid1("");
+    setValidid1pic("");
+    $(".inputFile3").val("");
+    $(".divUploadvalid1").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -486,9 +498,13 @@ function index() {
   function handleFile3(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
-    let size = Math.floor(file.size / 1024 / 1024);
+    let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4) {
+    if (size > 4.0) {
+      setValidid2("");
+      setValidid2pic("");
+      $(".inputFile5").val("");
+      $(".divUploadvalid2").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -544,9 +560,14 @@ function index() {
   function handleFile4(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
-    let size = Math.floor(file.size / 1024 / 1024);
+    let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4) {
+    if (size > 4.0) {
+        setProfile("");
+    setProfilepic("");
+    setWebimg("");
+    $(".inputFile4").val("");
+    $(".divUploadyourself").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">

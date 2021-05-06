@@ -327,9 +327,9 @@ function form() {
   function handleFile(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
-    let size = Math.floor(file.size / 1024 / 1024);
+    let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4) {
+    if (size > 4.0) {
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
