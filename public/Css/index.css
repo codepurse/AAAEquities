@@ -4,20 +4,6 @@
     }
 }
 
-@media only screen and (max-height: 768px) {
-    .modalAgreement {
-        min-height: 95vh !important;
-        overflow: auto !important;
-    }
-    .divScroll {
-        overflow: auto !important;
-        max-height: none !important;
-        min-height: none !important;
-        height: 100% !important;
-    }
-  }
-
-
 @media only screen and (max-width: 500px) {
     body, html {
         overflow-x: hidden;
@@ -128,6 +114,19 @@
         width: 300px !important;
     }
 }
+
+@media only screen and (max-height: 768px) {
+    .modalAgreement {
+        min-height: 95vh !important;
+        overflow: auto !important;
+    }
+    .divScroll {
+        overflow: auto !important;
+        max-height: none !important;
+        min-height: none !important;
+        height: 100% !important;
+    }
+  }
 
 @font-face {
     font-family: ProximaNovaBlack;
@@ -1090,6 +1089,7 @@ body, html {
     padding-bottom: 40px !important;
     padding: 20px !important;
     border: 0px !important;
+   
     overflow: hidden;
 }
 

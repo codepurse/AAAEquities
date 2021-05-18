@@ -14,6 +14,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import countryList from "react-select-country-list";
 function index() {
   const router = useRouter();
+
   const [sitekey, setSitekey] = React.useState("123");
   const [accounttype, setAccounttype] = React.useState("");
   const [listaccounttype, setListaccounttype] = React.useState([]);
@@ -142,9 +143,20 @@ function index() {
     });
   }
 
+  function alphaOnly(event) {
+    var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(
+      !event.charCode ? event.which : event.charCode
+    );
+    if (!regex.test(key)) {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    console.log(imageSrc);
+   console.log(imageSrc);
     $(".imgProfile").attr("src", imageSrc);
     swal(
       <div style={{ width: "450px", padding: "20px 8px" }}>
@@ -305,6 +317,7 @@ function index() {
         router.push("/success");
       })
       .catch((err) => {
+        console.log(err);
         swal(
           <div style={{ width: "450px", padding: "20px 8px" }}>
             <div className="container-fluid">
@@ -337,12 +350,38 @@ function index() {
     var reader = new FileReader();
     let file = e.target.files[0];
     let size = (file.size / 1024 / 1024).toFixed(2);
-    console.log(size)
-    if (size > 4.0) {
+
+    console.log(file.name)
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                <p className="pError">Something went wrong</p>
+                <p className="pErrorSub">Invalid file type.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }else if (size > 4.0) {
       setClient("");
-    setClientpic("");
-    $(".inputFile1").val("");
-    $(".divUploadclient").hide();
+      setClientpic("");
+      $(".inputFile1").val("");
+      $(".divUploadclient").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -380,6 +419,10 @@ function index() {
       $(".divUploadclient").show();
       $(".box").css("height", "auto");
     }
+   
+
+
+    
   }
 
   function handleFile1(e) {
@@ -387,11 +430,36 @@ function index() {
     let file = e.target.files[0];
     let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4.0) {
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                <p className="pError">Warning</p>
+                <p className="pErrorSub">System only accepts JPG, JPEG and PNG image formats. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }else if (size > 4.0) {
       setProfile("");
-    setProfilepic("");
-    $(".inputFile4").val("");
-    $(".divUploadjoint").hide();
+      setProfilepic("");
+      $(".inputFile4").val("");
+      $(".divUploadjoint").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -437,11 +505,36 @@ function index() {
     let file = e.target.files[0];
     let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4.0) {
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                     <p className="pError">Warning</p>
+                <p className="pErrorSub">System only accepts JPG, JPEG and PNG image formats. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }else if (size > 4) {
       setValidid1("");
-    setValidid1pic("");
-    $(".inputFile3").val("");
-    $(".divUploadvalid1").hide();
+      setValidid1pic("");
+      $(".inputFile3").val("");
+      $(".divUploadvalid1").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -494,13 +587,37 @@ function index() {
     }
   }
 
- 
   function handleFile3(e) {
     var reader = new FileReader();
     let file = e.target.files[0];
     let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4.0) {
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                    <p className="pError">Warning</p>
+                <p className="pErrorSub">System only accepts JPG, JPEG and PNG image formats. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }else if (size > 4.0) {
       setValidid2("");
       setValidid2pic("");
       $(".inputFile5").val("");
@@ -562,12 +679,37 @@ function index() {
     let file = e.target.files[0];
     let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4.0) {
-        setProfile("");
-    setProfilepic("");
-    setWebimg("");
-    $(".inputFile4").val("");
-    $(".divUploadyourself").hide();
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                    <p className="pError">Warning</p>
+                <p className="pErrorSub">System only accepts JPG, JPEG and PNG image formats. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }else if (size > 4.0) {
+      setProfile("");
+      setProfilepic("");
+      setWebimg("");
+      $(".inputFile4").val("");
+      $(".divUploadyourself").hide();
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -619,6 +761,14 @@ function index() {
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
 
+  function alphaInput(event) {
+    var self = this;
+    setTimeout(function() {
+        if(!/^[a-zA-Z]+$/.test($(self).val()))
+            $(self).val('');
+    }, 0);
+  }
+
   function changeMname(e) {
     setMname(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
@@ -638,6 +788,19 @@ function index() {
     setMobilenum(e.currentTarget.value);
     $(e.currentTarget).css("border", "1px solid #CECECE");
   }
+
+  function disableEnye (event) {
+    let value = event.currentTarget.value;
+    let numbers = value.replace("Ñ", "").replace("ñ","").replace("~","").replace("!","").replace("@","").replace("#","").replace("$","").replace("%","").replace("^","").replace("&","").replace("*","").replace("(","").replace(")","").replace("_","").replace("+","").replace("`","").replace("=","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","").replace('/',"").replace(/\\/gi,"").replace(";","").replace(":","").replace(",","").replace(".","").replace(">","").replace("<","").replace("?","");
+    event.currentTarget.value = numbers;
+  }
+
+  function disableChar (event) {
+    let value = event.currentTarget.value;
+    let numbers = value.replace("Ñ", "").replace("ñ","").replace("~","").replace("!","").replace("#","").replace("$","").replace("%","").replace("^","").replace("&","").replace("*","").replace("(","").replace(")","").replace("_","").replace("+","").replace("`","").replace("=","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","").replace('/',"").replace(/\\/gi,"").replace(";","").replace(":","").replace(",","").replace(">","").replace("<","").replace("?","");
+    event.currentTarget.value = numbers;
+  }
+
 
   function numOnly(event) {
     let value = event.currentTarget.value;
@@ -1469,7 +1632,33 @@ function index() {
         if (!nationality) {
           setErrorselectnationality("1");
         }
+      }else if (tin.length < 9) {
+        swal(
+          <div style={{ width: "450px", padding: "20px 8px" }}>
+            <div className="container-fluid">
+              <div className="row">
+                <div
+                  className="col-lg-2 col-sm-2 col-2 col-md-2"
+                  style={{ padding: "0px" }}
+                >
+                  <img
+                    src="Image/error.png"
+                    style={{ width: "32px", marginTop: "0px" }}
+                  ></img>
+                </div>
+                <div
+                  className="col-lg-10 col-sm-10 col-10 col-md-10"
+                  style={{ padding: "0px" }}
+                >
+                  <p className="pError">Something went wrong</p>
+                  <p className="pErrorSub">Invalid tin number format.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       } else {
+
         if ($(window).width() < 501) {
           $(".imgRight").css("width", "50%");
           $(".colImage").addClass("col-sm-4 col-4");
@@ -2251,14 +2440,16 @@ function index() {
       $(".colBack").hide();
     } else if ($(".divForm12").css("display") == "block") {
       $(".divForm10").fadeIn(200);
-
+      $(".imgRight").css("width", "auto");
       $(".divForm12").hide();
       $(".box").css("height", "auto");
       $(".imgRight").addClass("animate__animated animate__zoomIn");
-      $(".imgRight").attr("src", "Image/Phone.png");
+      $(".imgRight").attr("src", "Image/form3.svg");
       $(".pForm").hide();
       $(".pForm7").show();
-
+      $(".pForm").hide();
+      $(".pForm2").fadeIn(200);
+     
       $(".btnNext").html("NEXT");
     }
   }
@@ -2283,7 +2474,7 @@ function index() {
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then(function (stream) {
-        console.log("merong camera");
+        
       })
       .catch(function (err) {
         console.log(err);
@@ -2324,7 +2515,7 @@ function index() {
     axios
       .get(getcountry, {}, options)
       .then((result) => {
-        console.log(result);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -2412,6 +2603,13 @@ function index() {
   }
 
   useEffect(() => {
+    $('#alphaPaste').bind('paste', function(){
+      var self = this;
+      setTimeout(function() {
+          if(!/^[a-zA-Z ]+$/.test($(self).val()))
+              $(self).val('');
+      }, 0);    
+  });
     console.log(
       "%cStop!",
       "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;"
@@ -2611,6 +2809,8 @@ function index() {
                       autoComplete="false"
                       onChange={changeFname}
                       placeholder="First name *"
+                      onInput = {disableEnye}
+                      id = "alphaPaste"
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -2621,6 +2821,8 @@ function index() {
                       autoComplete="false"
                       onChange={changeMname}
                       placeholder="Middle name *"
+                      onInput = {disableEnye}
+                      id = "alphaPaste"
                     ></input>
                   </div>
                 </div>
@@ -2633,6 +2835,8 @@ function index() {
                       autoComplete="false"
                       onChange={changeLname}
                       placeholder="Last name *"
+                      onInput = {disableEnye}
+                      id = "alphaPaste"
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -2695,6 +2899,7 @@ function index() {
                       autoComplete="false"
                       onChange={changeAddress}
                       placeholder="Home address *"
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-4">
@@ -2705,6 +2910,7 @@ function index() {
                       autoComplete="false"
                       onChange={changeAddress1}
                       placeholder="Subdivision/Barangay *"
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-4">
@@ -2715,6 +2921,7 @@ function index() {
                       autoComplete="false"
                       onChange={changeAddress2}
                       placeholder="City/Province *"
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -2814,6 +3021,7 @@ function index() {
                       autoComplete="false"
                       value={employer}
                       onChange={changeEmployer}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -2824,6 +3032,7 @@ function index() {
                       placeholder="Job title *"
                       value={jobtitle}
                       onChange={changeJobtitle}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -2836,6 +3045,7 @@ function index() {
                       placeholder="Business address *"
                       value={busadd}
                       onChange={changeBusadd}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-4">
@@ -2846,6 +3056,7 @@ function index() {
                       placeholder="Subdivision/Barangay *"
                       value={busadd1}
                       onChange={changeBusadd1}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-4">
@@ -2856,6 +3067,7 @@ function index() {
                       placeholder="City/Province *"
                       value={busadd2}
                       onChange={changeBusadd2}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -2888,6 +3100,7 @@ function index() {
                       autoComplete="false"
                       value={branch}
                       onChange={changeBranch}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -2900,6 +3113,7 @@ function index() {
                       autoComplete="false"
                       value={accountname}
                       onChange={changeAccountname}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -2916,6 +3130,7 @@ function index() {
                       }}
                       onInput={numOnly}
                       onChange={changeAccountnumber}
+                      
                     ></input>
                   </div>
                 </div>
@@ -3123,6 +3338,7 @@ function index() {
                       placeholder="Company name"
                       value={associatedcompany}
                       onChange={changeAsscompany}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -3188,6 +3404,7 @@ function index() {
                       placeholder="Company name"
                       value={officername}
                       onChange={changeOfficername}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -3229,6 +3446,7 @@ function index() {
                       id="txtname1"
                       value={corporatename1}
                       onChange={changeCorporatename1}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -3240,6 +3458,7 @@ function index() {
                       placeholder="Position"
                       value={corporateposition1}
                       onChange={changeCorporateposition1}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -3262,6 +3481,7 @@ function index() {
                       autoComplete="false"
                       value={corporateposition2}
                       onChange={changeCorporateposition2}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -3274,6 +3494,7 @@ function index() {
                       autoComplete="false"
                       value={corporatename3}
                       onChange={changeCorporatename3}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -3284,6 +3505,7 @@ function index() {
                       autoComplete="false"
                       value={corporateposition3}
                       onChange={changeCorporateposition3}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -3514,6 +3736,7 @@ function index() {
                         event.preventDefault();
                       }}
                       onChange={changeUsername}
+                      onInput = {disableEnye}
                     ></input>
                   </div>
                 </div>
@@ -3527,6 +3750,8 @@ function index() {
                       value={emailadd}
                       style={{ marginTop: "5px" }}
                       onChange={changeEmailadd}
+
+                       onInput = {disableChar}
                     ></input>
                   </div>
                 </div>
@@ -3540,16 +3765,15 @@ function index() {
                   type="file"
                   accept=".jpg, .png, .jpeg|image"
                   style={{ display: "none" }}
-             
                 />
-                <p className="pBox">Upload a photo of yourself</p>
+                <p className="pBox">Selfie with your ID</p>
                 <div
                   className="divUpload divUploadprofile"
                   onClick={onBtnClick4}
                 >
                   <p className="pUpload">
-                    <b style={{ color: "#00634A" }}>Browse</b> a photo of
-                    yourself{" "}
+                    <b style={{ color: "#00634A" }}>Browse</b> a selfie with your ID
+                   
                   </p>
                   <p className="pUpload">Max file size: 4mb</p>
                   <p className="pUpload">Accepted file type: Jpg and Png</p>
@@ -3599,7 +3823,7 @@ function index() {
 
                 <div style={{ marginTop: "12px" }}>
                   <ReCAPTCHA
-                    sitekey={sitekey}
+                    sitekey="6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi"
                     onChange={verifyCaptcha}
                     onBtnClick={expiredCaptcha}
                   />
@@ -3633,7 +3857,7 @@ function index() {
                   occur. Buy breakouts automatically with Conditional Orders.
                 </p>
                 <p className="pForm pForm2">
-                  When <b>support</b> levels are broken, a breakout may occur.
+                  When <b>support</b> levels are broken, a breakdown may occur.
                   Set automatic stops with Conditional orders to protect your
                   capital.
                 </p>
@@ -3684,6 +3908,43 @@ function index() {
                         Close
                       </button>
                       Please wait while we verify your account
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal "
+        id="modalTerms"
+        data-backdrop="static"
+        data-keyboard="false"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content modalAgreement modal-lg">
+            <div className="modal-body">
+              <div className="container">
+                <div className="row  ">
+                  <div className="col-lg-12 ">
+                    <p className="pMargin">Margin Facility Agreement</p>
+                    <p className="PMarginsub">
+                      I/We (Client) are applying for AAA Southeast Equities
+                      Inc.’s (AAA) Margin Facility and agree to be bound by the
+                      terms and conditions below. The Client undertakes to
+                      notify AAA of any material changes in the Client’s
+                      information as disclosed in the Customer Account
+                      Information Form (CAIF), including the Client’s financial
+                      circumstances or investments objectives. Any information
+                      given to AAA on this Margin Facility Agreement (AGREEMENT)
+                      is subject to verification with the Client’s express
+                      authorization.
                     </p>
                   </div>
                 </div>

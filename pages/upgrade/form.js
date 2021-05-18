@@ -19,10 +19,11 @@ function form() {
     inputFileRef.current.click();
   };
   useEffect(() => {
+  
     const query = new URLSearchParams(window.location.search);
     const token = query.get("token");
     setFormtoken(token);
-    console.log(token);
+   
  const options = {
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -38,7 +39,7 @@ function form() {
     axios
     .get(api_upgrade_validate, {params: { token: token }}, options)
     .then((result) => {
-      console.log(result);
+     
       $("#modalTerms").modal("toggle");
     })
     .catch((err) => {
@@ -259,7 +260,7 @@ function form() {
       axios
         .post(api_upgrade, formdata, options)
         .then((result) => {
-          console.log(result);
+         
           $("#exampleModalCenter").modal("hide");
           $("#modalVerify").modal("hide");
           swal(
@@ -319,9 +320,16 @@ function form() {
   }
   function disableEnye (event) {
     let value = event.currentTarget.value;
-    let numbers = value.replace("Ñ", "").replace("ñ","");
+    let numbers = value.replace("Ñ", "").replace("ñ","").replace("~","").replace("!","").replace("@","").replace("#","").replace("$","").replace("%","").replace("^","").replace("&","").replace("*","").replace("(","").replace(")","").replace("_","").replace("+","").replace("`","").replace("=","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","").replace('/',"").replace(/\\/gi,"").replace(";","").replace(":","").replace(",","").replace(".","").replace(">","").replace("<","").replace("?","");
     event.currentTarget.value = numbers;
   }
+
+  function disableChar (event) {
+    let value = event.currentTarget.value;
+    let numbers = value.replace("Ñ", "").replace("ñ","").replace("~","").replace("!","").replace("#","").replace("$","").replace("%","").replace("^","").replace("&","").replace("*","").replace("(","").replace(")","").replace("_","").replace("+","").replace("`","").replace("=","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","").replace('/',"").replace(/\\/gi,"").replace(";","").replace(":","").replace(",","").replace(">","").replace("<","").replace("?","");
+    event.currentTarget.value = numbers;
+  }
+
 
 
   function handleFile(e) {
@@ -329,7 +337,33 @@ function form() {
     let file = e.target.files[0];
     let size = (file.size / 1024 / 1024).toFixed(2);
 
-    if (size > 4.0) {
+    
+    if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+      swal(
+        <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div className="container">
+            <div className="row">
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-2"
+                style={{ padding: "0px" }}
+              >
+                <img
+                  src="../Image/error.png"
+                  style={{ width: "32px", marginTop: "0px" }}
+                ></img>
+              </div>
+              <div
+                className="col-lg-10 col-md-10 col-sm-10 col-10"
+                style={{ padding: "0px" }}
+              >
+                     <p className="pError">Warning</p>
+                <p className="pErrorSub">System only accepts JPG, JPEG and PNG image formats. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }else if (size > 4) {
       swal(
         <div style={{ width: "450px", padding: "20px 8px" }}>
           <div className="container">
@@ -405,7 +439,7 @@ function form() {
                       onChange={changeEmail}
                       onKeyDown = {keydownSpace}
                       placeholder = "Email address"
-                      onInput = {disableEnye}
+                      onInput = {disableChar}
                     ></input>
                   
                   
@@ -431,7 +465,7 @@ function form() {
                       id="file-upload"
                       type="file"
                       className="inputFile1"
-                      accept="image/*"
+                      accept=".jpg, .png, .jpeg|image"
                       style={{ display: "none" }}
                     />
                     <div className="divUpload divClient" onClick={onBtnClick}>
