@@ -3751,7 +3751,7 @@ function index() {
                       style={{ marginTop: "5px" }}
                       onChange={changeEmailadd}
 
-                       onInput = {disableChar}
+                      
                     ></input>
                   </div>
                 </div>

@@ -439,7 +439,7 @@ function form() {
                       onChange={changeEmail}
                       onKeyDown = {keydownSpace}
                       placeholder = "Email address"
-                      onInput = {disableChar}
+                    
                     ></input>
                   
                   
