@@ -791,7 +791,7 @@ function index() {
 
   function disableEnye (event) {
     let value = event.currentTarget.value;
-    let numbers = value.replace("Ñ", "").replace("ñ","").replace("~","").replace("!","").replace("@","").replace("#","").replace("$","").replace("%","").replace("^","").replace("&","").replace("*","").replace("(","").replace(")","").replace("_","").replace("+","").replace("`","").replace("=","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","").replace('/',"").replace(/\\/gi,"").replace(";","").replace(":","").replace(",","").replace(".","").replace(">","").replace("<","").replace("?","").replace('"',"").replace("'","");
+    let numbers = value.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, ' ')
     event.currentTarget.value = numbers;
   }
 
