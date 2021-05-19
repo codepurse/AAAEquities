@@ -2880,12 +2880,7 @@ function index() {
                       value={birthplace}
                       autoComplete="false"
                       onChange={changeBirthplace}
-                      onKeyPress={(event) => {
-                        if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
-                        } else {
-                          event.preventDefault();
-                        }
-                      }}
+                      onInput = {disableEnye}
                       placeholder="Birthplace *"
                     ></input>
                   </div>
@@ -3083,12 +3078,7 @@ function index() {
                       placeholder="Bank *"
                       autoComplete="false"
                       value={bank}
-                      onKeyPress={(event) => {
-                        if (/^[0-9a-zA-Z \b]+$/.test(event.key)) {
-                        } else {
-                          event.preventDefault();
-                        }
-                      }}
+                      onInput = {disableEnye}
                       onChange={changeBank}
                     ></input>
                   </div>
@@ -3823,7 +3813,7 @@ function index() {
 
                 <div style={{ marginTop: "12px" }}>
                   <ReCAPTCHA
-                    sitekey="6Lc7hMUZAAAAAEfjt0AFO4cEncTzW741a8mP9xHi"
+                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                     onChange={verifyCaptcha}
                     onBtnClick={expiredCaptcha}
                   />
