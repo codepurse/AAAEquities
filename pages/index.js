@@ -317,9 +317,9 @@ function index() {
         router.push("/success");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.data);
         swal(
-          <div style={{ width: "450px", padding: "20px 8px" }}>
+          <div style={{ width: "550px", padding: "20px 8px" }}>
             <div className="container-fluid">
               <div className="row">
                 <div
@@ -336,7 +336,12 @@ function index() {
                   style={{ padding: "0px" }}
                 >
                   <p className="pError">Something went wrong</p>
-                  <p className="pErrorSub">Your profile cannot be saved.</p>
+              
+                  {Object.keys(err.response.data.data).map((keyName, i) => (
+                      <p className="pErrorSub">
+                        {err.response.data.data[keyName]}
+                      </p>
+                    ))}
                 </div>
               </div>
             </div>
